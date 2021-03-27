@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/political_work_Fragment"
+        android:enabled="true"
+        android:icon="@drawable/icon_bottom_political_work_normal"
+        android:title="@string/political_work" />
+    <item
+        android:id="@+id/exchangeFragment"
+        android:icon="@drawable/icon_bottom_exchange_normal"
+        android:title="@string/exchange" />
+    <item
+        android:id="@+id/healthFragment"
+        android:icon="@drawable/icon_bottom_health_normal"
+        android:title="@string/health" />
+    <item
+        android:id="@+id/easePressureFragment"
+        android:icon="@drawable/icon_bottom_ease_pressure_normal"
+        android:title="@string/ease_pressure" />
+    <item
+        android:id="@+id/mineFragment"
+        android:icon="@drawable/icon_bottom_mine_normal"
+        android:title="@string/mine" />
+</menu>

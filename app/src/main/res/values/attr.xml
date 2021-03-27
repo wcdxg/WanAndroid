@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MaxHeightRecyclerView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TitleView">
+        <attr name="titleName" format="string" />
+        <attr name="titleIcon" format="reference" />
+        <attr name="titleColor" format="color" />
+        <attr name="titleViewBgColor" format="color" />
+    </declare-styleable>
+</resources>
