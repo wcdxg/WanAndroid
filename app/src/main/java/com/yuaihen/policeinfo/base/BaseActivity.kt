@@ -3,6 +3,7 @@ package com.yuaihen.policeinfo.base
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -69,7 +70,7 @@ abstract class BaseActivity : AppCompatActivity() {
         ImmersionBar.with(this)
             .statusBarColorTransform(android.R.color.white)
             .statusBarDarkFont(true)
-            .navigationBarColorTransform(android.R.color.white)
+            .statusBarColor(R.color.white)
             .navigationBarAlpha(0f)
             .fullScreen(true)
             .init()
