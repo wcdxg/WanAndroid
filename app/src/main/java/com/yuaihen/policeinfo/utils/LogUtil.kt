@@ -19,21 +19,21 @@ object LogUtil {
 
     fun d(tag: String? = LOGGER, msg: String) {
         if (IS_RELEASE) return
-        Log.v(tag, msg)
+        Log.d(tag, msg)
     }
 
     fun i(tag: String = LOGGER, msg: String) {
         if (IS_RELEASE) return
-        Log.v(tag, msg)
+        Log.i(tag, msg)
     }
 
     fun w(tag: String = LOGGER, msg: String) {
         if (IS_RELEASE) return
-        Log.v(tag, msg)
+        Log.w(tag, msg)
     }
 
     fun e(tag: String = LOGGER, msg: String) {
         if (IS_RELEASE) return
-        Log.v(tag, msg)
+        Log.e(tag, msg)
     }
 }

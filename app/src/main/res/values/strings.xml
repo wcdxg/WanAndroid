@@ -15,5 +15,14 @@
     <string name="auto_fill_hint">自动填充</string>
     <string name="login_fail">请完整输入账号密码以及验证码</string>
     <string name="login_success">登录成功</string>
+    <string name="edit">编辑</string>
+    <string name="name">姓名：</string>
+    <string name="police_number">警号：</string>
+    <string name="phone">手机：</string>
+    <string name="app_notify">站内通知</string>
+    <string name="leave">请销假申请</string>
+    <string name="work_task">工作任务</string>
+    <string name="collection_manage">收藏管理</string>
+    <string name="mine_publish">我的发布</string>
 
 </resources>

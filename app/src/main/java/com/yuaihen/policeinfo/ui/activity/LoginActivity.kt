@@ -2,6 +2,7 @@ package com.yuaihen.policeinfo.ui.activity
 
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import com.gyf.immersionbar.ImmersionBar
 import com.yuaihen.policeinfo.AppManager
 import com.yuaihen.policeinfo.R
 import com.yuaihen.policeinfo.base.BaseActivity
@@ -47,6 +48,15 @@ class LoginActivity : BaseActivity() {
         binding.ivVerificationCode
     }
 
+    override fun initImmersionBar() {
+        ImmersionBar.with(this)
+            .statusBarColorTransform(android.R.color.white)
+            .statusBarDarkFont(true)
+            .navigationBarColorTransform(android.R.color.white)
+            .fullScreen(true)
+            .barAlpha(1f)
+            .init()
+    }
 
     private fun verificationAccountAndPwd(): Boolean {
         val account = binding.editTextAccount.text.trim().toString()

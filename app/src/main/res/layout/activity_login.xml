@@ -7,7 +7,7 @@
     android:background="@drawable/ic_login_bg">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_function_icon"
         android:layout_width="204dp"
         android:layout_height="168dp"
         android:layout_marginTop="100dp"
@@ -26,7 +26,7 @@
         android:background="@drawable/shape_login_corner_white_10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/iv_function_icon">
 
         <ImageView
             android:id="@+id/imageView2"

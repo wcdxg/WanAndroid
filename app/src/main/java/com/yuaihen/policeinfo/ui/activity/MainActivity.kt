@@ -20,19 +20,49 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
-        navController = Navigation.findNavController(this, R.id.fragment)
-        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
+        setupBottomNavigationBar()
+        binding.bottomNavigationView.selectedItemId = R.id.political_work_Fragment
     }
 
     override fun initListener() {
-        //BottomNavigationView点击事件
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
-            navController.navigate(it.itemId)
-            false
-        }
+
     }
 
     override fun initData() {
 
     }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        logD("onSupportNavigateUp")
+        return navController.navigateUp()
+    }
+
+    private fun setupBottomNavigationBar() {
+        navController = Navigation.findNavController(this, R.id.fragment)
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
+        //BottomNavigationView点击事件
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            navController.navigate(it.itemId)
+            true
+        }
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            //跳转另外一个Fragment的时候弹出当前Fragment
+            controller.popBackStack()
+        }
+    }
+
+    private var isLastPage = false
+    override fun onBackPressed() {
+        logD("onBackPressed")
+        if (!isLastPage) {
+            isLastPage = true
+            toast("再按一次退出智慧政工")
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+
 }

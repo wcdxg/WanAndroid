@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
@@ -25,7 +26,7 @@ import com.yuaihen.policeinfo.utils.ToastUtil
  * on 2020/10/28
  * Activity基类
  */
-abstract class BaseActivity : FragmentActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     protected open lateinit var mContext: Context
     private var layoutId = 0
@@ -67,9 +68,10 @@ abstract class BaseActivity : FragmentActivity() {
     protected open fun initImmersionBar() {
         ImmersionBar.with(this)
             .statusBarColorTransform(android.R.color.white)
-            .navigationBarColorTransform(android.R.color.transparent)
+            .statusBarDarkFont(true)
+            .navigationBarColorTransform(android.R.color.white)
+            .navigationBarAlpha(0f)
             .fullScreen(true)
-            .barAlpha(1f)
             .init()
     }
 

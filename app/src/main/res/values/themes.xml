@@ -14,4 +14,19 @@
     <style name="SplashTheme" parent="Theme.PoliceInfo">
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="mine_user_title_color">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/mine_user_title_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="mine_user_value_color">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/mine_user_value_color</item>
+    </style>
+
 </resources>
