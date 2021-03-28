@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fragment_bg_color"
+    android:background="@color/fragment_bg"
     android:orientation="vertical">
 
     <com.yuaihen.policeinfo.ui.widget.TitleView
@@ -17,13 +17,14 @@
         android:id="@+id/ll_notify"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/green">
+        android:background="@color/green"
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="29dp"
-            android:layout_height="29dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="17dp"
+            android:layout_marginStart="15dp"
             android:src="@drawable/ic_mine_notify" />
 
         <com.yuaihen.policeinfo.ui.widget.ScrollTextView
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="15dp"
             android:maxLines="1"
             android:text="【黄大仙】警员，今日是您的生日，在繁忙的工作中记得买个蛋糕"
@@ -46,7 +47,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_userInfo"
@@ -164,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:text="@string/app_notify"
-                    android:textColor="@color/mine_user_value_color"
+                    android:textColor="@color/mine_user_value"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -183,6 +185,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <include
+                android:id="@+id/include_mine_function"
                 layout="@layout/include_layout_mine_function"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -192,6 +195,20 @@
                 app:layout_constraintStart_toStartOf="@+id/cl_notify"
                 app:layout_constraintTop_toBottomOf="@+id/cl_notify" />
 
+            <TextView
+                android:id="@+id/tv_exit_login"
+                android:layout_width="0dp"
+                android:layout_height="63dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_login_corner_white_10dp"
+                android:gravity="center"
+                android:text="@string/exit_login"
+                android:textColor="@color/mine_exit_login"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/include_mine_function"
+                app:layout_constraintStart_toStartOf="@+id/include_mine_function"
+                app:layout_constraintTop_toBottomOf="@+id/include_mine_function" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

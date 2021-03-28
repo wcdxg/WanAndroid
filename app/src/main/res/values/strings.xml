@@ -24,5 +24,6 @@
     <string name="work_task">工作任务</string>
     <string name="collection_manage">收藏管理</string>
     <string name="mine_publish">我的发布</string>
+    <string name="exit_login">注销/切换账号</string>
 
 </resources>

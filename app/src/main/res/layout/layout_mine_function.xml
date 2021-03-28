@@ -22,7 +22,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="302dp"
         android:text="@string/leave"
-        android:textColor="@color/mine_user_value_color"
+        android:textColor="@color/mine_user_value"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/iv_function_icon"

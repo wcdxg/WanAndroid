@@ -17,7 +17,7 @@
         android:layout_width="315dp"
         android:layout_height="1dp"
         android:layout_marginStart="70dp"
-        android:background="@color/mine_view_line_color" />
+        android:background="@color/mine_view_line" />
 
     <com.yuaihen.policeinfo.ui.widget.MineFunctionLayout
         android:id="@+id/mineLayoutWorkTask"
@@ -30,7 +30,7 @@
         android:layout_width="315dp"
         android:layout_height="1dp"
         android:layout_marginStart="70dp"
-        android:background="@color/mine_view_line_color" />
+        android:background="@color/mine_view_line" />
 
     <com.yuaihen.policeinfo.ui.widget.MineFunctionLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         android:layout_width="315dp"
         android:layout_height="1dp"
         android:layout_marginStart="70dp"
-        android:background="@color/mine_view_line_color" />
+        android:background="@color/mine_view_line" />
 
     <com.yuaihen.policeinfo.ui.widget.MineFunctionLayout
         android:layout_width="match_parent"

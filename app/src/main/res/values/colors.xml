@@ -10,9 +10,10 @@
     <color name="gray">#dcdee2</color>
     <color name="red">#ff0000</color>
     <color name="progress_color">#e73a5e</color>
-    <color name="fragment_bg_color">#f5f5f5</color>
+    <color name="fragment_bg">#f5f5f5</color>
     <color name="green">#19be6b</color>
-    <color name="mine_user_title_color">#99222222</color>
-    <color name="mine_user_value_color">#222222</color>
-    <color name="mine_view_line_color">#e8eaec</color>
+    <color name="mine_user_title">#99222222</color>
+    <color name="mine_user_value">#222222</color>
+    <color name="mine_view_line">#e8eaec</color>
+    <color name="mine_exit_login">#ed4014</color>
 </resources>
