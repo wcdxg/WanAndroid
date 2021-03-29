@@ -6,11 +6,10 @@ import android.util.Log
  * Created by Yuaihen.
  * on 2021/3/25
  */
+const val LOGGER = "logger"
 object LogUtil {
 
     var IS_RELEASE = AppUtil.isRelease()
-
-    const val LOGGER = "logger"
 
     fun v(tag: String = LOGGER, msg: String) {
         if (IS_RELEASE) return
