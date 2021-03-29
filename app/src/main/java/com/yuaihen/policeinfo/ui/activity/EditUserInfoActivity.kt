@@ -30,6 +30,12 @@ class EditUserInfoActivity : BaseActivity() {
             }
 
         })
+        binding.btnSubmit.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("url", "wcdxg.com")
+            setResult(RESULT_OK, intent)
+            finish()
+        }
     }
 
     override fun initData() {

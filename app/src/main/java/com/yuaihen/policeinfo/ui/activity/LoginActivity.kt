@@ -57,8 +57,8 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun verificationAccountAndPwd(): Boolean {
-        val account = binding.editTextAccount.text.trim().toString()
-        val pwd = binding.editTextPwd.text.trim().toString()
+        val account = binding.editTextAccount.text?.trim().toString()
+        val pwd = binding.editTextPwd.text?.trim().toString()
         val verificationCode = binding.editTextVerificationCode.text.trim().toString()
         return if (account.isEmpty() || pwd.isEmpty() || verificationCode.isEmpty()) {
             toast(R.string.login_fail)

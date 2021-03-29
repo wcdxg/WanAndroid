@@ -1,11 +1,9 @@
 package com.yuaihen.policeinfo.ui.widget
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import androidx.core.content.res.ResourcesCompat
 import com.yuaihen.policeinfo.R
 import com.yuaihen.policeinfo.databinding.LayoutMineFunctionBinding
 
@@ -17,26 +15,28 @@ import com.yuaihen.policeinfo.databinding.LayoutMineFunctionBinding
 class MineFunctionLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private var functionName = "功能"
-    private var functionIcon: Drawable? =
-        ResourcesCompat.getDrawable(resources, R.drawable.ic_mine_leave, null)
-
     private val binding =
         LayoutMineFunctionBinding.inflate(LayoutInflater.from(context), this, true)
-
+    private var functionName = "功能"
 
     init {
-        attrs?.let {
-            val ty = context.obtainStyledAttributes(it, R.styleable.MineFunctionLayout)
-            functionName = ty.getString(R.styleable.MineFunctionLayout_functionName) ?: "功能"
-            functionIcon =
-                ty.getDrawable(R.styleable.MineFunctionLayout_functionIcon)
-                    ?: ResourcesCompat.getDrawable(resources, R.drawable.ic_mine_leave, null)
-            ty.recycle()
+        context.theme.obtainStyledAttributes(attrs, R.styleable.EditTextWithClear, 0, 0)
+            .apply {
+                try {
+                    functionName = getString(R.styleable.MineFunctionLayout_functionName) ?: "功能"
+                    val iconId = getResourceId(
+                        R.styleable.MineFunctionLayout_functionIcon,
+                        R.drawable.ic_mine_leave
+                    )
+                    if (iconId != 0) {
+                        binding.ivFunctionIcon.setImageResource(iconId)
+                    }
 
-            binding.ivFunctionIcon.setImageDrawable(functionIcon)
-            binding.tvFunctionName.text = functionName
-        }
+                    binding.tvFunctionName.text = functionName
+                } finally {
+                    recycle()
+                }
+            }
     }
 
     fun setFunctionName(functionName: String) {

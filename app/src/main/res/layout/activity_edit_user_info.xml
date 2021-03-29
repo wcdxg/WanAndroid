@@ -16,7 +16,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,8 +34,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleView">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/iv_head"
@@ -60,10 +60,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/shape_login_corner_white_10dp"
-                android:paddingBottom="25dp"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -77,16 +76,19 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
                     android:id="@+id/edit_name"
+                    style="@style/Widget.AppCompat.EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
                     android:autofillHints="@string/auto_fill_hint"
                     android:background="@color/white"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/mine_user_value"
                     android:textSize="14sp"
+                    app:clearIcon="@drawable/ic_baseline_clear_24dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/tv_name"
@@ -98,7 +100,7 @@
                     android:id="@+id/view4"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@color/mine_view_line"
                     app:layout_constraintEnd_toEndOf="@+id/edit_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_name"
@@ -107,25 +109,28 @@
                 <TextView
                     android:id="@+id/tv_police_number"
                     style="@style/mine_user_title_color"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:text="@string/police_number"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-                <EditText
+                <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
                     android:id="@+id/edit_police_number"
+                    style="@style/Widget.AppCompat.EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
                     android:autofillHints="@string/auto_fill_hint"
                     android:background="@color/white"
+                    android:inputType="number"
                     android:maxLines="1"
                     android:textColor="@color/mine_user_value"
                     android:textSize="14sp"
+                    app:clearIcon="@drawable/ic_baseline_clear_24dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_police_number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/tv_police_number"
-                    app:layout_constraintStart_toEndOf="@+id/tv_police_number"
+                    app:layout_constraintStart_toEndOf="@+id/tv_name"
                     app:layout_constraintTop_toTopOf="@+id/tv_police_number"
                     tools:text="0215665656" />
 
@@ -133,7 +138,7 @@
                     android:id="@+id/view5"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:background="@color/mine_view_line"
                     app:layout_constraintEnd_toEndOf="@+id/edit_police_number"
                     app:layout_constraintStart_toStartOf="@+id/edit_police_number"
@@ -142,25 +147,28 @@
                 <TextView
                     android:id="@+id/tv_phone_number"
                     style="@style/mine_user_title_color"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/police_number"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/phone"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/view5" />
 
-                <EditText
+                <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
                     android:id="@+id/edit_phone_number"
+                    style="@style/Widget.AppCompat.EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
                     android:autofillHints="@string/auto_fill_hint"
                     android:background="@color/white"
+                    android:inputType="number"
                     android:maxLines="1"
                     android:textColor="@color/mine_user_value"
                     android:textSize="14sp"
+                    app:clearIcon="@drawable/ic_baseline_clear_24dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_phone_number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/tv_phone_number"
-                    app:layout_constraintStart_toEndOf="@+id/tv_phone_number"
+                    app:layout_constraintStart_toEndOf="@+id/tv_name"
                     app:layout_constraintTop_toTopOf="@+id/tv_phone_number"
                     tools:text="18888888888" />
             </androidx.constraintlayout.widget.ConstraintLayout>

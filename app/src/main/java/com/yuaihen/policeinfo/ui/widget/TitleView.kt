@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import com.yuaihen.policeinfo.R
 import com.yuaihen.policeinfo.databinding.TitleViewBinding
 import com.yuaihen.policeinfo.ui.interf.OnTitleViewListener
@@ -29,27 +28,31 @@ class TitleView @JvmOverloads constructor(
 
 
     init {
-        attrs?.let {
-            val ty = context.obtainStyledAttributes(it, R.styleable.TitleView)
-            titleName = ty.getString(R.styleable.TitleView_titleName) ?: "Text"
-            backIconDrawable = ty.getDrawable(R.styleable.TitleView_titleBackIcon)
-                ?: ContextCompat.getDrawable(context, R.drawable.ic_arrow_left_36dp)
-            showBackIcon = ty.getBoolean(R.styleable.TitleView_titleShowBackIcon, false)
-            ty.recycle()
-        }
+        context.theme.obtainStyledAttributes(attrs, R.styleable.TitleView, 0, 0).apply {
+            try {
+                titleName = getString(R.styleable.TitleView_titleName) ?: "Text"
+                showBackIcon = getBoolean(R.styleable.TitleView_titleShowBackIcon, false)
+                val iconId = getResourceId(
+                    R.styleable.TitleView_titleBackIcon,
+                    R.drawable.ic_arrow_left_36dp
+                )
 
-        binding.tvTitle.text = titleName
-        if (showBackIcon) {
-            binding.ivBack.visible()
-            binding.ivBack.setImageDrawable(backIconDrawable)
-        } else {
-            binding.ivBack.gone()
+                if (showBackIcon) {
+                    if (iconId != 0) {
+                        binding.ivBack.visible()
+                        binding.ivBack.setImageDrawable(backIconDrawable)
+                    }
+                } else {
+                    binding.ivBack.gone()
+                }
+                binding.tvTitle.text = titleName
+                binding.ivBack.setOnClickListener {
+                    onTitleViewListener?.onBackBtnClick()
+                }
+            } finally {
+                recycle()
+            }
         }
-
-        binding.ivBack.setOnClickListener {
-            onTitleViewListener?.onBackBtnClick()
-        }
-
     }
 
     fun setTitleText(title: String) {
