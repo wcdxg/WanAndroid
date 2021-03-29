@@ -7,9 +7,10 @@
 
     <declare-styleable name="TitleView">
         <attr name="titleName" format="string" />
-        <attr name="titleIcon" format="reference" />
+        <attr name="titleBackIcon" format="reference" />
         <attr name="titleColor" format="color" />
         <attr name="titleViewBgColor" format="color" />
+        <attr name="titleShowBackIcon" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="MineFunctionLayout">

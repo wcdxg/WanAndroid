@@ -22,8 +22,7 @@ class ExchangeFragment : BaseFragment() {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun unBindView() {
         _binding = null
     }
 }

@@ -16,14 +16,14 @@ class EasePressureFragment : BaseFragment() {
     private var _binding: FragmentEasePressureBinding? = null
     private val binding get() = _binding!!
 
+
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
         _binding = FragmentEasePressureBinding.inflate(inflater)
         return binding.root
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun unBindView() {
         _binding = null
     }
 }

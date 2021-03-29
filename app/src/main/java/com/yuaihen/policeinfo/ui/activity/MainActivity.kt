@@ -11,11 +11,10 @@ import com.yuaihen.policeinfo.databinding.ActivityMainBinding
 class MainActivity : BaseActivity() {
 
     private lateinit var navController: NavController
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityMainBinding
 
     override fun getBindingView(): View {
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         return binding.root
     }
 

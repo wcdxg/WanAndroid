@@ -17,7 +17,7 @@ import com.yuaihen.policeinfo.utils.ToastUtil
  * Created by Yuaihen.
  * on 2021/3/25
  */
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
 
     private lateinit var mContext: FragmentActivity
     private lateinit var mRootView: View
@@ -98,6 +98,8 @@ abstract class BaseFragment: Fragment() {
     open fun loadData() {
     }
 
+    abstract fun unBindView()
+
     protected open fun getBindingView(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -112,6 +114,7 @@ abstract class BaseFragment: Fragment() {
         isViewCreated = false
         isUIVisible = false
         hideLoading()
+        unBindView()
     }
 
     open fun showDialog(waitMsg: String = getString(R.string.waiting)) {

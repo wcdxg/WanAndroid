@@ -9,7 +9,6 @@ import com.yuaihen.policeinfo.base.BaseActivity
 import com.yuaihen.policeinfo.databinding.ActivityLoginBinding
 import com.yuaihen.policeinfo.utils.invisible
 import com.yuaihen.policeinfo.utils.visible
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -21,11 +20,10 @@ import kotlinx.coroutines.launch
  */
 class LoginActivity : BaseActivity() {
 
-    private var _binding: ActivityLoginBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityLoginBinding
 
     override fun getBindingView(): View {
-        _binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         return binding.root
     }
 
