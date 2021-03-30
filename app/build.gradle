@@ -26,7 +26,7 @@ android {
     defaultConfig {
         applicationId "com.yuaihen.policeinfo"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -99,7 +99,10 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    compile 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation 'com.cysion:ImagePicker:1.2.1.Q'
+
+
     implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0') {
         exclude group: 'org.json', module: 'json'
     }

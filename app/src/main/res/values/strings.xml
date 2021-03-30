@@ -31,7 +31,7 @@
     <string name="cancel">取消</string>
     <string name="edit_info">编辑资料</string>
     <string name="upload_photo">上传图片</string>
-    <string name="choose_birth_data">请选择出生年月日</string>
+    <string name="choose_birth_date">请选择出生年月日</string>
     <string name="save_and_submit">保存并提交</string>
 
 </resources>

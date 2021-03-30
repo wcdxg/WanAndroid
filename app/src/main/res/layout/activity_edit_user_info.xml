@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/ll_change_head_photo"
                 android:layout_width="0dp"
                 android:layout_height="110dp"
                 android:layout_marginStart="15dp"
@@ -41,6 +41,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginStart="20dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_head_test"
                     app:riv_oval="true"
                     tools:src="@drawable/ic_head_test" />
@@ -63,9 +64,9 @@
                 android:layout_height="180dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/shape_login_corner_white_10dp"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                app:layout_constraintEnd_toEndOf="@+id/ll_change_head_photo"
+                app:layout_constraintStart_toStartOf="@+id/ll_change_head_photo"
+                app:layout_constraintTop_toBottomOf="@+id/ll_change_head_photo">
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -179,17 +180,17 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/shape_login_corner_white_10dp"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="@+id/ll_change_head_photo"
+                app:layout_constraintStart_toStartOf="@+id/ll_change_head_photo"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tv_birth_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:background="@color/white"
-                    android:hint="@string/choose_birth_data"
+                    android:hint="@string/choose_birth_date"
                     android:textColor="@color/mine_user_value"
                     android:textColorHint="@color/mine_user_title"
                     android:textSize="14sp"
@@ -198,11 +199,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/iv_select_birth_data"
+                    android:id="@+id/iv_select_birth_date"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="25dp"
-                    android:src="@drawable/ic_birth_data_select"
+                    android:src="@drawable/ic_birth_date_select"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

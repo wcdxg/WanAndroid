@@ -3,8 +3,10 @@ package com.yuaihen.policeinfo.base
 import android.app.Application
 import android.content.Context
 import com.kongzue.dialogx.DialogX
+import com.lzy.imagepicker.ImagePicker
 import com.tencent.bugly.Bugly
 import com.tencent.mmkv.MMKV
+import com.yuaihen.policeinfo.common.imagePicker.GlideImageLoader
 import com.yuaihen.policeinfo.utils.AppUtil
 
 /**
@@ -40,5 +42,7 @@ class BaseApplication : Application() {
 //        DialogX.globalTheme = DialogX.THEME.LIGHT
 //        DialogX.cancelable = true
 //        DialogX.backgroundColor = resources.getColor(R.color.dialog_mask_color)
+        //ImagePicker
+        ImagePicker.getInstance().imageLoader = GlideImageLoader()
     }
 }
