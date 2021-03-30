@@ -54,7 +54,7 @@
                     android:layout_weight="1"
                     android:gravity="center|end"
                     android:text="@string/upload_photo"
-                    android:textColor="@color/mine_btn_blue"
+                    android:textColor="@color/main_blue"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -191,9 +191,10 @@
                     android:layout_marginStart="20dp"
                     android:background="@color/white"
                     android:hint="@string/choose_birth_date"
-                    android:textColor="@color/mine_user_value"
+                    android:textColor="@color/main_blue"
                     android:textColorHint="@color/mine_user_title"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -216,7 +217,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/shape_mine_dialog_corner_5dp"
-                android:backgroundTint="@color/mine_btn_submit"
+                android:backgroundTint="@color/main_blue"
                 android:text="@string/save_and_submit"
                 android:textColor="@color/white"
                 android:textSize="19sp"
