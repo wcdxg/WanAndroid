@@ -7,7 +7,7 @@
     android:background="@color/fragment_bg"
     android:orientation="vertical">
 
-    <com.yuaihen.policeinfo.ui.widget.TitleView
+    <com.yuaihen.wcdxg.ui.widget.TitleView
         android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_marginStart="15dp"
             android:src="@drawable/ic_mine_notify" />
 
-        <com.yuaihen.policeinfo.ui.widget.ScrollTextView
+        <com.yuaihen.wcdxg.ui.widget.ScrollTextView
             android:id="@+id/scrollTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

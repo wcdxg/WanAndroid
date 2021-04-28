@@ -5,22 +5,22 @@
 
     <fragment
         android:id="@+id/easePressureFragment"
-        android:name="com.yuaihen.policeinfo.ui.fragment.EasePressureFragment"
+        android:name="com.yuaihen.wcdxg.ui.fragment.EasePressureFragment"
         android:label="EasePressureFragment" />
     <fragment
         android:id="@+id/healthFragment"
-        android:name="com.yuaihen.policeinfo.ui.fragment.HealthFragment"
+        android:name="com.yuaihen.wcdxg.ui.fragment.HealthFragment"
         android:label="HealthFragment" />
     <fragment
         android:id="@+id/political_work_Fragment"
-        android:name="com.yuaihen.policeinfo.ui.fragment.PoliticalWorkFragment"
+        android:name="com.yuaihen.wcdxg.ui.fragment.PoliticalWorkFragment"
         android:label="PoliticalWorkFragment" />
     <fragment
         android:id="@+id/exchangeFragment"
-        android:name="com.yuaihen.policeinfo.ui.fragment.ExchangeFragment"
+        android:name="com.yuaihen.wcdxg.ui.fragment.ExchangeFragment"
         android:label="ExchangeFragment" />
     <fragment
         android:id="@+id/mineFragment"
-        android:name="com.yuaihen.policeinfo.ui.fragment.MyFragment"
+        android:name="com.yuaihen.wcdxg.ui.fragment.MyFragment"
         android:label="MineFragment" />
 </navigation>

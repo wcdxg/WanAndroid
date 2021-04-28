@@ -13,10 +13,6 @@ android {
             keyPassword '1f4b335e4fdb558d30d60db2db9d3e8c'
         }
         debug {
-            storeFile file('..\\zhzg.jks')
-            storePassword '1f4b335e4fdb558d30d60db2db9d3e8c'
-            keyAlias 'zhzg'
-            keyPassword '1f4b335e4fdb558d30d60db2db9d3e8c'
         }
     }
 
@@ -24,7 +20,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.yuaihen.policeinfo"
+        applicationId "com.yuaihen.wcdxg"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -102,6 +98,10 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     implementation 'com.cysion:ImagePicker:1.2.1.Q'
 
+
+    implementation 'cn.leancloud:storage-android:7.2.2'
+    implementation 'cn.leancloud:realtime-android:7.2.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0') {
         exclude group: 'org.json', module: 'json'

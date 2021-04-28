@@ -125,6 +125,6 @@
 -dontwarn com.android.**
 
 -dontwarn com.yuaihen.policeinfo.bean.**
--keepclassmembers class com.yuaihen.policeinfo.base.BaseApplication {
+-keepclassmembers class com.yuaihen.wcdxg.base.BaseApplication {
     public <init>();
 }

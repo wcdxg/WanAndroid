@@ -4,29 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_login_bg">
-
-    <ImageView
-        android:id="@+id/iv_function_icon"
-        android:layout_width="204dp"
-        android:layout_height="168dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/ic_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="@drawable/ic_banner_login">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_login"
         android:layout_width="0dp"
         android:layout_height="182dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/shape_login_corner_white_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_function_icon">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -39,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
+        <com.yuaihen.wcdxg.ui.widget.EditTextWithClear
             android:id="@+id/editText_account"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="0dp"
@@ -50,8 +40,10 @@
             android:background="@color/transparent"
             android:ellipsize="end"
             android:hint="@string/account_hint"
+            android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLines="1"
+            android:nextFocusForward="@id/editText_pwd"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="16sp"
@@ -83,7 +75,7 @@
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
-        <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
+        <com.yuaihen.wcdxg.ui.widget.EditTextWithClear
             android:id="@+id/editText_pwd"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="0dp"
@@ -94,8 +86,10 @@
             android:background="@color/transparent"
             android:ellipsize="end"
             android:hint="@string/password_hint"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:nextFocusForward="@id/editText_verification_code"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="16sp"
@@ -137,9 +131,11 @@
             android:background="@color/transparent"
             android:ellipsize="end"
             android:hint="@string/verification_code"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLength="4"
             android:maxLines="1"
+            android:nextFocusForward="@id/btn_login"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="16sp"
@@ -162,15 +158,28 @@
     <Button
         android:id="@+id/btn_login"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_login_corner_white_10dp"
         android:text="@string/login"
-        android:textColor="@color/black"
-        android:textSize="21sp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@+id/cl_login"
         app:layout_constraintRight_toRightOf="@+id/cl_login"
         app:layout_constraintTop_toBottomOf="@+id/cl_login" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_login_corner_white_10dp"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -181,4 +190,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

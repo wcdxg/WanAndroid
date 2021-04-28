@@ -7,7 +7,7 @@
     android:background="@color/fragment_bg"
     android:orientation="vertical">
 
-    <com.yuaihen.policeinfo.ui.widget.TitleView
+    <com.yuaihen.wcdxg.ui.widget.TitleView
         android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
+                <com.yuaihen.wcdxg.ui.widget.EditTextWithClear
                     android:id="@+id/edit_name"
                     style="@style/Widget.AppCompat.EditText"
                     android:layout_width="0dp"
@@ -115,7 +115,7 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-                <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
+                <com.yuaihen.wcdxg.ui.widget.EditTextWithClear
                     android:id="@+id/edit_police_number"
                     style="@style/Widget.AppCompat.EditText"
                     android:layout_width="0dp"
@@ -153,7 +153,7 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/view5" />
 
-                <com.yuaihen.policeinfo.ui.widget.EditTextWithClear
+                <com.yuaihen.wcdxg.ui.widget.EditTextWithClear
                     android:id="@+id/edit_phone_number"
                     style="@style/Widget.AppCompat.EditText"
                     android:layout_width="0dp"
