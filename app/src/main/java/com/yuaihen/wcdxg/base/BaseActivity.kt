@@ -64,11 +64,12 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected open fun initImmersionBar() {
         ImmersionBar.with(this)
-            .statusBarColorTransform(android.R.color.white)
-            .statusBarDarkFont(true)
-            .statusBarColor(R.color.white)
+//            .statusBarColorTransform(android.R.color.white)
+//            .statusBarDarkFont(true)
+//            .statusBarColor(R.color.white)
             .navigationBarAlpha(0f)
             .fullScreen(true)
+            .barAlpha(0f)
             .init()
     }
 

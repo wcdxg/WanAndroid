@@ -10,10 +10,12 @@
     <string name="mine">我的</string>
     <string name="account_hint">用户名</string>
     <string name="verification_code">验证码</string>
-    <string name="password_hint">输入登录密码</string>
+    <string name="password_hint">登录密码</string>
     <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="skip">跳过</string>
     <string name="auto_fill_hint">自动填充</string>
-    <string name="login_fail">请完整输入账号密码以及验证码</string>
+    <string name="login_fail">请输入账号密码以及验证码</string>
     <string name="login_success">登录成功</string>
     <string name="edit">编辑</string>
     <string name="name">姓名：</string>
@@ -33,7 +35,6 @@
     <string name="upload_photo">上传图片</string>
     <string name="choose_birth_date">请选择出生年月日</string>
     <string name="save_and_submit">保存并提交</string>
-    <string name="register">注册</string>
-    <string name="skip">跳过</string>
+
 
 </resources>

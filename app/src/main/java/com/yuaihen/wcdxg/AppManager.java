@@ -33,6 +33,20 @@ public class AppManager {
         mActivities.remove(activity);
     }
 
+    public <T extends Activity> void removeActivity(Class<T> tClass) {
+        Activity finishActivity = null;
+        for (Activity activity : mActivities) {
+            if (tClass.getName().equals(activity.getClass().getName())) {
+                finishActivity = activity;
+                activity.finish();
+
+            }
+        }
+        if (finishActivity != null) {
+            mActivities.remove(finishActivity);
+        }
+    }
+
     public void removeAllActivity() {
         for (Activity activity : mActivities) {
             hideSoftKeyBoard(activity);
@@ -40,6 +54,7 @@ public class AppManager {
         }
         mActivities.clear();
     }
+
 
     public <T extends Activity> boolean hasActivity(Class<T> tClass) {
         for (Activity activity : mActivities) {

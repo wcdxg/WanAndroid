@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Wcdxg" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Wcdxg" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/main_blue</item>
         <!-- Status bar color. -->
@@ -11,11 +11,8 @@
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
 
-    <style name="FullScreenTheme" parent="Theme.Wcdxg">
+    <style name="SplashTheme" parent="Theme.Wcdxg">
         <item name="android:windowFullscreen">true</item>
-    </style>
-
-    <style name="SplashTheme" parent="FullScreenTheme">
         <item name="android:windowBackground">@drawable/ic_splash</item>
     </style>
 

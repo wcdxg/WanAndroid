@@ -1,5 +1,7 @@
 package com.yuaihen.wcdxg.ui.activity
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -9,9 +11,11 @@ import com.gyf.immersionbar.ImmersionBar
 import com.yuaihen.wcdxg.AppManager
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
-import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.ActivityLoginBinding
-import com.yuaihen.wcdxg.utils.*
+import com.yuaihen.wcdxg.utils.LogUtil
+import com.yuaihen.wcdxg.utils.UserUtil
+import com.yuaihen.wcdxg.utils.invisible
+import com.yuaihen.wcdxg.utils.visible
 import io.reactivex.disposables.Disposable
 
 
@@ -29,17 +33,20 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
         return binding.root
     }
 
-    override fun initListener() {
+
+    override fun initData() {
         binding.progressBar.invisible()
         binding.btnLogin.setOnClickListener {
             AppManager.getInstance().hideSoftKeyBoard(this)
             verificationAccountAndPwd()
         }
         binding.btnRegister.setOnClickListener {
-
-
+            start2Activity(RegisterActivity::class.java)
         }
         binding.editTextVerificationCode.setOnEditorActionListener(this)
+        binding.editTextAccount.addTextChangedListener(watcher)
+        binding.editTextPwd.addTextChangedListener(watcher)
+        binding.editTextVerificationCode.addTextChangedListener(watcher)
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
@@ -50,18 +57,24 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
         return false
     }
 
-    override fun initData() {
 
+    private val watcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val t1 = binding.editTextAccount.text.toString().trim().isNotEmpty()
+            val t2 = binding.editTextPwd.text.toString().trim().isNotEmpty()
+            val t3 = binding.editTextVerificationCode.text.toString().trim().isNotEmpty()
+            binding.btnLogin.isEnabled = t1 and t2 and t3
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+
+        }
     }
 
-    override fun initImmersionBar() {
-        ImmersionBar.with(this)
-            .statusBarColorTransform(android.R.color.white)
-            .statusBarDarkFont(false)
-            .fullScreen(true)
-            .barAlpha(1f)
-            .init()
-    }
 
     private fun verificationAccountAndPwd() {
         val userName = binding.editTextAccount.text?.trim().toString()
@@ -92,8 +105,9 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
             }
 
             override fun onError(e: Throwable) {
-                if (e.message == "Could not find user") {
+                if (e.message!!.contains("Could not find user")) {
                     toast("用户未注册")
+                    start2Activity(RegisterActivity::class.java)
                 } else {
                     toast("登录失败 ${e.message}")
                 }

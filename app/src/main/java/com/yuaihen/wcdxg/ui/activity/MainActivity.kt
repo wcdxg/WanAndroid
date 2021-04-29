@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.gyf.immersionbar.ImmersionBar
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityMainBinding
@@ -34,6 +35,18 @@ class MainActivity : BaseActivity() {
 
     }
 
+
+    override fun initImmersionBar() {
+        super.initImmersionBar()
+        ImmersionBar.with(this)
+//            .statusBarColorTransform(android.R.color.white)
+            .statusBarDarkFont(true)
+//            .statusBarColor(R.color.white)
+            .navigationBarAlpha(0f)
+            .fullScreen(true)
+            .barAlpha(0f)
+            .init()
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         logD("onSupportNavigateUp")
