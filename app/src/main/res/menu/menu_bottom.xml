@@ -2,23 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/political_work_Fragment"
-        android:icon="@drawable/icon_bottom_political_work_normal"
-        android:title="@string/political_work" />
+        android:id="@+id/videoFragment"
+        android:icon="@drawable/ic_baseline_movie_24"
+        android:title="@string/video" />
+
     <item
-        android:id="@+id/exchangeFragment"
-        android:icon="@drawable/icon_bottom_exchange_normal"
-        android:title="@string/exchange" />
+        android:id="@+id/wordBookFragment"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="@string/word_book" />
     <item
-        android:id="@+id/healthFragment"
-        android:icon="@drawable/icon_bottom_health_normal"
-        android:title="@string/health" />
-    <item
-        android:id="@+id/easePressureFragment"
-        android:icon="@drawable/icon_bottom_ease_pressure_normal"
-        android:title="@string/ease_pressure" />
-    <item
+
         android:id="@+id/mineFragment"
-        android:icon="@drawable/icon_bottom_mine_normal"
+        android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/mine" />
 </menu>

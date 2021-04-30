@@ -24,7 +24,7 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         setupBottomNavigationBar()
-        binding.bottomNavigationView.selectedItemId = R.id.political_work_Fragment
+        binding.bottomNavigationView.selectedItemId = R.id.wordBookFragment
     }
 
     override fun initListener() {

@@ -3,10 +3,6 @@
     <string name="waiting">正在加载</string>
     <string name="net_not_connected">网络未连接</string>
     <string name="permission_forward_desc">您需要在设置中手动开启权限~</string>
-    <string name="political_work">政工</string>
-    <string name="exchange">交流</string>
-    <string name="health">健康</string>
-    <string name="ease_pressure">减负</string>
     <string name="mine">我的</string>
     <string name="account_hint">用户名</string>
     <string name="verification_code">验证码</string>
@@ -35,6 +31,8 @@
     <string name="upload_photo">上传图片</string>
     <string name="choose_birth_date">请选择出生年月日</string>
     <string name="save_and_submit">保存并提交</string>
+    <string name="word_book">单词本</string>
+    <string name="video">视频</string>
 
 
 </resources>

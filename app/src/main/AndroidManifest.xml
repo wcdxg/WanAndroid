@@ -33,9 +33,26 @@
             android:required="false" />
 
         <activity
+            android:name=".ui.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".ui.activity.RegisterActivity" />
+        <activity
             android:name="com.yuaihen.wcdxg.ui.activity.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.yuaihen.wcdxg.ui.activity.LoginActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
@@ -44,25 +61,8 @@
         <activity
             android:name="com.yuaihen.wcdxg.ui.activity.EditUserInfoActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
-            android:screenOrientation="portrait">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+            android:screenOrientation="portrait" />
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name=".ui.activity.SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.activity.RegisterActivity" />
 
         <meta-data
             android:name="design_width_in_dp"
