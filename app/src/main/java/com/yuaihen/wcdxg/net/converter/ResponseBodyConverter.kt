@@ -21,11 +21,12 @@ class ResponseBodyConverter<T>(private val gson: Gson, private val adapter: Type
 
         //定义后台返回的异常code
         const val SUCCESS = 0 // 成功
+        const val UN_LOGIN = -1001 //未登录的错误码
         const val FAILURE = -1 // 失败
-        const val TOKEN_NOT_EXIST = 10086 //token不存在
-        const val SERVER_EXCEPTION = 502 //服务器异常
-        const val SERVER_EXCEPTION_2 = 500 //服务器异常
-        const val MAC_NOT_EXIST = 999 //mac地址不存在，未入库
+
+        const val ERROR_500 = "服务器开小差了，请检查网络连接后重试~"
+        const val ERROR_404 = "链接地址不存在，请重试~"
+        const val ERROR_OTHER = "网络连接出错，请重试~"
     }
 
 

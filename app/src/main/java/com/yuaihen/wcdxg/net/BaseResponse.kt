@@ -7,12 +7,14 @@ import com.google.gson.annotations.SerializedName
  * on 2020/6/10
  */
 data class BaseResponse<T>(
-    @SerializedName("code")
-    var code: Int,
-    @SerializedName("msg")
-    var message: String,
+
+    @SerializedName("errorCode")
+    var errorCode: Int,
+
+    @SerializedName("errorMsg")
+    var errorMsg: String,
+
     @SerializedName("data")
     var data: T,
-    @SerializedName("timestamp")
-    var timestamp: Long
-)
+
+    )

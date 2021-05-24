@@ -6,16 +6,14 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import cn.leancloud.AVUser
-import com.yuaihen.wcdxg.AppManager
+import androidx.activity.viewModels
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityRegisterBinding
+import com.yuaihen.wcdxg.mvvm.viewmodel.LoginRegisterViewModel
 import com.yuaihen.wcdxg.utils.UserUtil
 import com.yuaihen.wcdxg.utils.invisible
 import com.yuaihen.wcdxg.utils.visible
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
 
 /**
  * Created by Yuaihen.
@@ -25,10 +23,28 @@ import io.reactivex.disposables.Disposable
 class RegisterActivity : BaseActivity(), TextView.OnEditorActionListener {
 
     private lateinit var binding: ActivityRegisterBinding
+    private val registerViewModel by viewModels<LoginRegisterViewModel>()
 
     override fun getBindingView(): View {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun initListener() {
+        super.initListener()
+        registerViewModel.loginLiveData.observe(this) {
+            if (it) {
+                toast(R.string.register_success)
+                UserUtil.setUserIsLogin(true)
+                start2Activity(MainActivity::class.java, finish = true)
+            }
+        }
+        registerViewModel.loadingLiveData.observe(this) {
+            if (it) binding.progressBar.visible() else binding.progressBar.invisible()
+        }
+        registerViewModel.errorLiveData.observe(this) {
+            toast(it)
+        }
     }
 
     override fun initData() {
@@ -53,39 +69,21 @@ class RegisterActivity : BaseActivity(), TextView.OnEditorActionListener {
     private fun verificationAccountAndPwd() {
         val userName = binding.editTextAccount.text?.trim().toString()
         val pwd = binding.editTextPwd.text?.trim().toString()
-        if (userName.isEmpty() || pwd.isEmpty()) {
-            toast(R.string.login_fail)
+        val repassword = binding.editTextRePwd.text?.trim().toString()
+        if (userName.isEmpty() || pwd.isEmpty() || repassword.isEmpty()) {
+            toast(R.string.register_fail)
             return
         } else {
-            registerUser(userName, pwd)
+            if (pwd != repassword) {
+                toast(R.string.password_different)
+            } else {
+                registerUser(userName, pwd)
+            }
         }
     }
 
     private fun registerUser(name: String, pwd: String) {
-        AVUser().apply {
-            binding.progressBar.visible()
-            username = name
-            password = pwd
-            signUpInBackground().subscribe(object : Observer<AVUser> {
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onNext(t: AVUser) {
-                    UserUtil.setUserIsLogin(true)
-                    AppManager.getInstance().removeActivity(LoginActivity::class.java)
-                    start2Activity(MainActivity::class.java, finish = true)
-                }
-
-                override fun onError(e: Throwable) {
-                    toast("注册失败 ${e.message}")
-                    binding.progressBar.invisible()
-                }
-
-                override fun onComplete() {
-                }
-
-            })
-        }
+        registerViewModel.register(name, pwd)
     }
 
     private val watcher = object : TextWatcher {

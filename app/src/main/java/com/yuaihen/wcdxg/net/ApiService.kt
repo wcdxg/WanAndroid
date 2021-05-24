@@ -5,9 +5,8 @@ import com.ihsanbal.logging.LoggingInterceptor
 import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.Constants
-import com.yuaihen.wcdxg.net.converter.MyGsonConverterFactory
+import com.yuaihen.wcdxg.net.model.LoginModel
 import com.yuaihen.wcdxg.utils.AppUtil
-import com.yuaihen.wcdxg.utils.UserUtil
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -15,12 +14,11 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.internal.platform.Platform
 import okio.Buffer
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.SSLSocket
-import javax.net.ssl.SSLSocketFactory
 
 
 /**
@@ -29,19 +27,26 @@ import javax.net.ssl.SSLSocketFactory
  */
 interface ApiService {
 
+    /**
+     * 注册
+     */
+    @FormUrlEncoded
+    @POST("user/register")
+    suspend fun register(
+        @Field("username") userName: String,
+        @Field("password") password: String,
+        @Field("repassword") repassword: String
+    ): BaseResponse<LoginModel>
 
     /**
-     * 获取Token
+     * 登录
      */
-//    @FormUrlEncoded
-//    @POST("gmUserRelate/getToken")
-//    suspend fun getToken(@Field("languageType") languageType: String): BaseResponse<TokenBean>
-
-    /**
-     * 获取广告轮播图
-     */
-//    @POST("common/getAdInfoList")
-//    suspend fun getBanner(): BaseResponse<BannerPicBean>
+    @FormUrlEncoded
+    @POST("user/login")
+    suspend fun login(
+        @Field("username") userName: String,
+        @Field("password") password: String,
+    ): BaseResponse<LoginModel>
 
     /**
      * 下载文件
@@ -54,21 +59,25 @@ interface ApiService {
     /*--------------------------------------Retrofit-----------------------------------------------------*/
     companion object {
         val TAG = "Api"
+        private val SERVER_URL = "https://www.wanandroid.com/"
 
-        var BASE_URL = "http://10.1.30.7:9098/"                     //测试环境
-        private val SERVER_URL = "http://gmapi.xxlimageim.com/"          //线上环境
-        //  var BASE_URL = "http://10.1.21.251:9015/"               //黄军霞
-        //  var BASE_URL = "http://glassapi.prev.xxlimageim.com/"   //预发布
+        //定义后台返回的异常code
+        const val SUCCESS = 0 // 成功
+        const val UN_LOGIN = -1001 //未登录的错误码
+        const val FAILURE = -1 // 失败
+        const val ERROR_500 = "服务器开小差了，请检查网络连接后重试~"
+        const val ERROR_404 = "链接地址不存在，请重试~"
+        const val ERROR_OTHER = "网络连接出错，请重试~"
 
         @Volatile
         private var instance: ApiService? = null
 
         fun getInstance(): ApiService = instance ?: synchronized(ApiService::class.java) {
             instance ?: Retrofit.Builder()
-                .baseUrl(if (AppUtil.isRelease()) SERVER_URL else BASE_URL)
+                .baseUrl(SERVER_URL)
                 .client(getClient())
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(MyGsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiService::class.java)
                 .apply { instance = this }
@@ -78,10 +87,10 @@ interface ApiService {
 
         private fun getClient(): OkHttpClient {
             val builder = RetrofitUrlManager.getInstance().with(OkHttpClient.Builder())
-                .connectTimeout(1, TimeUnit.MINUTES)
-                .readTimeout(1, TimeUnit.MINUTES)
-                .writeTimeout(1, TimeUnit.MINUTES)
-                .addInterceptor(MyIntercepter())
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+//                .addInterceptor(MyIntercepter())
             if (BuildConfig.DEBUG) {
                 val log = LoggingInterceptor.Builder()
                     .setLevel(Level.BODY)
@@ -143,23 +152,23 @@ interface ApiService {
                         oldPartList?.let {
                             val builder = MultipartBody.Builder()
                             builder.setType(MultipartBody.FORM)
-                            val requestBody1 = AppUtil.getMacAddress()
-                                .toRequestBody("text/plain".toMediaTypeOrNull())
-                            val requestBody2 =
-                                AppUtil.getVersionCode(BaseApplication.getContext()).toString()
-                                    .toRequestBody("text/plain".toMediaTypeOrNull())
+//                            val requestBody1 = AppUtil.getMacAddress()
+//                                .toRequestBody("text/plain".toMediaTypeOrNull())
+//                            val requestBody2 =
+//                                AppUtil.getVersionCode(BaseApplication.getContext()).toString()
+//                                    .toRequestBody("text/plain".toMediaTypeOrNull())
 //                            val requestBody3 =
 //                                UserUtil.getToken().toRequestBody("text/plain".toMediaTypeOrNull())
                             for (part in it) {
                                 builder.addPart(part)
                                 postBodyString += bodyToString(part.body) + "\n"
                             }
-                            postBodyString += bodyToString(requestBody1) + "\n"
-                            postBodyString += bodyToString(requestBody2) + "\n"
+//                            postBodyString += bodyToString(requestBody1) + "\n"
+//                            postBodyString += bodyToString(requestBody2) + "\n"
 //                            postBodyString += bodyToString(requestBody3) + "\n"
                             //              builder.addPart(oldBody);  //不能用这个方法，因为不知道oldBody的类型，可能是PartMap过来的，也可能是多个Part过来的，所以需要重新逐个加载进去
-                            builder.addPart(requestBody1)
-                            builder.addPart(requestBody2)
+//                            builder.addPart(requestBody1)
+//                            builder.addPart(requestBody2)
 //                            builder.addPart(requestBody3)
                             newRequestBuild = request.newBuilder()
                             newRequestBuild.post(builder.build())
@@ -169,11 +178,11 @@ interface ApiService {
                     else -> {
                         val formBodyBuilder = FormBody.Builder()
 //                        formBodyBuilder.addEncoded(Constants.TOKEN, UserUtil.getToken())
-                        formBodyBuilder.addEncoded(Constants.MAC, AppUtil.getMacAddress())
-                        formBodyBuilder.addEncoded(
-                            Constants.VERSION,
-                            AppUtil.getVersionCode(BaseApplication.getContext()).toString() + ""
-                        )
+//                        formBodyBuilder.addEncoded(Constants.MAC, AppUtil.getMacAddress())
+//                        formBodyBuilder.addEncoded(
+//                            Constants.VERSION,
+//                            AppUtil.getVersionCode(BaseApplication.getContext()).toString() + ""
+//                        )
                         newRequestBuild = request.newBuilder()
 
                         val formBody: RequestBody = formBodyBuilder.build()
