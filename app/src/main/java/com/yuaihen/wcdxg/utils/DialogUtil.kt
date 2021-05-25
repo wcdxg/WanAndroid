@@ -27,9 +27,10 @@ class DialogUtil {
                 val binding = DialogExitLoginBinding.bind(v)
                 binding.btnCancel.setOnClickListener { dialog.dismiss() }
                 binding.btnConfirm.setOnClickListener {
+                    //清除保存的Cookie信息
+                    UserUtil.clearCookie()
                     //退回到登录页面
                     dialog.dismiss()
-                    UserUtil.setUserIsLogin(false)
                     context.let {
                         (it as Activity?)?.finish()
                         it.startActivity(Intent(context, LoginActivity::class.java))

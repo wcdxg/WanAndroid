@@ -88,10 +88,13 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     implementation 'com.just.agentweb:agentweb-androidx:4.1.4' // (必选)
     implementation 'com.kongzue.dialogx:DialogX:0.0.35'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation('com.squareup.retrofit2:retrofit:2.9.0') {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+        exclude group: 'com.squareup.okio', module: 'okio'
+    }
+    implementation 'com.github.ihsanbal:LoggingInterceptor:3.1.0'
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
-    implementation 'me.jessyan:retrofit-url-manager:1.4.0'
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
@@ -99,12 +102,5 @@ dependencies {
     implementation 'com.cysion:ImagePicker:1.2.1.Q'
 
 
-    implementation 'cn.leancloud:storage-android:7.2.2'
-    implementation 'cn.leancloud:realtime-android:7.2.2'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-
-    implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0') {
-        exclude group: 'org.json', module: 'json'
-    }
     implementation project(':livedatabus')
 }

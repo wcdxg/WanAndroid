@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentWordBookBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.WordBookViewModel
-import com.yuaihen.wcdxg.ui.adapter.WordBookAdapter
 import com.yuaihen.wcdxg.utils.TextUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,18 +40,6 @@ class WordBookFragment : BaseFragment() {
 
     lateinit var job: Job
     override fun initData() {
-        val wordBookAdapter = WordBookAdapter()
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    DividerItemDecoration.VERTICAL
-                )
-            )
-            adapter = wordBookAdapter
-        }
-
         lifecycleScope.launch(Dispatchers.IO) {
             val result =
                 TextUtil.readJsonFromUrl("https://gitee.com/yuaihen/blog-img/raw/master/menu.txt")

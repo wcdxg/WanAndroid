@@ -35,7 +35,6 @@ class RegisterActivity : BaseActivity(), TextView.OnEditorActionListener {
         registerViewModel.loginLiveData.observe(this) {
             if (it) {
                 toast(R.string.register_success)
-                UserUtil.setUserIsLogin(true)
                 start2Activity(MainActivity::class.java, finish = true)
             }
         }

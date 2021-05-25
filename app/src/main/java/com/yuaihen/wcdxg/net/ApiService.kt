@@ -7,7 +7,8 @@ import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.net.model.LoginModel
 import com.yuaihen.wcdxg.utils.AppUtil
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager
+import com.yuaihen.wcdxg.utils.LogUtil
+import com.yuaihen.wcdxg.utils.SPUtils
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -49,6 +50,12 @@ interface ApiService {
     ): BaseResponse<LoginModel>
 
     /**
+     * 退出登录
+     */
+    @GET("user/logout/json")
+    suspend fun logout(): BaseResponse<LoginModel>
+
+    /**
      * 下载文件
      */
     @Streaming
@@ -86,11 +93,46 @@ interface ApiService {
 
 
         private fun getClient(): OkHttpClient {
-            val builder = RetrofitUrlManager.getInstance().with(OkHttpClient.Builder())
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-//                .addInterceptor(MyIntercepter())
+            val builder = OkHttpClient.Builder().apply {
+                connectTimeout(30, TimeUnit.SECONDS)
+                readTimeout(30, TimeUnit.SECONDS)
+                writeTimeout(30, TimeUnit.SECONDS)
+                addInterceptor() {
+                    //get response cookie
+                    val request = it.request()
+                    val response = it.proceed(request)
+                    val requestUrl = request.url.toString()
+                    val domain = request.url.host
+                    //保存登录时返回的cookie
+                    if ((requestUrl.contains("user/login") || requestUrl.contains("user/register"))
+                        && response.headers("Set-Cookie").isNotEmpty()
+                    ) {
+                        val cookies = response.headers("Set-Cookie")
+                        val cookie = encodeCookie(cookies)
+                        LogUtil.d("hello", "intercept: $cookie")
+                        saveCookie(requestUrl, domain, cookie)
+                    }
+                    response
+
+                }
+                addInterceptor {
+                    //set request cookie
+                    val request = it.request()
+                    val builder = request.newBuilder()
+                    val domain = request.url.host
+                    //get domain cookie
+                    if (domain.isNotEmpty()) {
+                        val cookie =
+                            SPUtils.getCookiePreferences().decodeString(domain, "") ?: ""
+                        if (cookie.isNotEmpty()) {
+                            builder.addHeader("Cookie", cookie)
+                        }
+                    }
+
+                    it.proceed(request)
+                }
+            }
+
             if (BuildConfig.DEBUG) {
                 val log = LoggingInterceptor.Builder()
                     .setLevel(Level.BODY)
@@ -103,6 +145,38 @@ interface ApiService {
                 builder.addInterceptor(log)
             }
             return builder.build()
+        }
+
+
+        private fun encodeCookie(cookies: List<String>): String {
+            val sb = StringBuilder()
+            val set = hashSetOf<String>()
+            cookies.forEach {
+                LogUtil.d("hello", "encodeCookie: $it")
+                val value = it.split(";")
+                value.forEach { v ->
+                    set.add(v)
+                }
+            }
+
+            set.forEachIndexed { index, s ->
+                sb.append(s)
+                if (index != set.size - 1) {
+                    sb.append(";")
+                }
+            }
+            return sb.toString()
+        }
+
+        /**
+         * 保存Cookie到SP
+         */
+        private fun saveCookie(requestUrl: String?, domain: String?, cookie: String) {
+            requestUrl ?: return
+            SPUtils.getCookiePreferences().encode(requestUrl, cookie)
+            domain ?: return
+            SPUtils.getCookiePreferences().encode(domain, cookie)
+            SPUtils.getCookiePreferences().encode(Constants.Cookie, cookie)
         }
     }
 

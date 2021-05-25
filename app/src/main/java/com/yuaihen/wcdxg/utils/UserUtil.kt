@@ -9,13 +9,11 @@ import com.yuaihen.wcdxg.base.Constants
  */
 object UserUtil {
 
-    fun setUserIsLogin(value: Boolean) {
-        SPUtils.setBoolean(Constants.USER_IS_LOGIN, value)
+    fun clearCookie() {
+        SPUtils.getCookiePreferences().clearAll()
     }
 
-    fun getUserIsLogin(): Boolean {
-        return SPUtils.getBoolean(Constants.USER_IS_LOGIN)
+    fun getCookie(): String {
+        return SPUtils.getCookiePreferences().decodeString(Constants.Cookie, "")
     }
-
-
 }

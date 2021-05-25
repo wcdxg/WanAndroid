@@ -1,6 +1,7 @@
 package com.yuaihen.wcdxg.base
 
 import android.os.Environment
+import okhttp3.Cookie
 
 
 /**
@@ -14,8 +15,7 @@ object Constants {
     const val MAC = "mac"
     const val TOKEN = "token"
     const val VERSION = "version"
-    const val USER_ID = "userId"
-    const val USER_IS_LOGIN = "UserLogin"
+    const val Cookie = "cookie"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

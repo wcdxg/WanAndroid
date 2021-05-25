@@ -1,14 +1,15 @@
 package com.yuaihen.wcdxg.utils;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.tencent.mmkv.MMKV;
 
 /**
- * @Description 数据缓存工具类
+ * 数据缓存工具类
  */
 public class SPUtils {
 
-    private static final String TAG = "CacheUtils";
-    private static MMKV mmkv;
+    private static final String TAG = "SPUtils";
+    private static MMKV mmkv,cookieMMKV;
 
     /**
      * MMKV支持的数据类型
@@ -23,14 +24,15 @@ public class SPUtils {
             mmkv = MMKV.defaultMMKV();
         }
 
-        //SharedPreferences 迁移
-        //        if (preferences == null) {
-        //            preferences = MMKV.mmkvWithID(CACHE_FILE_NAME);
-        //            SharedPreferences old_man = BaseApplication.getContext().getSharedPreferences(CACHE_FILE_NAME, Context.MODE_PRIVATE);
-        //            preferences.importFromSharedPreferences(old_man);
-        //            old_man.edit().clear().commit();
-        //        }
         return mmkv;
+    }
+
+    public static MMKV getCookiePreferences() {
+        if (cookieMMKV == null) {
+            cookieMMKV = MMKV.mmkvWithID("cookie") ;
+        }
+
+        return cookieMMKV;
     }
 
     public static void clear() {

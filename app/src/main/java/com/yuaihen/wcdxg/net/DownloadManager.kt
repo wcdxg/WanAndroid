@@ -1,4 +1,5 @@
 package com.yuaihen.wcdxg.net
+
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -8,7 +9,6 @@ import com.yuaihen.wcdxg.utils.FileUtil
 import com.yuaihen.wcdxg.utils.FileUtil.writeFile
 import com.yuaihen.wcdxg.utils.LogUtil
 import kotlinx.coroutines.*
-import me.jessyan.retrofiturlmanager.RetrofitUrlManager
 import java.io.File
 import kotlin.coroutines.CoroutineContext
 
@@ -33,11 +33,10 @@ object DownloadManager : CoroutineScope, LifecycleObserver {
         var size: Long = 0
         callback?.onStart()
         //避免BaseUrl更改下载地址被替换hosts
-        val newUrl = RetrofitUrlManager.getInstance().setUrlNotChange(url)
         launch {
             withContext(Dispatchers.IO) {
                 LogUtil.e(TAG, "onSubscribe: 开始下载")
-                val response = getInstance().downloadFile(newUrl)
+                val response = getInstance().downloadFile(url)
                 size = response.contentLength()
                 val fileName = FileUtil.getFileName(url)
                 val file = File(FileUtil.getFileTypePath(fileName) + fileName)

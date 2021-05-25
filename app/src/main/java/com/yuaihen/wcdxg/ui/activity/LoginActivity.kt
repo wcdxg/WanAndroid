@@ -104,34 +104,6 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
      */
     private fun loginByLeanCloud(userName: String, pwd: String) {
         loginViewModel.login(userName, pwd)
-//
-//        binding.progressBar.visible()
-//        AVUser.logIn(userName, pwd).subscribe(object : io.reactivex.Observer<AVUser> {
-//            override fun onSubscribe(d: Disposable) {
-//            }
-//
-//            override fun onNext(t: AVUser) {
-//                UserUtil.setUserIsLogin(true)
-//                toast(R.string.login_success)
-//                start2Activity(MainActivity::class.java, finish = true)
-//            }
-//
-//            override fun onError(e: Throwable) {
-//                if (e.message!!.contains("Could not find user")) {
-//                    toast("用户未注册")
-//                    start2Activity(RegisterActivity::class.java)
-//                } else {
-//                    toast("登录失败 ${e.message}")
-//                }
-//                LogUtil.d("hello", "onError: ${e.message}")
-//                binding.progressBar.visibility = View.INVISIBLE
-//            }
-//
-//            override fun onComplete() {
-//
-//            }
-//
-//        })
     }
 
 
