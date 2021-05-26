@@ -9,7 +9,7 @@
         android:label="MineFragment" />
     <fragment
         android:id="@+id/videoFragment"
-        android:name="com.yuaihen.wcdxg.ui.fragment.VideoFragment"
+        android:name="com.yuaihen.wcdxg.ui.fragment.HomeFragment"
         android:label="VideoFragment" />
     <fragment
         android:id="@+id/wordBookFragment"

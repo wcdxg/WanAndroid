@@ -100,6 +100,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     implementation 'com.cysion:ImagePicker:1.2.1.Q'
+    implementation 'io.github.youth5201314:banner:2.2.1'
 
 
     implementation project(':livedatabus')

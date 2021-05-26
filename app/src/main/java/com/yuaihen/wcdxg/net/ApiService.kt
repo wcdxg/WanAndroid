@@ -5,6 +5,7 @@ import com.ihsanbal.logging.LoggingInterceptor
 import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.Constants
+import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.net.model.LoginModel
 import com.yuaihen.wcdxg.utils.AppUtil
 import com.yuaihen.wcdxg.utils.LogUtil
@@ -54,6 +55,12 @@ interface ApiService {
      */
     @GET("user/logout/json")
     suspend fun logout(): BaseResponse<LoginModel>
+
+    /**
+     * 获取轮播图
+     */
+    @GET("banner/json")
+    suspend fun getBanner(): BaseResponse<BannerModel>
 
     /**
      * 下载文件
@@ -147,7 +154,9 @@ interface ApiService {
             return builder.build()
         }
 
-
+        /**
+         * Cookie去重
+         */
         private fun encodeCookie(cookies: List<String>): String {
             val sb = StringBuilder()
             val set = hashSetOf<String>()

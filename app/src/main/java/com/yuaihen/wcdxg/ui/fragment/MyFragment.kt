@@ -5,10 +5,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentMyBinding
+import com.yuaihen.wcdxg.mvvm.viewmodel.MyViewModel
 import com.yuaihen.wcdxg.ui.activity.EditUserInfoActivity
+import com.yuaihen.wcdxg.ui.activity.LoginActivity
 import com.yuaihen.wcdxg.utils.DialogUtil
+import com.yuaihen.wcdxg.utils.UserUtil
 
 /**
  * Created by Yuaihen.
@@ -20,6 +24,7 @@ class MyFragment : BaseFragment() {
     private var _binding: FragmentMyBinding? = null
     private val binding get() = _binding!!
     private val mDialogUtil by lazy { DialogUtil() }
+    private val myViewModel by viewModels<MyViewModel>()
 
     companion object {
         const val REQUEST_CODE_EDIT = 6666
@@ -32,10 +37,28 @@ class MyFragment : BaseFragment() {
 
     override fun initListener() {
         binding.tvExitLogin.setOnClickListener {
-            mDialogUtil.showExitLoginDialog(requireContext())
+            mDialogUtil.showExitLoginDialog(requireContext()) {
+                //清除保存的Cookie信息
+                UserUtil.clearCookie()
+                myViewModel.logout()
+            }
         }
         binding.tvEdit.setOnClickListener {
-            startActivityForResult(Intent(requireContext(), EditUserInfoActivity::class.java), REQUEST_CODE_EDIT)
+            startActivityForResult(
+                Intent(requireContext(), EditUserInfoActivity::class.java),
+                REQUEST_CODE_EDIT
+            )
+        }
+
+        myViewModel.logoutSuccess.observe(this) {
+            if (it) {
+                //退回到登录页面
+                activity?.finish()
+                startActivity(Intent(context, LoginActivity::class.java))
+            }
+        }
+        myViewModel.errorLiveData.observe(this) {
+            toast(it)
         }
     }
 
