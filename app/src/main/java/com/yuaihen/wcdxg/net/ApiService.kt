@@ -1,8 +1,10 @@
 package com.yuaihen.wcdxg.net
 
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
-import com.xiaolei.OkhttpCacheInterceptor.CacheInterceptor
 import com.xiaolei.OkhttpCacheInterceptor.Header.CacheHeaders
 import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
@@ -84,6 +86,7 @@ interface ApiService {
 
         @Volatile
         private var instance: ApiService? = null
+        private var cookieJar: PersistentCookieJar? = null
 
         fun getInstance(): ApiService = instance ?: synchronized(ApiService::class.java) {
             instance ?: Retrofit.Builder()
@@ -97,74 +100,53 @@ interface ApiService {
 
         }
 
+        fun getCookieJar(): PersistentCookieJar {
+            return cookieJar ?: PersistentCookieJar(
+                SetCookieCache(),
+                SharedPrefsCookiePersistor(BaseApplication.getContext())
+            )
+        }
 
         private fun getClient(): OkHttpClient {
-//            val file = FileUtils.getCacheFolder()
-//            val cache = Cache(file, 1024 * 1024 * 100)
-
             val builder = OkHttpClient.Builder()
             builder.apply {
                 connectTimeout(30, TimeUnit.SECONDS)
                 readTimeout(30, TimeUnit.SECONDS)
                 writeTimeout(30, TimeUnit.SECONDS)
-                addInterceptor(CacheInterceptor(BaseApplication.getContext()))
+                    .cookieJar(getCookieJar())
+//                addInterceptor(CacheInterceptor(BaseApplication.getContext()))
                 retryOnConnectionFailure(true)
-                addInterceptor() {
-                    //get response cookie
-                    val request = it.request()
-                    val response = it.proceed(request)
-                    val requestUrl = request.url.toString()
-                    val domain = request.url.host
-                    //保存登录时返回的cookie
-                    if ((requestUrl.contains("user/login") || requestUrl.contains("user/register"))
-                        && response.headers("Set-Cookie").isNotEmpty()
-                    ) {
-                        val cookies = response.headers("Set-Cookie")
-                        val cookie = encodeCookie(cookies)
-                        LogUtil.d("hello", "intercept: $cookie")
-                        saveCookie(requestUrl, domain, cookie)
-                    }
-                    response
-
-                }
-                addInterceptor {
-                    //set request cookie
-                    val request = it.request()
-                    val builder = request.newBuilder()
-                    val domain = request.url.host
-                    //get domain cookie
-                    if (domain.isNotEmpty()) {
-                        val cookie =
-                            SPUtils.getCookiePreferences().decodeString(domain, "") ?: ""
-                        if (cookie.isNotEmpty()) {
-                            builder.addHeader("Cookie", cookie)
-                        }
-                    }
-
-                    it.proceed(request)
-                }
-
-                //添加Cache拦截器 有网时添加到缓存 无网取出缓存
-//                val file = FileUtils.getCacheFolder()
-//                val cache = Cache(file, 1024 * 1024 * 100)
-//                cache(cache).addInterceptor {
-//                    //有网络时缓存到本地
+//                addInterceptor() {
+//                    //get response cookie
 //                    val request = it.request()
-//                    if (NetworkUtils.getNetworkType() != NetworkUtils.NetworkType.NETWORK_NO) {
-//                        val newRequest = request.newBuilder()
-//                            .cacheControl(CacheControl.FORCE_CACHE)
-//                            .build()
-//                        it.proceed(newRequest)
-//                    } else {
-//                        //无网络时取出缓存
-//                        val maxTime = 24 * 60 * 60
-//                        val response = it.proceed(request)
-//                        val newResponse = response.newBuilder()
-//                            .header("Cache-Control", "public, only-if-cached, max-stale=$maxTime")
-//                            .removeHeader("Progma")
-//                            .build()
-//                        newResponse
+//                    val response = it.proceed(request)
+//                    val requestUrl = request.url.toString()
+//                    val domain = request.url.host
+//                    //保存登录时返回的cookie
+//                    if ((requestUrl.contains(NetConstants.LOGIN) || requestUrl.contains(NetConstants.REGISTER))
+//                        && response.headers("Set-Cookie").isNotEmpty()
+//                    ) {
+//                        val cookies = response.headers("Set-Cookie")
+//                        val cookie = encodeCookie(cookies)
+//                        saveCookie(requestUrl, domain, cookie)
 //                    }
+//                    response
+//
+//                }
+//                addInterceptor {
+//                    //set request cookie
+//                    val request = it.request()
+//                    val builder = request.newBuilder()
+//                    val domain = request.url.host
+//                    //get domain cookie
+//                    if (domain.isNotEmpty()) {
+//                        val cookie =
+//                            SPUtils.getCookiePreferences().decodeString(domain, "") ?: ""
+//                        if (cookie.isNotEmpty()) {
+//                            builder.addHeader("Cookie", cookie)
+//                        }
+//                    }
+//                    it.proceed(request)
 //                }
             }
 

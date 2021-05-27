@@ -16,4 +16,12 @@ object UserUtil {
     fun getCookie(): String {
         return SPUtils.getCookiePreferences().decodeString(Constants.Cookie, "")
     }
+
+    fun setLoginStatus(loginStatus: Boolean) {
+        SPUtils.setBoolean(Constants.LOGIN_STATUS, loginStatus)
+    }
+
+    fun getLoginStatus(): Boolean {
+        return SPUtils.getBoolean(Constants.LOGIN_STATUS)
+    }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentMineBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyViewModel
+import com.yuaihen.wcdxg.net.ApiService
 import com.yuaihen.wcdxg.ui.activity.EditUserInfoActivity
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
 import com.yuaihen.wcdxg.utils.DialogUtil
@@ -39,7 +40,9 @@ class MyFragment : BaseFragment() {
         binding.tvExitLogin.setOnClickListener {
             mDialogUtil.showExitLoginDialog(requireContext()) {
                 //清除保存的Cookie信息
-                UserUtil.clearCookie()
+                ApiService.getCookieJar().clear()
+                UserUtil.setLoginStatus(false)
+//                UserUtil.clearCookie()
                 myViewModel.logout()
             }
         }

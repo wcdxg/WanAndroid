@@ -12,6 +12,7 @@ import android.os.Environment
 object Constants {
 
     const val Cookie = "cookie"
+    const val LOGIN_STATUS = "loginStatus"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

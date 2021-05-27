@@ -37,7 +37,7 @@ class SplashActivity : BaseActivity() {
 
     private fun login() {
         lifecycleScope.launch {
-            if (UserUtil.getCookie().isNotEmpty()) {
+            if (UserUtil.getLoginStatus()) {
                 start2Activity(MainActivity::class.java, null, true)
             } else {
                 start2Activity(LoginActivity::class.java, null, true)

@@ -26,7 +26,6 @@ class HomeFragment : BaseFragment() {
     private val homeViewModel by activityViewModels<HomeViewModel>()
 
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
-        Log.d("hello", "getBindingView: HomeFragment创建")
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

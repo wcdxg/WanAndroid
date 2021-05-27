@@ -71,17 +71,6 @@ class MainActivity : BaseActivity() {
         }
     }
 
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("hello", "onStop: ${isFinishing}")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("hello", "onDestroy: ")
-    }
-
     override fun initImmersionBar() {
         super.initImmersionBar()
         ImmersionBar.with(this)

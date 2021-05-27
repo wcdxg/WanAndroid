@@ -12,6 +12,7 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityLoginBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.LoginRegisterViewModel
+import com.yuaihen.wcdxg.utils.UserUtil
 import com.yuaihen.wcdxg.utils.invisible
 import com.yuaihen.wcdxg.utils.visible
 
@@ -42,7 +43,7 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
         loginViewModel.loginLiveData.observe(this) {
             if (it) {
                 toast(R.string.login_success)
-//                UserUtil.setUserIsLogin(true)
+                UserUtil.setLoginStatus(true)
                 start2Activity(MainActivity::class.java, finish = true)
             }
         }

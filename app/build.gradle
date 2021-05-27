@@ -106,6 +106,9 @@ dependencies {
     implementation('com.xiaolei:OkhttpCacheInterceptor:1.0.0') {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
+    implementation('com.github.franmontiel:PersistentCookieJar:v1.0.1') {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
 
 
     implementation project(':livedatabus')
