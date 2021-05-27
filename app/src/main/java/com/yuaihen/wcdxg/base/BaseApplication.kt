@@ -2,12 +2,12 @@ package com.yuaihen.wcdxg.base
 
 import android.app.Application
 import android.content.Context
+import com.blankj.utilcode.util.AppUtils
 import com.kongzue.dialogx.DialogX
 import com.lzy.imagepicker.ImagePicker
 import com.tencent.bugly.Bugly
 import com.tencent.mmkv.MMKV
 import com.yuaihen.wcdxg.common.imagePicker.GlideImageLoader
-import com.yuaihen.wcdxg.utils.AppUtil
 
 /**
  * Created by Yuaihen.
@@ -34,7 +34,7 @@ class BaseApplication : Application() {
     private fun initLibrary() {
         MMKV.initialize(context)
         // 调试时，将第三个参数改为true输出日志
-        Bugly.init(context, "117d8d9e5f", !AppUtil.isRelease())
+        Bugly.init(context, "117d8d9e5f", AppUtils.isAppDebug())
         //DialogX
         DialogX.init(this)
         //设置主题样式

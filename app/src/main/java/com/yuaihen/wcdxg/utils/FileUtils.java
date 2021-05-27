@@ -7,50 +7,14 @@ import com.blankj.utilcode.util.LogUtils;
 import com.yuaihen.wcdxg.base.Constants;
 import com.yuaihen.wcdxg.ui.interf.DownloadCallback;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FileUtil {
+public class FileUtils {
 
-    private static final String TAG = "FileUtil";
-
-    public static String fileToString(String filePath) {
-        File file = new File(filePath);
-        if (file.exists()) {
-            try {
-                byte[] buffer = new byte[(int) file.length()];
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-                bis.read(buffer);
-                bis.close();
-                String data = Base64Util.encode(buffer);
-                return data;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    public static byte[] fileToBytes(String filePath) {
-        File file = new File(filePath);
-        if (file.exists()) {
-            try {
-                byte[] buffer = new byte[(int) file.length()];
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-                bis.read(buffer);
-                bis.close();
-                return buffer;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
+    private static final String TAG = "FileUtils";
 
     public static boolean deleteFile(String path) {
         File file = new File(path);
@@ -157,8 +121,6 @@ public class FileUtil {
         if (fileName.endsWith("jpg") || fileName.endsWith("png") ||
                 fileName.endsWith("gif") || fileName.endsWith("jpeg") || fileName.endsWith("webp")) {
             path = Constants.IMAGE_CACHE_DIRECTORY;
-        } else if (fileName.endsWith("mp4")) {
-//            path = Constants.VIDEO_CACHE_DIRECTORY;
         } else {
             path = Constants.FILE_CACHE_DIRECTORY;
         }
@@ -197,29 +159,15 @@ public class FileUtil {
     }
 
     /**
-     * 获取视频缓存目录
+     * @return 获取缓存目录
      */
-//    public static String getVideoCachePath() {
-//        String path = Constants.VIDEO_CACHE_DIRECTORY;
-//        File file = new File(path);
-//        if (!file.exists()) {
-//            file.mkdir();
-//        }
-//        return path;
-//    }
+    public static File getCacheFolder() {
+        File file = new File(Constants.NET_CACHE_DIRECTORY);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
 
-    /**
-     * 清空视频缓存目录
-     */
-//    public static void clearVideoCacheFiles() {
-//        String localDirPath = Constants.VIDEO_CACHE_DIRECTORY;
-//        File localDir = new File(localDirPath);
-//        if (localDir.exists()) {
-//            for (File file : localDir.listFiles()) {
-//                file.delete();
-//            }
-//        }
-//    }
-
+        return file;
+    }
 
 }

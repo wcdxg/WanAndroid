@@ -2,24 +2,23 @@ package com.yuaihen.wcdxg.net
 
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
+import com.xiaolei.OkhttpCacheInterceptor.CacheInterceptor
+import com.xiaolei.OkhttpCacheInterceptor.Header.CacheHeaders
 import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.Constants
+import com.yuaihen.wcdxg.base.NetConstants
 import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.net.model.LoginModel
-import com.yuaihen.wcdxg.utils.AppUtil
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.SPUtils
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.internal.platform.Platform
-import okio.Buffer
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 
@@ -33,34 +32,35 @@ interface ApiService {
      * 注册
      */
     @FormUrlEncoded
-    @POST("user/register")
+    @POST(NetConstants.REGISTER)
     suspend fun register(
         @Field("username") userName: String,
         @Field("password") password: String,
         @Field("repassword") repassword: String
-    ): BaseResponse<LoginModel>
+    ): LoginModel
 
     /**
      * 登录
      */
     @FormUrlEncoded
-    @POST("user/login")
+    @POST(NetConstants.LOGIN)
     suspend fun login(
         @Field("username") userName: String,
         @Field("password") password: String,
-    ): BaseResponse<LoginModel>
+    ): LoginModel
 
     /**
      * 退出登录
      */
-    @GET("user/logout/json")
-    suspend fun logout(): BaseResponse<LoginModel>
+    @GET(NetConstants.LOGOUT)
+    suspend fun logout(): LoginModel
 
     /**
      * 获取轮播图
      */
-    @GET("banner/json")
-    suspend fun getBanner(): BaseResponse<BannerModel>
+    @Headers(CacheHeaders.NORMAL)
+    @GET(NetConstants.GET_BANNER)
+    suspend fun getBanner(): BannerModel
 
     /**
      * 下载文件
@@ -72,8 +72,7 @@ interface ApiService {
 
     /*--------------------------------------Retrofit-----------------------------------------------------*/
     companion object {
-        val TAG = "Api"
-        private val SERVER_URL = "https://www.wanandroid.com/"
+        val TAG = "data"
 
         //定义后台返回的异常code
         const val SUCCESS = 0 // 成功
@@ -88,7 +87,7 @@ interface ApiService {
 
         fun getInstance(): ApiService = instance ?: synchronized(ApiService::class.java) {
             instance ?: Retrofit.Builder()
-                .baseUrl(SERVER_URL)
+                .baseUrl(NetConstants.APP_BASE_URL)
                 .client(getClient())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -100,10 +99,16 @@ interface ApiService {
 
 
         private fun getClient(): OkHttpClient {
-            val builder = OkHttpClient.Builder().apply {
+//            val file = FileUtils.getCacheFolder()
+//            val cache = Cache(file, 1024 * 1024 * 100)
+
+            val builder = OkHttpClient.Builder()
+            builder.apply {
                 connectTimeout(30, TimeUnit.SECONDS)
                 readTimeout(30, TimeUnit.SECONDS)
                 writeTimeout(30, TimeUnit.SECONDS)
+                addInterceptor(CacheInterceptor(BaseApplication.getContext()))
+                retryOnConnectionFailure(true)
                 addInterceptor() {
                     //get response cookie
                     val request = it.request()
@@ -138,6 +143,29 @@ interface ApiService {
 
                     it.proceed(request)
                 }
+
+                //添加Cache拦截器 有网时添加到缓存 无网取出缓存
+//                val file = FileUtils.getCacheFolder()
+//                val cache = Cache(file, 1024 * 1024 * 100)
+//                cache(cache).addInterceptor {
+//                    //有网络时缓存到本地
+//                    val request = it.request()
+//                    if (NetworkUtils.getNetworkType() != NetworkUtils.NetworkType.NETWORK_NO) {
+//                        val newRequest = request.newBuilder()
+//                            .cacheControl(CacheControl.FORCE_CACHE)
+//                            .build()
+//                        it.proceed(newRequest)
+//                    } else {
+//                        //无网络时取出缓存
+//                        val maxTime = 24 * 60 * 60
+//                        val response = it.proceed(request)
+//                        val newResponse = response.newBuilder()
+//                            .header("Cache-Control", "public, only-if-cached, max-stale=$maxTime")
+//                            .removeHeader("Progma")
+//                            .build()
+//                        newResponse
+//                    }
+//                }
             }
 
             if (BuildConfig.DEBUG) {
@@ -186,121 +214,6 @@ interface ApiService {
             domain ?: return
             SPUtils.getCookiePreferences().encode(domain, cookie)
             SPUtils.getCookiePreferences().encode(Constants.Cookie, cookie)
-        }
-    }
-
-
-    /**
-     * 自定义Log打印和添加自定义参数
-     * post请求采用form表单方式
-     */
-    class MyIntercepter : Interceptor {
-
-        override fun intercept(chain: Interceptor.Chain): Response {
-            lateinit var newRequestBuild: Request.Builder
-            lateinit var newRequest: Request
-            val request = chain.request()
-            val method: String = request.method
-            var postBodyString = ""
-            if (method.equals("POST", ignoreCase = true)) {
-                val body = request.body
-                when (body) {
-                    is FormBody? -> {
-                        val formBody = body as FormBody?
-                        val builder = FormBody.Builder()
-                        builder.add(Constants.MAC, AppUtil.getMacAddress())
-                            .add(
-                                Constants.VERSION,
-                                AppUtil.getVersionCode(BaseApplication.getContext()).toString()
-                            )
-
-                        formBody?.let {
-                            for (index in 0 until formBody.size) {
-                                builder.add(
-                                    formBody.encodedName(index),
-                                    formBody.encodedValue(index)
-                                )
-                            }
-                        }
-
-                        postBodyString += (if (postBodyString.isNotEmpty()) "&" else "") + bodyToString(
-                            builder.build()
-                        )
-                        newRequestBuild = request.newBuilder()
-                        newRequestBuild.post(postBodyString.toRequestBody("application/x-www-form-urlencoded;charset=UTF-8".toMediaTypeOrNull()))
-                    }
-
-                    is MultipartBody? -> {
-                        val oldPartList = body?.parts
-                        oldPartList?.let {
-                            val builder = MultipartBody.Builder()
-                            builder.setType(MultipartBody.FORM)
-//                            val requestBody1 = AppUtil.getMacAddress()
-//                                .toRequestBody("text/plain".toMediaTypeOrNull())
-//                            val requestBody2 =
-//                                AppUtil.getVersionCode(BaseApplication.getContext()).toString()
-//                                    .toRequestBody("text/plain".toMediaTypeOrNull())
-//                            val requestBody3 =
-//                                UserUtil.getToken().toRequestBody("text/plain".toMediaTypeOrNull())
-                            for (part in it) {
-                                builder.addPart(part)
-                                postBodyString += bodyToString(part.body) + "\n"
-                            }
-//                            postBodyString += bodyToString(requestBody1) + "\n"
-//                            postBodyString += bodyToString(requestBody2) + "\n"
-//                            postBodyString += bodyToString(requestBody3) + "\n"
-                            //              builder.addPart(oldBody);  //不能用这个方法，因为不知道oldBody的类型，可能是PartMap过来的，也可能是多个Part过来的，所以需要重新逐个加载进去
-//                            builder.addPart(requestBody1)
-//                            builder.addPart(requestBody2)
-//                            builder.addPart(requestBody3)
-                            newRequestBuild = request.newBuilder()
-                            newRequestBuild.post(builder.build())
-                        }
-                    }
-                    //More Type
-                    else -> {
-                        val formBodyBuilder = FormBody.Builder()
-//                        formBodyBuilder.addEncoded(Constants.TOKEN, UserUtil.getToken())
-//                        formBodyBuilder.addEncoded(Constants.MAC, AppUtil.getMacAddress())
-//                        formBodyBuilder.addEncoded(
-//                            Constants.VERSION,
-//                            AppUtil.getVersionCode(BaseApplication.getContext()).toString() + ""
-//                        )
-                        newRequestBuild = request.newBuilder()
-
-                        val formBody: RequestBody = formBodyBuilder.build()
-                        postBodyString = bodyToString(request.body)
-                        postBodyString += (if (postBodyString.isNotEmpty()) "&" else "") + bodyToString(
-                            formBody
-                        )
-                        newRequestBuild.post(postBodyString.toRequestBody("application/x-www-form-urlencoded;charset=UTF-8".toMediaTypeOrNull()))
-
-                    }
-                }
-                newRequest = newRequestBuild
-                    .addHeader("Accept", "application/json")
-                    .addHeader("Accept-Language", "zh")
-                    .build()
-            } else {
-                //GET
-                newRequest = request
-            }
-
-            return chain.proceed(newRequest)
-        }
-
-        private fun bodyToString(request: RequestBody?): String {
-            return try {
-                val buffer = Buffer()
-                if (request != null) {
-                    request.writeTo(buffer)
-                } else {
-                    return ""
-                }
-                buffer.readUtf8()
-            } catch (e: IOException) {
-                "did not work"
-            }
         }
     }
 }

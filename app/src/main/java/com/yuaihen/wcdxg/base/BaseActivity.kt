@@ -11,7 +11,6 @@ import com.gyf.immersionbar.ImmersionBar
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.kongzue.dialogx.interfaces.OnBackPressedListener
 import com.lyt.livedatabus.LiveDataBus
-import com.yuaihen.wcdxg.AppManager
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.common.event.EventCode
 import com.yuaihen.wcdxg.utils.LogUtil
@@ -36,7 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         initTransitionMode()
         super.onCreate(savedInstanceState)
-        AppManager.getInstance().addActivity(this);
+//        AppManager.getInstance().addActivity(this);
         mContext = this
         if (getLayoutId() > 0) {
             setContentView(getLayoutId())
@@ -64,12 +63,8 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected open fun initImmersionBar() {
         ImmersionBar.with(this)
-//            .statusBarColorTransform(android.R.color.white)
-//            .statusBarDarkFont(true)
-//            .statusBarColor(R.color.white)
+            .transparentBar()
             .navigationBarAlpha(0f)
-            .fullScreen(true)
-            .barAlpha(0f)
             .init()
     }
 
@@ -173,13 +168,17 @@ abstract class BaseActivity : AppCompatActivity() {
         return TransitionMode.DEFAULT
     }
 
+    override fun onStop() {
+        super.onStop()
+        hideLoading()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
-        hideLoading()
-        AppManager.getInstance().hideSoftKeyBoard(this)
-        AppManager.getInstance().removeActivity(this);
+//        AppManager.getInstance().hideSoftKeyBoard(this)
+//        AppManager.getInstance().removeActivity(this);
     }
+
 
     inline fun <reified T : BaseActivity> start2Activity(
         cls: Class<T>,

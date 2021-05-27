@@ -11,7 +11,7 @@ import com.yuaihen.wcdxg.net.model.LoginModel
  */
 class MyRepository : BaseRepository {
 
-    suspend fun logout(): BaseResponse<LoginModel> {
+    suspend fun logout(): LoginModel {
         return ApiService.getInstance().logout()
     }
 }

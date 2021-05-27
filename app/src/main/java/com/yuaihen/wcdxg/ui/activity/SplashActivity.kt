@@ -4,7 +4,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivitySplashBinding
-import com.yuaihen.wcdxg.utils.SPUtils
+import com.yuaihen.wcdxg.utils.PermissionUtils
 import com.yuaihen.wcdxg.utils.UserUtil
 import kotlinx.coroutines.launch
 
@@ -21,9 +21,21 @@ class SplashActivity : BaseActivity() {
         return binding.root
     }
 
+    override fun initListener() {
+        //申请运行权限
+        PermissionUtils.requestAppPermission(this) { allGranted: Boolean, deniedList: List<String?> ->
+            if (allGranted) {
+                //权限授予成功
+                login()
+            } else {
+                toast("权限被拒绝，请到设置中手动开启")
+                finish()
+            }
 
-    override fun initData() {
-        SPUtils.clear()
+        }
+    }
+
+    private fun login() {
         lifecycleScope.launch {
             if (UserUtil.getCookie().isNotEmpty()) {
                 start2Activity(MainActivity::class.java, null, true)
@@ -31,6 +43,10 @@ class SplashActivity : BaseActivity() {
                 start2Activity(LoginActivity::class.java, null, true)
             }
         }
+    }
+
+    override fun initData() {
+
 
     }
 

@@ -5,8 +5,8 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.yuaihen.wcdxg.net.ApiService.Companion.getInstance
 import com.yuaihen.wcdxg.ui.interf.DownloadCallback
-import com.yuaihen.wcdxg.utils.FileUtil
-import com.yuaihen.wcdxg.utils.FileUtil.writeFile
+import com.yuaihen.wcdxg.utils.FileUtils
+import com.yuaihen.wcdxg.utils.FileUtils.writeFile
 import com.yuaihen.wcdxg.utils.LogUtil
 import kotlinx.coroutines.*
 import java.io.File
@@ -38,8 +38,8 @@ object DownloadManager : CoroutineScope, LifecycleObserver {
                 LogUtil.e(TAG, "onSubscribe: 开始下载")
                 val response = getInstance().downloadFile(url)
                 size = response.contentLength()
-                val fileName = FileUtil.getFileName(url)
-                val file = File(FileUtil.getFileTypePath(fileName) + fileName)
+                val fileName = FileUtils.getFileName(url)
+                val file = File(FileUtils.getFileTypePath(fileName) + fileName)
                 filePath = file.absolutePath
                 writeFile(response.byteStream(), file, size, callback)
                 callback?.onSuccess(filePath, tag);

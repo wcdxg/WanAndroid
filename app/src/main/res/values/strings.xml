@@ -2,6 +2,7 @@
     <string name="app_name">我吃大西瓜</string>
     <string name="waiting">正在加载</string>
     <string name="net_not_connected">网络未连接</string>
+    <string name="permission_explain_reason">应用需要获取读写权限，以便于缓存媒体文件</string>
     <string name="permission_forward_desc">您需要在设置中手动开启权限~</string>
     <string name="mine">我的</string>
     <string name="account_hint">用户名</string>
@@ -35,7 +36,10 @@
     <string name="choose_birth_date">请选择出生年月日</string>
     <string name="save_and_submit">保存并提交</string>
     <string name="word_book">单词本</string>
-    <string name="video">视频</string>
+    <string name="exit_tip">再按一次退出APP</string>
+    <string name="home">主页</string>
+    <string name="search">搜索</string>
+
 
 
 </resources>

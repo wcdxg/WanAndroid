@@ -19,7 +19,7 @@ class LoginRegisterViewModel : BaseViewModel() {
         launch(
             {
                 val response = repository.login(userName, userPassword)
-                if (response.isSuccess()) {
+                if (response.errorCode.isSuccess()) {
                     _loginLiveData.postValue(
                         true
                     )
@@ -41,7 +41,7 @@ class LoginRegisterViewModel : BaseViewModel() {
         launch(
             {
                 val response = repository.register(userName, userPassword)
-                if (response.isSuccess()) {
+                if (response.errorCode.isSuccess()) {
                     _loginLiveData.postValue(
                         true
                     )

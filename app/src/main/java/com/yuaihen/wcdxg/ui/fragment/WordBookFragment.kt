@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentWordBookBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.WordBookViewModel
@@ -23,7 +21,6 @@ import kotlin.random.Random
  * on 2021/4/30
  */
 class WordBookFragment : BaseFragment() {
-
     private var _binding: FragmentWordBookBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<WordBookViewModel>()

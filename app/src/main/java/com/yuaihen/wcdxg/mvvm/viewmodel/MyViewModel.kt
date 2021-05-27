@@ -15,14 +15,17 @@ class MyViewModel : BaseViewModel() {
     private val _logoutSuccess = MutableLiveData<Boolean>()
     val logoutSuccess = _logoutSuccess
 
+    /**
+     * 退出登录
+     */
     fun logout() {
         launch(
             {
                 val response = repository.logout()
-                if (response.isSuccess()) {
+                if (response.errorCode.isSuccess()) {
                     _logoutSuccess.postValue(true)
                 } else {
-                    _logoutSuccess.postValue(false)
+                    errorLiveData.postValue(response.errorMsg)
                 }
             }, {
                 errorLiveData.postValue(it)
@@ -31,7 +34,5 @@ class MyViewModel : BaseViewModel() {
             }, false
 
         )
-
-
     }
 }

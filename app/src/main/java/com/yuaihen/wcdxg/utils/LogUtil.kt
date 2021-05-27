@@ -1,15 +1,17 @@
 package com.yuaihen.wcdxg.utils
 
 import android.util.Log
+import com.blankj.utilcode.util.AppUtils
 
 /**
  * Created by Yuaihen.
  * on 2021/3/25
  */
 const val LOGGER = "logger"
+
 object LogUtil {
 
-    var IS_RELEASE = AppUtil.isRelease()
+    var IS_RELEASE = !AppUtils.isAppDebug()
 
     fun v(tag: String = LOGGER, msg: String) {
         if (IS_RELEASE) return

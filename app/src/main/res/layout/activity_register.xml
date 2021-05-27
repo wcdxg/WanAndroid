@@ -182,7 +182,7 @@
         android:id="@+id/progressBar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:indeterminateTint="@color/main_red"
+        android:indeterminateTint="@color/bilibili_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

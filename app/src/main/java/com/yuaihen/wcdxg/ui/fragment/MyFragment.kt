@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.yuaihen.wcdxg.base.BaseFragment
-import com.yuaihen.wcdxg.databinding.FragmentMyBinding
+import com.yuaihen.wcdxg.databinding.FragmentMineBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyViewModel
 import com.yuaihen.wcdxg.ui.activity.EditUserInfoActivity
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
@@ -21,7 +21,7 @@ import com.yuaihen.wcdxg.utils.UserUtil
  */
 class MyFragment : BaseFragment() {
 
-    private var _binding: FragmentMyBinding? = null
+    private var _binding: FragmentMineBinding? = null
     private val binding get() = _binding!!
     private val mDialogUtil by lazy { DialogUtil() }
     private val myViewModel by viewModels<MyViewModel>()
@@ -31,7 +31,7 @@ class MyFragment : BaseFragment() {
     }
 
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
-        _binding = FragmentMyBinding.inflate(inflater)
+        _binding = FragmentMineBinding.inflate(inflater)
         return binding.root
     }
 

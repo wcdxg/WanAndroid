@@ -59,6 +59,8 @@ dependencies {
     def lifecycle_version = "2.2.0"
     def activity_version = "1.1.0"
     def coroutines_version = "1.4.2"
+    def paging_version = "3.0.0"
+    implementation "androidx.paging:paging-runtime:$paging_version"
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
@@ -101,6 +103,9 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     implementation 'com.cysion:ImagePicker:1.2.1.Q'
     implementation 'io.github.youth5201314:banner:2.2.1'
+    implementation('com.xiaolei:OkhttpCacheInterceptor:1.0.0') {
+        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+    }
 
 
     implementation project(':livedatabus')

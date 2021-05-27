@@ -7,7 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.viewModels
-import com.yuaihen.wcdxg.AppManager
+import com.blankj.utilcode.util.KeyboardUtils
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityLoginBinding
@@ -51,7 +51,7 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
     override fun initData() {
         binding.progressBar.invisible()
         binding.btnLogin.setOnClickListener {
-            AppManager.getInstance().hideSoftKeyBoard(this)
+            KeyboardUtils.hideSoftInput(this)
             verificationAccountAndPwd()
         }
         binding.btnRegister.setOnClickListener {

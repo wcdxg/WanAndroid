@@ -9,9 +9,12 @@ import com.yuaihen.wcdxg.net.BaseResponse
  * on 2020/12/18
  * 根据errorCode返回对应提示语句
  */
-
 fun <T> BaseResponse<T>.isSuccess(): Boolean {
     return this.errorCode == ApiService.SUCCESS
+}
+
+fun Int.isSuccess(): Boolean {
+    return this == ApiService.SUCCESS
 }
 
 fun Int.getErrorMsg(): String {

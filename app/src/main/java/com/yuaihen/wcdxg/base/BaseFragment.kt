@@ -20,7 +20,7 @@ import com.yuaihen.wcdxg.utils.ToastUtil
 abstract class BaseFragment : Fragment() {
 
     private lateinit var mContext: FragmentActivity
-    private lateinit var mRootView: View
+    private var mRootView: View? = null
 
     //Fragment对用户可见的标记
     private var isUIVisible = false
@@ -38,52 +38,57 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (getLayoutId() != 0) {
-            mRootView = inflater.inflate(getLayoutId(), container, false)
-        } else {
-            mRootView = getBindingView(inflater, container)
+        //使用Navigation时避免重新创建Fragment
+        if (mRootView == null) {
+            val resId = getLayoutId()
+            mRootView = if (resId != 0) {
+                inflater.inflate(resId, container, false)
+            } else {
+                getBindingView(inflater, container)
+            }
         }
-        return mRootView
+        return mRootView!!
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        isViewCreated = true
+//            isViewCreated = true
         initListener()
         initData()
-        lazyLoad()
+//            lazyLoad()
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-        if (isVisibleToUser) {
-            isUIVisible = true
-            lazyLoad()
-        } else {
-            isUIVisible = false
-        }
-        onFragmentVisibleChange(isVisibleToUser)
-    }
+//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+//        super.setUserVisibleHint(isVisibleToUser)
+//        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
+//        if (isVisibleToUser) {
+//            isUIVisible = true
+//            lazyLoad()
+//        } else {
+//            isUIVisible = false
+//        }
+//        onFragmentVisibleChange(isVisibleToUser)
+//    }
 
     /**
      * Fragment 是否可见
      *
      * @param isUIVisible
      */
-    open fun onFragmentVisibleChange(isUIVisible: Boolean) {
+//    open fun onFragmentVisibleChange(isUIVisible: Boolean) {
+//
+//    }
 
-    }
-
-    open fun lazyLoad() {
-        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
-        if (isViewCreated && isUIVisible) {
-            loadData()
-            //数据加载完毕,恢复标记,防止重复加载
-            isViewCreated = false
-            isUIVisible = false
-        }
-    }
+//    open fun lazyLoad() {
+//        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
+//        if (isViewCreated && isUIVisible) {
+//            loadData()
+//            //数据加载完毕,恢复标记,防止重复加载
+//            isViewCreated = false
+//            isUIVisible = false
+//        }
+//    }
 
     open fun getLayoutId(): Int {
         return 0
@@ -95,29 +100,28 @@ abstract class BaseFragment : Fragment() {
     open fun initData() {
     }
 
-    open fun loadData() {
-    }
+//    open fun loadData() {
+//    }
 
     abstract fun unBindView()
 
     protected open fun getBindingView(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): View {
+    ): View? {
         return mRootView
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         //页面销毁,恢复标记
-        //页面销毁,恢复标记
-        isViewCreated = false
-        isUIVisible = false
+//        isViewCreated = false
+//        isUIVisible = false
         hideLoading()
         unBindView()
     }
 
-    open fun showDialog(waitMsg: String = getString(R.string.waiting)) {
+    open fun showLoading(waitMsg: String = getString(R.string.waiting)) {
         WaitDialog.show(waitMsg).onBackPressedListener =
             OnBackPressedListener {
                 //return true自动关闭等待/提示对话框

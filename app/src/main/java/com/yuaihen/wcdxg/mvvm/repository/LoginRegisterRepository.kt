@@ -2,7 +2,6 @@ package com.yuaihen.wcdxg.mvvm.repository
 
 import com.yuaihen.wcdxg.mvvm.BaseRepository
 import com.yuaihen.wcdxg.net.ApiService
-import com.yuaihen.wcdxg.net.BaseResponse
 import com.yuaihen.wcdxg.net.model.LoginModel
 
 /**
@@ -11,11 +10,11 @@ import com.yuaihen.wcdxg.net.model.LoginModel
  */
 class LoginRegisterRepository : BaseRepository {
 
-    suspend fun login(userName: String, userPassword: String): BaseResponse<LoginModel> {
+    suspend fun login(userName: String, userPassword: String): LoginModel {
         return ApiService.getInstance().login(userName, userPassword)
     }
 
-    suspend fun register(userName: String, userPassword: String): BaseResponse<LoginModel> {
+    suspend fun register(userName: String, userPassword: String): LoginModel {
         return ApiService.getInstance().register(userName, userPassword, userPassword)
     }
 }
