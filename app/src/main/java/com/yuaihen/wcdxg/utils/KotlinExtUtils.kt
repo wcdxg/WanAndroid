@@ -1,6 +1,8 @@
 package com.yuaihen.wcdxg.utils
+
 import android.view.View
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 
 /**
  * Created by Yuaihen.
@@ -21,4 +23,20 @@ fun View.invisible() {
 
 fun String.setGlideUrl(iv: ImageView) {
     GlideUtil.showImageView(iv, this)
+}
+
+
+@BindingAdapter("isGoneFromStr")
+fun bindIsGone(view: View, str: String? = "") {
+    view.visibility = if (str.isNullOrEmpty()) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
+}
+
+
+@BindingAdapter("app:selected")
+fun setSelected(view: View, bool: Boolean) {
+    view.isSelected = bool
 }

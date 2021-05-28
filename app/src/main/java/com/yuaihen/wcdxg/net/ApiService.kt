@@ -11,6 +11,7 @@ import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.base.NetConstants
 import com.yuaihen.wcdxg.net.model.BannerModel
+import com.yuaihen.wcdxg.net.model.HomeArticleModel
 import com.yuaihen.wcdxg.net.model.LoginModel
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.SPUtils
@@ -65,6 +66,13 @@ interface ApiService {
      */
     @GET(NetConstants.GET_BANNER)
     suspend fun getBanner(): BannerModel
+
+    /**
+     * 获取首页文章列表
+     * 页码，拼接在连接中，从0开始
+     */
+    @GET("article/list/{page}/json")
+    suspend fun getHomeArticleList(@Path("page") page: Int): HomeArticleModel
 
     /**
      * 下载文件

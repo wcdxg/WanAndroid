@@ -9,11 +9,13 @@
     <color name="bitmap_place_hold">#AFAEAE</color>
     <color name="gray">#dcdee2</color>
     <color name="red">#ff0000</color>
-    <color name="bilibili_pink">#f27199</color>
+    <color name="bili_bili_pink">#f27199</color>
     <color name="fragment_bg">#f5f5f5</color>
     <color name="green">#19be6b</color>
     <color name="mine_user_title">#99222222</color>
     <color name="mine_user_value">#222222</color>
     <color name="mine_view_line">#e8eaec</color>
     <color name="mine_exit_login">#ed4014</color>
+    <color name="collect_icon">#f86735</color>
+    <color name="title_color_black">#CD000000</color>
 </resources>

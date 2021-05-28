@@ -2,7 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Wcdxg" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/bilibili_pink</item>
+        <item name="colorPrimary">@color/bili_bili_pink</item>
+        <item name="colorAccent">@color/bili_bili_pink</item>
         <!-- Status bar color. -->
         <!--        <item name="android:statusBarColor" tools:targetApi="l">@android:color/white</item>-->
         <!-- Customize your theme here. -->

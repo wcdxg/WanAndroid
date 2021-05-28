@@ -1,6 +1,5 @@
 package com.yuaihen.wcdxg.ui.activity
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -74,7 +73,7 @@ class MainActivity : BaseActivity() {
     override fun initImmersionBar() {
         super.initImmersionBar()
         ImmersionBar.with(this)
-            .statusBarColor(R.color.bilibili_pink)
+            .statusBarColor(R.color.bili_bili_pink)
             .init()
     }
 }

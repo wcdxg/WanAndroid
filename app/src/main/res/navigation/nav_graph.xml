@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/home"
-        android:name="com.yuaihen.wcdxg.ui.fragment.HomeFragment"
+        android:name="com.yuaihen.wcdxg.ui.home.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_home_to_mineFragment"
