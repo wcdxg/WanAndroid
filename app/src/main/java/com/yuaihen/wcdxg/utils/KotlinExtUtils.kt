@@ -25,18 +25,27 @@ fun String.setGlideUrl(iv: ImageView) {
     GlideUtil.showImageView(iv, this)
 }
 
-
-@BindingAdapter("isGoneFromStr")
-fun bindIsGone(view: View, str: String? = "") {
-    view.visibility = if (str.isNullOrEmpty()) {
-        View.GONE
-    } else {
-        View.VISIBLE
-    }
+fun String.trimHtml(): String {
+    this.replace("</p>", "")
+    this.replace("<p>", "")
+    this.replace("\r", "")
+    this.replace("<strong>", "")
+    this.replace("</strong>", "")
+    return this
 }
 
+//@BindingAdapter("isGoneFromStr")
+//fun bindIsGone(view: View, str: String? = "") {
+//    view.visibility = if (str.isNullOrEmpty()) {
+//        View.GONE
+//    } else {
+//        View.VISIBLE
+//    }
+//}
+//
+//
+//@BindingAdapter("app:selected")
+//fun setSelected(view: View, bool: Boolean) {
+//    view.isSelected = bool
+//}
 
-@BindingAdapter("app:selected")
-fun setSelected(view: View, bool: Boolean) {
-    view.isSelected = bool
-}

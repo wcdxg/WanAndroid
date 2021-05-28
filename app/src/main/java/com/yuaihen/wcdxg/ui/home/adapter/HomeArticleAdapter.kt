@@ -8,6 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
 import com.yuaihen.wcdxg.net.model.HomeArticleModel
+import com.yuaihen.wcdxg.utils.trimHtml
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
 import com.yuaihen.wcdxg.viewbinding.getViewHolder
 
@@ -54,8 +55,8 @@ class HomeArticleAdapter :
             with(holder.mBinding) {
                 tvAuthor.text = if (it.author.isEmpty()) it.shareUser else it.author
                 tvPublishTime.text = it.niceDate
-                tvTitle.text = Html.fromHtml(it.title).toString()
-                tvDesc.text = Html.fromHtml(it.desc).toString()
+                tvTitle.text = Html.fromHtml(it.title.trimHtml()).toString()
+                tvDesc.text = Html.fromHtml(it.desc.trimHtml()).toString()
                 tvChapterName.text = "${it.superChapterName}-${it.chapterName}"
                 ivCollect.isSelected = it.collect
                 recycleTags.adapter = ArticleTagAdapter(it.tags)

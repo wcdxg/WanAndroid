@@ -51,13 +51,12 @@ class HomeFragment : BaseFragment() {
         }
 
         homeViewModel.articleLiveData.observe(this) {
-            binding.swipeRefresh.isRefreshing = false
+//            binding.swipeRefresh.isRefreshing = false
             setArticleData(it)
         }
-        binding.swipeRefresh.setOnRefreshListener {
-            pagingAdapter.refresh()
-//            homeViewModel.getArticle()
-        }
+//        binding.swipeRefresh.setOnRefreshListener {
+//            pagingAdapter.refresh()
+//        }
     }
 
     override fun initData() {

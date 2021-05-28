@@ -36,11 +36,10 @@ class HomeArticlePagingSource : PagingSource<Int, HomeArticleModel.Data.Data>() 
     }
 
     override fun getRefreshKey(state: PagingState<Int, HomeArticleModel.Data.Data>): Int? {
-        return state.anchorPosition?.let {
-            val anchorPage = state.closestPageToPosition(it)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-        }
+        return state.anchorPosition
+            ?.let {
+                val anchorPage = state.closestPageToPosition(it)
+                anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+            }
     }
-
-
 }
