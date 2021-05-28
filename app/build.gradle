@@ -103,12 +103,13 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     implementation 'com.cysion:ImagePicker:1.2.1.Q'
     implementation 'io.github.youth5201314:banner:2.2.1'
-    implementation('com.xiaolei:OkhttpCacheInterceptor:1.0.0') {
-        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
-    }
+//    implementation('com.xiaolei:OkhttpCacheInterceptor:1.0.0') {
+//        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+//    }
     implementation('com.github.franmontiel:PersistentCookieJar:v1.0.1') {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
 
     implementation project(':livedatabus')

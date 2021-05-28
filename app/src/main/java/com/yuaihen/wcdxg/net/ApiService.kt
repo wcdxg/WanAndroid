@@ -1,11 +1,11 @@
 package com.yuaihen.wcdxg.net
 
+import com.blankj.utilcode.util.NetworkUtils
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
-import com.xiaolei.OkhttpCacheInterceptor.Header.CacheHeaders
 import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.Constants
@@ -14,6 +14,8 @@ import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.net.model.LoginModel
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.SPUtils
+import okhttp3.Cache
+import okhttp3.CacheControl
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.internal.platform.Platform
@@ -21,6 +23,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.*
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 
@@ -60,7 +63,6 @@ interface ApiService {
     /**
      * 获取轮播图
      */
-    @Headers(CacheHeaders.NORMAL)
     @GET(NetConstants.GET_BANNER)
     suspend fun getBanner(): BannerModel
 
@@ -108,14 +110,48 @@ interface ApiService {
         }
 
         private fun getClient(): OkHttpClient {
+            val httpCacheDir = File(BaseApplication.getContext().externalCacheDir, "response")
+            //缓存10M
+            val cacheSize = 10 * 1024 * 1024.toLong()
+            val cache = Cache(httpCacheDir, cacheSize)
             val builder = OkHttpClient.Builder()
             builder.apply {
                 connectTimeout(30, TimeUnit.SECONDS)
                 readTimeout(30, TimeUnit.SECONDS)
                 writeTimeout(30, TimeUnit.SECONDS)
-                    .cookieJar(getCookieJar())
+//                cookieJar(getCookieJar())
 //                addInterceptor(CacheInterceptor(BaseApplication.getContext()))
                 retryOnConnectionFailure(true)
+                cache(cache)
+                addInterceptor {
+                    var request = it.request()
+                    if (!NetworkUtils.isAvailable()) {
+                        //网络不可用 离线缓存保存4周 单位秒
+                        val maxStale = 60 * 60 * 24 * 7
+                        val tempCacheControl = CacheControl.Builder()
+                            .onlyIfCached()
+                            .maxStale(maxStale, TimeUnit.SECONDS)
+                            .build()
+                        request = request.newBuilder()
+                            .cacheControl(tempCacheControl)
+                            .build()
+                    }
+
+                    it.proceed(request)
+                }
+                addNetworkInterceptor {
+                    //只有网络拦截器环节才会写入缓存写入缓存,在有网络的时候 设置缓存时间
+                    val request = it.request()
+                    val originalResponse = it.proceed(request)
+                    val maxAge = 1 * 60 //在线缓存在1分钟内可读取 单位秒
+                    originalResponse.newBuilder()
+                        .removeHeader("Pragma")//清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "public, max-age=" + maxAge)
+                        .build()
+
+                }
+
 //                addInterceptor() {
 //                    //get response cookie
 //                    val request = it.request()
