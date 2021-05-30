@@ -7,7 +7,7 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/word"
+        android:id="@+id/test"
         android:icon="@drawable/ic_baseline_menu_book_24"
         android:title="@string/word_book" />
     <item

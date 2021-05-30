@@ -27,4 +27,8 @@
         android:id="@+id/word"
         android:name="com.yuaihen.wcdxg.ui.fragment.WordBookFragment"
         android:label="WordBookFragment" />
+    <fragment
+        android:id="@+id/test"
+        android:name="com.yuaihen.wcdxg.ui.home.TestFragment"
+        android:label="TestFragment" />
 </navigation>

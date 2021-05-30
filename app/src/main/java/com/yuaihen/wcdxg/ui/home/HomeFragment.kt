@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
+import androidx.recyclerview.widget.ConcatAdapter
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
@@ -17,6 +18,7 @@ import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.net.model.HomeArticleModel
 import com.yuaihen.wcdxg.ui.home.adapter.ArticleLoadStateAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeArticleAdapter
+import com.yuaihen.wcdxg.ui.home.adapter.HomeBannerAdapter
 import com.yuaihen.wcdxg.utils.GlideUtil
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,7 @@ class HomeFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val homeViewModel by activityViewModels<HomeViewModel>()
     private val pagingAdapter by lazy { HomeArticleAdapter() }
+    private val bannerAdapter by lazy { HomeBannerAdapter(this) }
 
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
@@ -38,6 +41,7 @@ class HomeFragment : BaseFragment() {
 
 
     override fun initListener() {
+
         pagingAdapter.withLoadStateFooter(ArticleLoadStateAdapter(pagingAdapter::retry))
 
         homeViewModel.loadingLiveData.observe(this) {
@@ -60,7 +64,11 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun initData() {
-        binding.recyclerArticle.adapter = pagingAdapter
+        //在这里合并多个Adapter
+        val concatConfig = ConcatAdapter.Config.Builder().setIsolateViewTypes(true).build()
+        val concatAdapter = ConcatAdapter(concatConfig, bannerAdapter, pagingAdapter)
+        binding.recyclerArticle.adapter = concatAdapter
+
         if (homeViewModel.bannerLiveData.value.isNullOrEmpty()) {
             homeViewModel.getBanner()
             homeViewModel.getArticle()
@@ -89,21 +97,22 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setBanner(bannerModel: List<BannerModel.Data>) {
-        binding.banner.apply {
-            addBannerLifecycleObserver(this@HomeFragment)
-            setIndicator(CircleIndicator(requireContext()))
-            setIndicatorSelectedColor(getResources().getColor(R.color.bili_bili_pink))
-            setAdapter(object : BannerImageAdapter<BannerModel.Data>(bannerModel) {
-                override fun onBindView(
-                    holder: BannerImageHolder?,
-                    data: BannerModel.Data?,
-                    position: Int,
-                    size: Int
-                ) {
-                    holder?.imageView?.let { GlideUtil.showImageView(it, data?.imagePath) }
-                }
-            })
-        }
+        bannerAdapter.setData(bannerModel.toMutableList())
+//        binding.banner.apply {
+//            addBannerLifecycleObserver(this@HomeFragment)
+//            setIndicator(CircleIndicator(requireContext()))
+//            setIndicatorSelectedColor(getResources().getColor(R.color.bili_bili_pink))
+//            setAdapter(object : BannerImageAdapter<BannerModel.Data>(bannerModel) {
+//                override fun onBindView(
+//                    holder: BannerImageHolder?,
+//                    data: BannerModel.Data?,
+//                    position: Int,
+//                    size: Int
+//                ) {
+//                    holder?.imageView?.let { GlideUtil.showImageView(it, data?.imagePath) }
+//                }
+//            })
+//        }
     }
 
     override fun unBindView() {
