@@ -1,13 +1,17 @@
 package com.yuaihen.wcdxg.ui.home.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
 import android.text.Html
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
 import com.yuaihen.wcdxg.net.model.HomeArticleModel
+import com.yuaihen.wcdxg.ui.activity.WebViewActivity
 import com.yuaihen.wcdxg.utils.trimHtml
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
 import com.yuaihen.wcdxg.viewbinding.getViewHolder
@@ -62,9 +66,20 @@ class HomeArticleAdapter :
                 recycleTags.adapter = ArticleTagAdapter(it.tags)
 
                 tvDesc.isGone = it.desc.isEmpty()
+
+                clRoot.setOnClickListener {
+                    //跳转相关文章页面
+                    val context = holder.mBinding.root.context
+                    val intent = Intent(context, WebViewActivity::class.java).apply {
+                        putExtras(Bundle().also {
+                            it.putString(Constants.URL, data.link)
+                        })
+                       
+                    }
+                    context.startActivity(intent)
+                }
             }
         }
+
     }
-
-
 }

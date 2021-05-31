@@ -13,6 +13,7 @@ object Constants {
 
     const val Cookie = "cookie"
     const val LOGIN_STATUS = "loginStatus"
+    const val URL = "url"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

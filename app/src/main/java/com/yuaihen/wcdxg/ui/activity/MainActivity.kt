@@ -88,4 +88,5 @@ class MainActivity : BaseActivity() {
             .statusBarColor(R.color.bili_bili_pink)
             .init()
     }
+
 }

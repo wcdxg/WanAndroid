@@ -47,7 +47,6 @@ class SplashActivity : BaseActivity() {
 
     override fun initData() {
 
-
     }
 
 }

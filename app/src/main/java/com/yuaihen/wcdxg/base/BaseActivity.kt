@@ -27,13 +27,7 @@ abstract class BaseActivity : AppCompatActivity() {
     protected open lateinit var mContext: Context
     private var layoutId = 0
 
-    //Activity切换动画
-    enum class TransitionMode {
-        DEFAULT, LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        initTransitionMode()
         super.onCreate(savedInstanceState)
 //        AppManager.getInstance().addActivity(this);
         mContext = this
@@ -45,6 +39,7 @@ abstract class BaseActivity : AppCompatActivity() {
         if (!NetworkUtils.isConnected()) {
             toast(getString(R.string.net_not_connected))
         }
+
         initImmersionBar()
         initBundle()
         initView()
@@ -65,6 +60,7 @@ abstract class BaseActivity : AppCompatActivity() {
         ImmersionBar.with(this)
             .transparentBar()
             .navigationBarAlpha(0f)
+//            .autoDarkModeEnable(true)
             .init()
     }
 
@@ -84,45 +80,6 @@ abstract class BaseActivity : AppCompatActivity() {
         return null
     }
 
-    /**
-     * 初始化Activity进场动画
-     */
-    private fun initTransitionMode() {
-        when (getOverridePendingTransitionMode()) {
-            TransitionMode.LEFT -> overridePendingTransition(R.anim.left_in, R.anim.left_out)
-            TransitionMode.RIGHT -> overridePendingTransition(R.anim.right_in, R.anim.right_out)
-            TransitionMode.TOP -> overridePendingTransition(R.anim.top_in, R.anim.top_out)
-            TransitionMode.BOTTOM -> overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out)
-            TransitionMode.SCALE -> overridePendingTransition(R.anim.scale_in, R.anim.scale_out)
-            TransitionMode.FADE -> overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-            else -> {
-
-            }
-        }
-    }
-
-    override fun finish() {
-        super.finish()
-        when (getOverridePendingTransitionMode()) {
-            TransitionMode.LEFT -> overridePendingTransition(R.anim.right_in, R.anim.right_out)
-            TransitionMode.RIGHT -> overridePendingTransition(R.anim.left_in, R.anim.left_out)
-            TransitionMode.TOP -> overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out)
-            TransitionMode.BOTTOM -> overridePendingTransition(R.anim.top_in, R.anim.top_out)
-            TransitionMode.SCALE -> overridePendingTransition(
-                R.anim.scale_in_disappear,
-                R.anim.scale_out_disappear
-            )
-            TransitionMode.FADE -> overridePendingTransition(
-                R.anim.fade_in_disappear,
-                R.anim.fade_out_disappear
-            )
-            else -> {
-
-            }
-        }
-    }
-
-
     protected open fun showDialog(waitMsg: String = getString(R.string.waiting)) {
         WaitDialog.show(waitMsg).onBackPressedListener =
             OnBackPressedListener {
@@ -140,7 +97,6 @@ abstract class BaseActivity : AppCompatActivity() {
     protected open fun hideLoading() {
         WaitDialog.dismiss()
     }
-
 
     protected open fun logD(msg: String) {
         LogUtil.d(javaClass.simpleName, msg)
@@ -164,10 +120,6 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    protected open fun getOverridePendingTransitionMode(): TransitionMode {
-        return TransitionMode.DEFAULT
-    }
-
     override fun onStop() {
         super.onStop()
         hideLoading()
@@ -178,7 +130,6 @@ abstract class BaseActivity : AppCompatActivity() {
 //        AppManager.getInstance().hideSoftKeyBoard(this)
 //        AppManager.getInstance().removeActivity(this);
     }
-
 
     inline fun <reified T : BaseActivity> start2Activity(
         cls: Class<T>,
@@ -192,6 +143,4 @@ abstract class BaseActivity : AppCompatActivity() {
         startActivity(intent)
         if (finish) finish()
     }
-
-
 }

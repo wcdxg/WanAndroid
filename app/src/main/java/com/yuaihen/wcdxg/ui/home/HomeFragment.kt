@@ -7,6 +7,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ConcatAdapter
+import com.google.android.material.appbar.AppBarLayout
+import com.gyf.immersionbar.ImmersionBar
+import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentHomeBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
@@ -15,6 +18,7 @@ import com.yuaihen.wcdxg.net.model.HomeArticleModel
 import com.yuaihen.wcdxg.ui.home.adapter.ArticleLoadStateAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeArticleAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeBannerAdapter
+import com.yuaihen.wcdxg.ui.interf.AppBarStateChangeListener
 import kotlinx.coroutines.launch
 
 /**
@@ -29,11 +33,17 @@ class HomeFragment : BaseFragment() {
     private val pagingAdapter by lazy { HomeArticleAdapter() }
     private val bannerAdapter by lazy { HomeBannerAdapter(this) }
 
+    private enum class State {
+        //Appbar的三种状态
+        EXPANDED, COLLAPSED, IDLE
+    }
+
+    private var currentState = State.EXPANDED
+
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-
 
     override fun initListener() {
         pagingAdapter.withLoadStateFooter(ArticleLoadStateAdapter(pagingAdapter::retry))
@@ -55,6 +65,32 @@ class HomeFragment : BaseFragment() {
         binding.swipeRefresh.setOnRefreshListener {
             pagingAdapter.refresh()
         }
+
+        binding.appbarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
+                if (state == State.EXPANDED) {
+                    logD("hello", "${state} 折叠")
+                    //折叠 设置为透明
+                    ImmersionBar.with(this@HomeFragment)
+                        .statusBarColor(R.color.bili_bili_pink)
+                        .statusBarDarkFont(false)
+//                        .statusBarColorTransform(R.color.bili_bili_pink)
+                        .init()
+                } else if (state == State.COLLAPSED) {
+                    logD("hello", "${state} 展开")
+                    //展开 设置为主色调
+                    ImmersionBar.with(this@HomeFragment)
+                        .statusBarColor(R.color.transparent)
+                        .statusBarDarkFont(true)
+                        .init()
+                }
+//                else if (state == State.IDLE) {
+//                    ImmersionBar.with(this@HomeFragment)
+//                        .statusBarColorTransform(R.color.transparent)
+//                        .init()
+//                }
+            }
+        })
     }
 
     override fun initData() {
@@ -68,15 +104,15 @@ class HomeFragment : BaseFragment() {
             homeViewModel.getArticle()
         } else {
             setHomePageData(
-                    homeViewModel.bannerLiveData.value!!,
-                    homeViewModel.articleLiveData.value
+                homeViewModel.bannerLiveData.value!!,
+                homeViewModel.articleLiveData.value
             )
         }
     }
 
     private fun setHomePageData(
-            bannerData: List<BannerModel.Data>,
-            articleLiveData: PagingData<HomeArticleModel.Data.Data>?
+        bannerData: List<BannerModel.Data>,
+        articleLiveData: PagingData<HomeArticleModel.Data.Data>?
     ) {
         setBanner(bannerData)
         setArticleData(articleLiveData)
@@ -92,21 +128,6 @@ class HomeFragment : BaseFragment() {
 
     private fun setBanner(bannerModel: List<BannerModel.Data>) {
         bannerAdapter.setData(bannerModel.toMutableList())
-//        binding.banner.apply {
-//            addBannerLifecycleObserver(this@HomeFragment)
-//            setIndicator(CircleIndicator(requireContext()))
-//            setIndicatorSelectedColor(getResources().getColor(R.color.bili_bili_pink))
-//            setAdapter(object : BannerImageAdapter<BannerModel.Data>(bannerModel) {
-//                override fun onBindView(
-//                    holder: BannerImageHolder?,
-//                    data: BannerModel.Data?,
-//                    position: Int,
-//                    size: Int
-//                ) {
-//                    holder?.imageView?.let { GlideUtil.showImageView(it, data?.imagePath) }
-//                }
-//            })
-//        }
     }
 
     override fun unBindView() {

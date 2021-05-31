@@ -40,15 +40,15 @@ class EditUserInfoActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        binding.titleView.setTitleViewClickListener(object : OnTitleViewListener {
-            override fun onBackBtnClick() {
-                val intent = Intent()
-                intent.putExtra("url", "wcdxg.com")
-                setResult(RESULT_OK, intent)
-                finish()
-            }
-
-        })
+//        binding.titleView.setTitleViewClickListener(object : OnTitleViewListener {
+//            override fun onBackBtnClick() {
+//                val intent = Intent()
+//                intent.putExtra("url", "wcdxg.com")
+//                setResult(RESULT_OK, intent)
+//                finish()
+//            }
+//
+//        })
         binding.btnSubmit.setOnClickListener {
             val intent = Intent()
             intent.putExtra("url", "wcdxg.com")

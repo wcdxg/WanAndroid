@@ -44,7 +44,5 @@ class BaseApplication : Application() {
 //        DialogX.backgroundColor = resources.getColor(R.color.dialog_mask_color)
         //ImagePicker
         ImagePicker.getInstance().imageLoader = GlideImageLoader()
-
-
     }
 }

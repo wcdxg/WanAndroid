@@ -111,7 +111,5 @@ dependencies {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-
-
     implementation project(':livedatabus')
 }
