@@ -43,9 +43,8 @@ class HomeViewModel : BaseViewModel() {
             }, {
                 errorLiveData.postValue(it)
             }, {
-                loadingLiveData.postValue(false)
-
-            }
+//                loadingLiveData.postValue(false)
+            }, false
         )
     }
 

@@ -7,10 +7,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ConcatAdapter
-import com.youth.banner.adapter.BannerImageAdapter
-import com.youth.banner.holder.BannerImageHolder
-import com.youth.banner.indicator.CircleIndicator
-import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentHomeBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
@@ -19,7 +15,6 @@ import com.yuaihen.wcdxg.net.model.HomeArticleModel
 import com.yuaihen.wcdxg.ui.home.adapter.ArticleLoadStateAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeArticleAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeBannerAdapter
-import com.yuaihen.wcdxg.utils.GlideUtil
 import kotlinx.coroutines.launch
 
 /**
@@ -41,7 +36,6 @@ class HomeFragment : BaseFragment() {
 
 
     override fun initListener() {
-
         pagingAdapter.withLoadStateFooter(ArticleLoadStateAdapter(pagingAdapter::retry))
 
         homeViewModel.loadingLiveData.observe(this) {
@@ -55,12 +49,12 @@ class HomeFragment : BaseFragment() {
         }
 
         homeViewModel.articleLiveData.observe(this) {
-//            binding.swipeRefresh.isRefreshing = false
+            binding.swipeRefresh.isRefreshing = false
             setArticleData(it)
         }
-//        binding.swipeRefresh.setOnRefreshListener {
-//            pagingAdapter.refresh()
-//        }
+        binding.swipeRefresh.setOnRefreshListener {
+            pagingAdapter.refresh()
+        }
     }
 
     override fun initData() {
@@ -74,15 +68,15 @@ class HomeFragment : BaseFragment() {
             homeViewModel.getArticle()
         } else {
             setHomePageData(
-                homeViewModel.bannerLiveData.value!!,
-                homeViewModel.articleLiveData.value
+                    homeViewModel.bannerLiveData.value!!,
+                    homeViewModel.articleLiveData.value
             )
         }
     }
 
     private fun setHomePageData(
-        bannerData: List<BannerModel.Data>,
-        articleLiveData: PagingData<HomeArticleModel.Data.Data>?
+            bannerData: List<BannerModel.Data>,
+            articleLiveData: PagingData<HomeArticleModel.Data.Data>?
     ) {
         setBanner(bannerData)
         setArticleData(articleLiveData)
