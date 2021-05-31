@@ -1,57 +1,69 @@
 package com.yuaihen.wcdxg.ui.activity
 
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
+import androidx.viewpager2.widget.ViewPager2
 import com.gyf.immersionbar.ImmersionBar
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityMainBinding
+import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
+import com.yuaihen.wcdxg.ui.fragment.MyFragment
+import com.yuaihen.wcdxg.ui.home.HomeFragment
+import com.yuaihen.wcdxg.ui.home.TestFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private var menuItem: MenuItem? = null
+    private val fragmentList = mutableListOf<Fragment>().apply {
+        add(HomeFragment())
+        add(TestFragment())
+        add(MyFragment())
+    }
 
-    override fun getBindingView(): View? {
+    override fun getBindingView(): View {
         binding = ActivityMainBinding.inflate(layoutInflater)
         return binding.root
     }
 
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
+    override fun initListener() {
+        super.initListener()
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                val selectID = binding.bottomNavigationView.menu[position].itemId
+                binding.bottomNavigationView.selectedItemId = selectID
+            }
+        })
     }
 
     override fun initData() {
-        setupBottomNavigationBar()
+        setupViewPager()
     }
 
-    private fun setupBottomNavigationBar() {
-        navController = Navigation.findNavController(this, R.id.fragment_container)
-        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
+    private fun setupViewPager() {
+        binding.viewPager.apply {
+            adapter = ViewPager2PagerAdapter(supportFragmentManager, lifecycle).also {
+                it.addFragmentList(fragmentList)
+            }
+        }
+
         //BottomNavigationView点击事件
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            menuItem = it
             if (binding.bottomNavigationView.selectedItemId == it.itemId) return@setOnNavigationItemSelectedListener true
-            navController.navigate(it.itemId)
+            when (it.itemId) {
+                R.id.nav_home -> binding.viewPager.currentItem = 0
+                R.id.nav_test -> binding.viewPager.currentItem = 1
+                R.id.nav_mine -> binding.viewPager.currentItem = 2
+            }
             true
         }
-//        appBarConfiguration = AppBarConfiguration(
-//            setOf(R.id.home, R.id.word, R.id.mine)
-//        )
-//
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-//            //跳转另外一个Fragment的时候弹出当前Fragment
-//            controller.navigateUp()
-//        }
     }
 
 

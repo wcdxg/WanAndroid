@@ -55,7 +55,7 @@ class HomeViewModel : BaseViewModel() {
         viewModelScope.launch {
             Pager(
                 //pageSize一页加载多少条  prefetchDistance表示距离底部多少条数据开始预加载，设置0则表示滑到底部才加载
-                PagingConfig(pageSize = 20, prefetchDistance = 3, initialLoadSize = 20 * 3)
+                PagingConfig(pageSize = 20, prefetchDistance = 3, initialLoadSize = 20)
             ) {
                 HomeArticlePagingSource()
             }.flow.cachedIn(this).collectLatest {
