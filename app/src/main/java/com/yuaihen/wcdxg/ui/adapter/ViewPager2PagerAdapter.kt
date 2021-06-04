@@ -17,6 +17,7 @@ class ViewPager2PagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
 
     fun addFragmentList(list: List<Fragment>) {
         fragmentList.addAll(list)
+        notifyDataSetChanged()
     }
 
     fun addFragment(fragment: Fragment) {

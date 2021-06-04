@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.gyf.immersionbar.ImmersionBar
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.kongzue.dialogx.interfaces.OnBackPressedListener
 import com.yuaihen.wcdxg.R
@@ -53,10 +54,20 @@ abstract class BaseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initImmersionBar()
 //            isViewCreated = true
         initListener()
         initData()
 //            lazyLoad()
+    }
+
+    /**
+     * 初始化沉浸式状态栏
+     */
+    protected open fun initImmersionBar() {
+        ImmersionBar.with(this)
+            .statusBarColor(R.color.bili_bili_pink)
+            .init()
     }
 
 //    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
