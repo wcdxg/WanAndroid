@@ -3,6 +3,7 @@ package com.yuaihen.wcdxg.mvvm
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yuaihen.wcdxg.net.ApiManage
 import com.yuaihen.wcdxg.net.ApiService
 import com.yuaihen.wcdxg.utils.LogUtil
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ abstract class BaseViewModel : ViewModel() {
 
     val errorLiveData = MutableLiveData<String>()
     val loadingLiveData = MutableLiveData<Boolean>()
+    val unLoginStateLiveData = MutableLiveData(false)
 
     fun launch(
         block: suspend () -> Unit,
@@ -29,7 +31,7 @@ abstract class BaseViewModel : ViewModel() {
             try {
                 block()
             } catch (e: Exception) {
-                LogUtil.d(ApiService.TAG, "request fail ${e.localizedMessage}")
+                LogUtil.d(ApiManage.TAG, "request fail ${e.localizedMessage}")
                 error(getErrorMsg(e))
             } finally {
                 complete()

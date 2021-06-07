@@ -45,6 +45,7 @@ class ArticleLoadStateAdapter(private val retry: () -> Unit) :
                 errorMsg.text = "${loadState.error.localizedMessage}，点击重试"
             }
 
+            itemCount
             progressBar.isVisible = loadState is LoadState.Loading
             errorMsg.isVisible = loadState is LoadState.Error
         }

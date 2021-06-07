@@ -13,6 +13,7 @@ import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.activity.WebViewActivity
+import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.utils.trimHtml
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
 import com.yuaihen.wcdxg.viewbinding.getViewHolder
@@ -63,12 +64,9 @@ class TopArticleAdapter :
                 tvTitle.text = Html.fromHtml(it.title.trimHtml()).toString()
                 tvDesc.text = Html.fromHtml(it.desc.trimHtml()).toString()
                 tvChapterName.text = "${it.superChapterName}-${it.chapterName}"
-                ivCollect.isSelected = it.collect
                 recycleTags.adapter = ArticleTagAdapter(it.tags)
-
                 tvDesc.isGone = it.desc.isEmpty()
                 tvTop.isVisible = it.type == 1
-
                 clRoot.setOnClickListener {
                     //跳转相关文章页面
                     val context = holder.mBinding.root.context
@@ -80,8 +78,25 @@ class TopArticleAdapter :
                     }
                     context.startActivity(intent)
                 }
+                ivCollect.isSelected = it.collect
+                ivCollect.setOnClickListener { view ->
+                    if (it.collect) {
+                        //取消收藏
+                        listener?.unCollect(it.id)
+                        it.collect = false
+                    } else {
+                        //收藏
+                        listener?.onCollect(it.id)
+                        it.collect = true
+                    }
+                    ivCollect.isSelected = it.collect
+                }
             }
         }
+    }
 
+    private var listener: OnCollectClickListener? = null
+    fun addOnCollectClickListener(listener: OnCollectClickListener) {
+        this.listener = listener
     }
 }

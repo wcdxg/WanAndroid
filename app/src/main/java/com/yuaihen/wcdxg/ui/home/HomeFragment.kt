@@ -1,5 +1,6 @@
 package com.yuaihen.wcdxg.ui.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,21 +13,23 @@ import com.yuaihen.wcdxg.databinding.FragmentHomeBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.BannerModel
+import com.yuaihen.wcdxg.ui.activity.LoginActivity
 import com.yuaihen.wcdxg.ui.home.adapter.ArticleLoadStateAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeArticleAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeBannerAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.TopArticleAdapter
+import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import kotlinx.coroutines.launch
 
 /**
  * Created by Yuaihen.
  * on 2021/4/30
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), OnCollectClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel by activityViewModels<HomeViewModel>()
+    private val viewModel by activityViewModels<HomeViewModel>()
     private val pagingAdapter by lazy { HomeArticleAdapter() }
     private val topArticleAdapter by lazy { TopArticleAdapter() }
     private val bannerAdapter by lazy { HomeBannerAdapter(this) }
@@ -38,7 +41,7 @@ class HomeFragment : BaseFragment() {
 
     override fun initListener() {
         pagingAdapter.withLoadStateFooter(ArticleLoadStateAdapter(pagingAdapter::retry))
-        homeViewModel.apply {
+        viewModel.apply {
             loadingLiveData.observe(this@HomeFragment) {
                 if (it) showLoading() else hideLoading()
             }
@@ -55,11 +58,20 @@ class HomeFragment : BaseFragment() {
             topArticleLiveData.observe(this@HomeFragment) {
                 setTopArticleData(it)
             }
+            unLoginStateLiveData.observe(this@HomeFragment) { isUnlogin ->
+                if (isUnlogin) {
+                    //未登录跳转登录页面
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
+                    requireActivity().finish()
+                }
+            }
         }
         binding.swipeRefresh.setOnRefreshListener {
             pagingAdapter.refresh()
         }
 
+        topArticleAdapter.addOnCollectClickListener(this)
+        pagingAdapter.addOnCollectClickListener(this)
     }
 
     override fun initData() {
@@ -69,15 +81,15 @@ class HomeFragment : BaseFragment() {
             ConcatAdapter(concatConfig, bannerAdapter, topArticleAdapter, pagingAdapter)
         binding.recyclerArticle.adapter = concatAdapter
 
-        if (homeViewModel.bannerLiveData.value.isNullOrEmpty()) {
-            homeViewModel.getBanner()
-            homeViewModel.getArticle()
-            homeViewModel.getArticleTop()
+        if (viewModel.bannerLiveData.value.isNullOrEmpty()) {
+            viewModel.getBanner()
+            viewModel.getArticle()
+            viewModel.getArticleTop()
         } else {
             setHomePageData(
-                homeViewModel.bannerLiveData.value!!,
-                homeViewModel.articleLiveData.value,
-                homeViewModel.topArticleLiveData.value
+                viewModel.bannerLiveData.value!!,
+                viewModel.articleLiveData.value,
+                viewModel.topArticleLiveData.value
             )
         }
     }
@@ -110,6 +122,14 @@ class HomeFragment : BaseFragment() {
 
     override fun unBindView() {
         _binding = null
+    }
+
+    override fun onCollect(id: Int) {
+        viewModel.collectArticle(id)
+    }
+
+    override fun unCollect(id: Int) {
+        viewModel.uncollectByOriginId(id)
     }
 
 }

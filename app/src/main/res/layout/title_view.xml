@@ -10,19 +10,20 @@
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="marquee"
+        android:layout_marginEnd="5dp"
+        android:ellipsize="end"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
         android:marqueeRepeatLimit="-1"
-        android:maxLength="45"
+        android:maxLength="40"
         android:singleLine="true"
         android:text="HelloHelloHelloHelloHelloHelloHelloHelloHello"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/iv_back"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/iv_collect"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -33,5 +34,15 @@
         android:src="@drawable/ic_arrow_left_36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/article_collect_icon_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

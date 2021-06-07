@@ -11,6 +11,7 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.TitleViewBinding
 import com.yuaihen.wcdxg.ui.activity.WebViewActivity
+import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.ui.interf.OnTitleViewBackClickListener
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.gone
@@ -53,25 +54,31 @@ class TitleView @JvmOverloads constructor(
                 } else {
                     binding.ivBack.gone()
                 }
-                binding.tvTitle.text = titleName
-                binding.clRoot.setBackgroundColor(titleViewColor)
-                binding.tvTitle.setTextColor(titleColor)
 
-                binding.ivBack.setOnClickListener {
-                    when (context) {
-                        is WebViewActivity -> {
-                            LogUtil.d(TAG, "TitleView: WebViewActivity")
-                            listener?.onClickBack()
+                binding.apply {
+                    tvTitle.text = titleName
+                    clRoot.setBackgroundColor(titleViewColor)
+                    tvTitle.setTextColor(titleColor)
+                    ivBack.setOnClickListener {
+                        when (context) {
+                            is WebViewActivity -> {
+                                LogUtil.d(TAG, "TitleView: WebViewActivity")
+                                listener?.onClickBack()
+                            }
+                            is BaseActivity -> {
+                                (context as FragmentActivity).finish()
+                            }
+                            is Fragment -> {
+                                LogUtil.d(TAG, "TitleView: Fragment")
+                            }
+                            else -> {
+                                LogUtil.e(TAG, "TitleView: iv_back setOnClickListener")
+                            }
                         }
-                        is BaseActivity -> {
-                            (context as FragmentActivity).finish()
-                        }
-                        is Fragment -> {
-                            LogUtil.d(TAG, "TitleView: Fragment")
-                        }
-                        else -> {
-                            LogUtil.e(TAG, "TitleView: iv_back setOnClickListener")
-                        }
+                    }
+                    ivCollect.setOnClickListener {
+                        //TODO 需要判断收藏状态
+//                        collectClickListener?.unCollect()
                     }
                 }
             } finally {
@@ -100,7 +107,6 @@ class TitleView @JvmOverloads constructor(
         binding.ivBack.gone()
     }
 
-
     fun setBgColor(colorResId: Int) {
         binding.clRoot.setBackgroundColor(colorResId)
     }
@@ -108,6 +114,11 @@ class TitleView @JvmOverloads constructor(
     private var listener: OnTitleViewBackClickListener? = null
     fun setOnTitleViewBackClickListener(listener: OnTitleViewBackClickListener) {
         this.listener = listener
+    }
+
+    private var collectClickListener: OnCollectClickListener? = null
+    fun addOnCollectClickListener(collectClickListener: OnCollectClickListener) {
+        this.collectClickListener = collectClickListener
     }
 
     override fun onDetachedFromWindow() {

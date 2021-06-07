@@ -2,7 +2,7 @@ package com.yuaihen.wcdxg.mvvm.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.yuaihen.wcdxg.net.ApiService
+import com.yuaihen.wcdxg.net.ApiManage
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.utils.isSuccess
 
@@ -16,7 +16,7 @@ class HomeArticlePagingSource : PagingSource<Int, ArticleModel>() {
         try {
             //默认加载第0页数据
             val nextPageNumber = params.key ?: 0
-            val response = ApiService.getInstance().getHomeArticleList(nextPageNumber)
+            val response = ApiManage.getInstance().getHomeArticleList(nextPageNumber)
             if (response.errorCode.isSuccess()) {
                 return LoadResult.Page(
                     data = response.data.datas,

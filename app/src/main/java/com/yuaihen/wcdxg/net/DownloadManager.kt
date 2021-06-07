@@ -3,7 +3,7 @@ package com.yuaihen.wcdxg.net
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.yuaihen.wcdxg.net.ApiService.Companion.getInstance
+import com.yuaihen.wcdxg.net.ApiManage.Companion.getInstance
 import com.yuaihen.wcdxg.ui.interf.DownloadCallback
 import com.yuaihen.wcdxg.utils.FileUtils
 import com.yuaihen.wcdxg.utils.FileUtils.writeFile

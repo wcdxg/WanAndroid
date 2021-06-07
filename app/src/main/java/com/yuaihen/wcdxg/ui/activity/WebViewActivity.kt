@@ -15,6 +15,7 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.common.agentWebView.base.BaseAgentWebActivity
 import com.yuaihen.wcdxg.databinding.ActivityWebviewBinding
+import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.ui.interf.OnTitleViewBackClickListener
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.visible
@@ -24,7 +25,8 @@ import com.yuaihen.wcdxg.utils.visible
  * on 2020/11/10
  * WebView加载
  */
-class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener {
+class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
+    OnCollectClickListener {
 
     private val TAG = "WebViewActivity"
 
@@ -36,7 +38,10 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener {
     }
 
     override fun initView() {
-        binding.titleView.setOnTitleViewBackClickListener(this)
+        binding.apply {
+            titleView.setOnTitleViewBackClickListener(this@WebViewActivity)
+            titleView.addOnCollectClickListener(this@WebViewActivity)
+        }
     }
 
     override fun initData() {
@@ -143,6 +148,14 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener {
                 return true
             }
         }
+    }
+
+    override fun onCollect(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun unCollect(id: Int) {
+        TODO("Not yet implemented")
     }
 
 

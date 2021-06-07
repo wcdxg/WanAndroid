@@ -1,9 +1,8 @@
 package com.yuaihen.wcdxg.mvvm.repository
 
 import com.yuaihen.wcdxg.mvvm.BaseRepository
-import com.yuaihen.wcdxg.net.ApiService
-import com.yuaihen.wcdxg.net.BaseResponse
-import com.yuaihen.wcdxg.net.model.LoginModel
+import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.model.BaseModel
 
 /**
  * Created by Yuaihen.
@@ -11,7 +10,7 @@ import com.yuaihen.wcdxg.net.model.LoginModel
  */
 class MyRepository : BaseRepository {
 
-    suspend fun logout(): LoginModel {
-        return ApiService.getInstance().logout()
+    suspend fun logout(): BaseModel {
+        return ApiManage.getInstance().logout()
     }
 }

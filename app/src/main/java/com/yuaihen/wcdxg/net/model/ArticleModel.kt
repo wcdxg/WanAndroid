@@ -20,7 +20,7 @@ data class ArticleModel(
     @SerializedName("chapterName")
     val chapterName: String = "",
     @SerializedName("collect")
-    val collect: Boolean = false,
+    var collect: Boolean = false,
     @SerializedName("courseId")
     val courseId: Int = 0,
     @SerializedName("desc")
