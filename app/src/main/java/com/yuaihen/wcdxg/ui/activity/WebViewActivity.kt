@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
+import androidx.activity.viewModels
 import com.gyf.immersionbar.ImmersionBar
 import com.just.agentweb.WebChromeClient
 import com.just.agentweb.WebViewClient
@@ -15,10 +16,12 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.common.agentWebView.base.BaseAgentWebActivity
 import com.yuaihen.wcdxg.databinding.ActivityWebviewBinding
+import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.ui.interf.OnTitleViewBackClickListener
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.visible
+import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
  * Created by Yuaihen.
@@ -31,6 +34,11 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     private val TAG = "WebViewActivity"
 
     private lateinit var binding: ActivityWebviewBinding
+    private val viewModel by viewModels<HomeViewModel>()
+
+    //文章ID
+    private var articleId = 0
+    private var isCollect = false
 
     override fun getBindingView(): View {
         binding = ActivityWebviewBinding.inflate(layoutInflater)
@@ -44,8 +52,36 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
         }
     }
 
-    override fun initData() {
+    override fun initListener() {
+        super.initListener()
+        viewModel.apply {
+            unLoginStateLiveData.observe(this@WebViewActivity) { isUnlogin ->
+                if (isUnlogin) {
+                    //未登录跳转登录页面
+                    start2Activity(LoginActivity::class.java, finish = true)
+                }
+            }
+            loadingLiveData.observe(this@WebViewActivity) {
+                
+            }
+            errorLiveData.observe(this@WebViewActivity) {
+                toast(it)
+            }
 
+        }
+
+    }
+
+    override fun initData() {
+        intent.apply {
+            articleId = getIntExtra(Constants.ID, 0)
+            isCollect = getBooleanExtra(Constants.COLLECT, false)
+        }
+
+        titleView.apply {
+            setCollectState(isCollect)
+            setArticleId(articleId)
+        }
     }
 
     override fun initAgentWebEnd() {
@@ -151,11 +187,11 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     }
 
     override fun onCollect(id: Int) {
-        TODO("Not yet implemented")
+        viewModel.collectArticle(id)
     }
 
     override fun unCollect(id: Int) {
-        TODO("Not yet implemented")
+        viewModel.uncollectByOriginId(id)
     }
 
 

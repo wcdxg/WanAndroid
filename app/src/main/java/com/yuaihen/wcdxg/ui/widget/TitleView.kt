@@ -33,6 +33,8 @@ class TitleView @JvmOverloads constructor(
     private val TAG = "TitleView"
     private var titleColor: Int = 0
     private var titleViewColor: Int = 0
+    private var isCollect = false
+    private var articleId = 0
 
     init {
         context.theme.obtainStyledAttributes(attrs, R.styleable.TitleView, 0, 0).apply {
@@ -77,8 +79,15 @@ class TitleView @JvmOverloads constructor(
                         }
                     }
                     ivCollect.setOnClickListener {
-                        //TODO 需要判断收藏状态
-//                        collectClickListener?.unCollect()
+                        if (isCollect) {
+                            //取消收藏
+                            collectClickListener?.unCollect(articleId)
+                        } else {
+                            collectClickListener?.onCollect(articleId)
+                        }
+                        isCollect = !isCollect
+                        ivCollect.isSelected = isCollect
+
                     }
                 }
             } finally {
@@ -109,6 +118,15 @@ class TitleView @JvmOverloads constructor(
 
     fun setBgColor(colorResId: Int) {
         binding.clRoot.setBackgroundColor(colorResId)
+    }
+
+    fun setCollectState(isCollect: Boolean) {
+        this.isCollect = isCollect
+        binding.ivCollect.isSelected = isCollect
+    }
+
+    fun setArticleId(id: Int) {
+        articleId = id
     }
 
     private var listener: OnTitleViewBackClickListener? = null

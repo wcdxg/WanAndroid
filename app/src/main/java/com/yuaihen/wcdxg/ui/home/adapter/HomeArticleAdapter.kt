@@ -73,6 +73,8 @@ class HomeArticleAdapter :
                     val intent = Intent(context, WebViewActivity::class.java).apply {
                         putExtras(Bundle().also {
                             it.putString(Constants.URL, data.link)
+                            it.putInt(Constants.ID, data.id)
+                            it.putBoolean(Constants.COLLECT, data.collect)
                         })
 
                     }
