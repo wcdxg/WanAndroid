@@ -1,7 +1,5 @@
 package com.yuaihen.wcdxg.base
 
-import com.yuaihen.wcdxg.ui.activity.RegisterActivity
-
 /**
  * Created by Yuaihen.
  * on 2021/5/27
@@ -14,6 +12,7 @@ object NetConstants {
     const val LOGIN = "user/login"
     const val LOGOUT = "user/logout/json"
     const val GET_BANNER = "banner/json"
+    const val GET_TOP_ARTICLE = "article/top/json"
 
 
 }

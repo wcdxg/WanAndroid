@@ -2,7 +2,6 @@ package com.yuaihen.wcdxg.ui.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -29,7 +28,6 @@ class TitleView @JvmOverloads constructor(
     private var _binding: TitleViewBinding? = null
     private val binding = TitleViewBinding.inflate(LayoutInflater.from(context), this, true)
     private var titleName = ""
-    private var backIconDrawable: Drawable? = null
     private var showBackIcon = false
     private val TAG = "TitleView"
     private var titleColor: Int = 0
@@ -48,9 +46,9 @@ class TitleView @JvmOverloads constructor(
                 titleViewColor = getColor(R.styleable.TitleView_titleViewBgColor, Color.WHITE)
 
                 if (showBackIcon) {
+                    binding.ivBack.visible()
                     if (iconId != 0) {
-                        binding.ivBack.visible()
-                        binding.ivBack.setImageDrawable(backIconDrawable)
+                        binding.ivBack.setImageResource(iconId)
                     }
                 } else {
                     binding.ivBack.gone()

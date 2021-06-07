@@ -7,12 +7,11 @@ import android.text.Html
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
 import com.yuaihen.wcdxg.net.model.ArticleModel
-import com.yuaihen.wcdxg.net.model.TopArticleModel
 import com.yuaihen.wcdxg.ui.activity.WebViewActivity
 import com.yuaihen.wcdxg.utils.trimHtml
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
@@ -21,10 +20,10 @@ import com.yuaihen.wcdxg.viewbinding.getViewHolder
 /**
  * Created by Yuaihen.
  * on 2021/5/28
- * 首页文章列表
+ * 首页置顶文章列表
  */
-class HomeArticleAdapter :
-    PagingDataAdapter<ArticleModel, BaseBindingViewHolder<ArticleRecycleItemBinding>>(
+class TopArticleAdapter :
+    ListAdapter<ArticleModel, BaseBindingViewHolder<ArticleRecycleItemBinding>>(
         DifferCallback
     ) {
 

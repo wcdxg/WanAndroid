@@ -3,16 +3,16 @@ package com.yuaihen.wcdxg.mvvm.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yuaihen.wcdxg.net.ApiService
-import com.yuaihen.wcdxg.net.model.HomeArticleModel
+import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.utils.isSuccess
 
 /**
  * Created by Yuaihen.
  * on 2021/5/28
  */
-class HomeArticlePagingSource : PagingSource<Int, HomeArticleModel.Data.Data>() {
+class HomeArticlePagingSource : PagingSource<Int, ArticleModel>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HomeArticleModel.Data.Data> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         try {
             //默认加载第0页数据
             val nextPageNumber = params.key ?: 0
@@ -35,7 +35,7 @@ class HomeArticlePagingSource : PagingSource<Int, HomeArticleModel.Data.Data>() 
         return LoadResult.Error(Error("error"))
     }
 
-    override fun getRefreshKey(state: PagingState<Int, HomeArticleModel.Data.Data>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? {
         return state.anchorPosition
             ?.let {
                 val anchorPage = state.closestPageToPosition(it)

@@ -21,7 +21,7 @@ fun View.invisible() {
     this.visibility = View.INVISIBLE
 }
 
-fun String.setGlideUrl(iv: ImageView) {
+fun String.loadIntoImage(iv: ImageView) {
     GlideUtil.showImageView(iv, this)
 }
 

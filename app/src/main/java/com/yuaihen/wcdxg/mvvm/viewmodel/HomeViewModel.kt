@@ -9,8 +9,10 @@ import androidx.paging.cachedIn
 import com.yuaihen.wcdxg.mvvm.BaseViewModel
 import com.yuaihen.wcdxg.mvvm.paging.HomeArticlePagingSource
 import com.yuaihen.wcdxg.mvvm.repository.HomeRepository
+import com.yuaihen.wcdxg.net.ApiService
+import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.BannerModel
-import com.yuaihen.wcdxg.net.model.HomeArticleModel
+import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.isSuccess
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,8 +26,10 @@ class HomeViewModel : BaseViewModel() {
     private val repository = HomeRepository()
     private val _bannerLiveData = MutableLiveData<List<BannerModel.Data>>()
     val bannerLiveData = _bannerLiveData
-    private val _articleLiveData = MutableLiveData<PagingData<HomeArticleModel.Data.Data>>()
+    private val _articleLiveData = MutableLiveData<PagingData<ArticleModel>>()
     val articleLiveData = _articleLiveData
+    private val _topArticleLiveData = MutableLiveData<List<ArticleModel>>()
+    val topArticleLiveData = _topArticleLiveData
 
     /**
      * 获取轮播图
@@ -62,6 +66,24 @@ class HomeViewModel : BaseViewModel() {
                 _articleLiveData.value = it
             }
         }
+    }
+
+    /**
+     * 获取置顶文章列表
+     */
+    fun getArticleTop() {
+        launch({
+            val response = ApiService.getInstance().getTopArticleList()
+            if (response.errorCode.isSuccess()) {
+                _topArticleLiveData.postValue(response.data)
+            } else {
+                LogUtil.d("hello", "getArticleTop: request error")
+            }
+        }, {
+            errorLiveData.postValue(it)
+        }, {
+
+        }, isShowLoading = false)
 
     }
 }

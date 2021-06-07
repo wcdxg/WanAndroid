@@ -10,9 +10,10 @@ import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.base.NetConstants
-import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.net.model.HomeArticleModel
+import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.net.model.LoginModel
+import com.yuaihen.wcdxg.net.model.TopArticleModel
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.SPUtils
 import okhttp3.Cache
@@ -75,10 +76,15 @@ interface ApiService {
     suspend fun getHomeArticleList(@Path("page") page: Int): HomeArticleModel
 
     /**
+     * 获取置顶文章
+     */
+    @GET(NetConstants.GET_TOP_ARTICLE)
+    suspend fun getTopArticleList(): TopArticleModel
+
+    /**
      * 下载文件
      */
     @Streaming
-    @GET
     suspend fun downloadFile(@Url url: String): ResponseBody
 
 

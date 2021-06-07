@@ -9,7 +9,7 @@ import androidx.paging.PagingData
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentTestBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
-import com.yuaihen.wcdxg.net.model.HomeArticleModel
+import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.home.adapter.ArticleLoadStateAdapter
 import com.yuaihen.wcdxg.ui.home.adapter.HomeArticleAdapter
 import kotlinx.coroutines.launch
@@ -45,7 +45,7 @@ class TestFragment : BaseFragment() {
         homeViewModel.getArticle()
     }
 
-    private fun setArticleData(pagingData: PagingData<HomeArticleModel.Data.Data>?) {
+    private fun setArticleData(pagingData: PagingData<ArticleModel>?) {
         pagingData?.let {
             lifecycleScope.launch {
                 pagingAdapter.submitData(pagingData)
