@@ -108,10 +108,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_name" />
 
                 <TextView
-                    android:id="@+id/tv_police_number"
+                    android:id="@+id/tv_id_number"
                     style="@style/mine_user_title_color"
                     android:layout_marginTop="20dp"
-                    android:text="@string/police_number"
+                    android:text="@string/idNumber"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/view4" />
 
@@ -128,11 +128,11 @@
                     android:textColor="@color/mine_user_value"
                     android:textSize="14sp"
                     app:clearIcon="@drawable/ic_baseline_clear_24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_police_number"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_id_number"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_police_number"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_id_number"
                     app:layout_constraintStart_toEndOf="@+id/tv_name"
-                    app:layout_constraintTop_toTopOf="@+id/tv_police_number"
+                    app:layout_constraintTop_toTopOf="@+id/tv_id_number"
                     tools:text="0215665656" />
 
                 <View
@@ -146,7 +146,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_police_number" />
 
                 <TextView
-                    android:id="@+id/tv_phone_number"
+                    android:id="@+id/tv_coin_count"
                     style="@style/mine_user_title_color"
                     android:layout_marginTop="20dp"
                     android:text="@string/phone"
@@ -166,11 +166,11 @@
                     android:textColor="@color/mine_user_value"
                     android:textSize="14sp"
                     app:clearIcon="@drawable/ic_baseline_clear_24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_phone_number"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_coin_count"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_phone_number"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_coin_count"
                     app:layout_constraintStart_toEndOf="@+id/tv_name"
-                    app:layout_constraintTop_toTopOf="@+id/tv_phone_number"
+                    app:layout_constraintTop_toTopOf="@+id/tv_coin_count"
                     tools:text="18888888888" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

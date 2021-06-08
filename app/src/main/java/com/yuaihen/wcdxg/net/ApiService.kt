@@ -154,5 +154,10 @@ interface ApiService {
         @Field("link") link: String,
     ): BaseModel
 
+    /**
+     * 获取个人积分，需要登录后访问
+     */
+    @GET(NetConstants.GET_USER_INFO)
+    suspend fun getUserInfo(): UserInfoModel
 
 }

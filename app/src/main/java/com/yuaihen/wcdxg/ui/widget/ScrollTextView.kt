@@ -15,9 +15,9 @@ class ScrollTextView @JvmOverloads constructor(
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     init {
-        ellipsize = TextUtils.TruncateAt.MARQUEE;
-        marqueeRepeatLimit = -1;
-        isSingleLine = true;
+        ellipsize = TextUtils.TruncateAt.MARQUEE
+        marqueeRepeatLimit = -1
+        isSingleLine = true
     }
 
 

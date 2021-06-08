@@ -44,6 +44,7 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
             if (it) {
                 toast(R.string.login_success)
                 UserUtil.setLoginStatus(true)
+                UserUtil.setUserName(userName)
                 start2Activity(MainActivity::class.java, finish = true)
             }
         }
@@ -87,15 +88,15 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
         }
     }
 
-
+    private var userName: String = ""
     private fun verificationAccountAndPwd() {
-        val userName = binding.editTextAccount.text?.trim().toString()
+        userName = binding.editTextAccount.text?.trim().toString()
         val pwd = binding.editTextPwd.text?.trim().toString()
         if (userName.isEmpty() || pwd.isEmpty()) {
             toast(R.string.login_fail)
             return
         } else {
-            loginByLeanCloud(userName, pwd)
+            login(userName, pwd)
         }
     }
 
@@ -103,7 +104,7 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
      * 验证账号密码
      * 使用LeanCloud保存用户账号信息
      */
-    private fun loginByLeanCloud(userName: String, pwd: String) {
+    private fun login(userName: String, pwd: String) {
         loginViewModel.login(userName, pwd)
     }
 

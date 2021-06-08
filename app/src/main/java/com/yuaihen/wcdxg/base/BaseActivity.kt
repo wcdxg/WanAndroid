@@ -87,10 +87,13 @@ abstract class BaseActivity : AppCompatActivity() {
                 true
             }
         //自定义布局
-//        WaitDialog.show("Please Wait!")
-//            .setCustomView(object : OnBindView<WaitDialog?>(R.layout.layout_custom_view) {
-//                override fun onBind(dialog: WaitDialog?, v: View) {}
-//            })
+//        WaitDialog.show(this)
+//            .setCustomView(object : OnBindView<WaitDialog?>(R.layout.dialog_wait_view) {
+//                override fun onBind(dialog: WaitDialog?, v: View) {
+//
+//                }
+//
+//            }).setOnBackPressedListener { true }
 
     }
 

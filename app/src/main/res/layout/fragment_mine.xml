@@ -1,45 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fragment_bg"
     android:orientation="vertical">
-
-    <com.yuaihen.wcdxg.ui.widget.TitleView
-        android:id="@+id/titleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleName="@string/mine" />
-
-    <LinearLayout
-        android:id="@+id/ll_notify"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/green"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/ic_mine_notify" />
-
-        <com.yuaihen.wcdxg.ui.widget.ScrollTextView
-            android:id="@+id/scrollTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="15dp"
-            android:maxLines="1"
-            android:text="【黄大仙】警员，今日是您的生日，在繁忙的工作中记得买个蛋糕"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-
-    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -47,17 +12,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="30dp">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_userInfo"
                 android:layout_width="0dp"
                 android:layout_height="145dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/shape_login_corner_white_10dp"
+                android:background="@color/bili_bili_pink"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -68,12 +29,11 @@
                     android:layout_height="80dp"
                     android:layout_marginStart="40dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_head_test"
+                    android:src="@drawable/ic_android_black_80dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"
-                    tools:src="@drawable/ic_head_test" />
+                    app:riv_oval="true" />
 
                 <View
                     android:id="@+id/view"
@@ -92,49 +52,50 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="@string/edit"
-                    android:textColor="@color/green"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/nickName"
                     style="@style/mine_user_title_color"
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="2dp"
-                    android:text="@string/name"
+                    android:text="@string/nickName"
                     app:layout_constraintStart_toEndOf="@+id/view"
                     app:layout_constraintTop_toTopOf="@+id/view" />
 
                 <TextView
                     android:id="@+id/textView"
                     style="@style/mine_user_title_color"
+                    android:layout_width="0dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/police_number"
-                    app:layout_constraintStart_toStartOf="@+id/name"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
+                    android:text="@string/idNumber"
+                    app:layout_constraintEnd_toEndOf="@+id/nickName"
+                    app:layout_constraintStart_toStartOf="@+id/nickName"
+                    app:layout_constraintTop_toBottomOf="@+id/nickName" />
 
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/mine_user_title_color"
                     android:layout_marginTop="10dp"
-                    android:text="@string/phone"
-                    app:layout_constraintStart_toStartOf="@+id/name"
+                    android:text="@string/coinCount"
+                    app:layout_constraintEnd_toEndOf="@+id/nickName"
+                    app:layout_constraintStart_toStartOf="@+id/nickName"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 <TextView
                     android:id="@+id/tv_name"
                     style="@style/mine_user_value_color"
                     android:layout_marginStart="10dp"
-                    android:text="黄大仙"
-                    app:layout_constraintStart_toEndOf="@+id/name"
-                    app:layout_constraintTop_toTopOf="@+id/name"
-                    tools:text="黄大仙" />
+                    app:layout_constraintStart_toEndOf="@+id/nickName"
+                    app:layout_constraintTop_toTopOf="@+id/nickName"
+                    tools:text="我吃大西瓜" />
 
                 <TextView
-                    android:id="@+id/tv_police_number"
+                    android:id="@+id/tv_id_number"
                     style="@style/mine_user_value_color"
                     android:text="02161862"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
@@ -142,49 +103,14 @@
                     tools:text="02161862" />
 
                 <TextView
-                    android:id="@+id/tv_phone_number"
+                    android:id="@+id/tv_coin_count"
                     style="@style/mine_user_value_color"
-                    android:text="188 8888 8888"
+                    android:text="451"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toTopOf="@+id/textView2"
                     tools:text="188 8888 8888" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_notify"
-                android:layout_width="0dp"
-                android:layout_height="63dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/shape_login_corner_white_10dp"
-                app:layout_constraintEnd_toEndOf="@+id/cl_userInfo"
-                app:layout_constraintStart_toStartOf="@+id/cl_userInfo"
-                app:layout_constraintTop_toBottomOf="@+id/cl_userInfo">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:text="@string/app_notify"
-                    android:textColor="@color/mine_user_value"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/selector_mine_icon_app_nofity"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <include
                 android:id="@+id/include_mine_function"
@@ -192,10 +118,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/cl_notify"
-                app:layout_constraintRight_toRightOf="@+id/cl_notify"
-                app:layout_constraintStart_toStartOf="@+id/cl_notify"
-                app:layout_constraintTop_toBottomOf="@+id/cl_notify" />
+                app:layout_constraintEnd_toEndOf="@+id/cl_userInfo"
+                app:layout_constraintRight_toRightOf="@+id/cl_userInfo"
+                app:layout_constraintStart_toStartOf="@+id/cl_userInfo"
+                app:layout_constraintTop_toBottomOf="@+id/cl_userInfo" />
 
             <TextView
                 android:id="@+id/tv_exit_login"
@@ -216,5 +142,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
-</LinearLayout>
+</RelativeLayout>

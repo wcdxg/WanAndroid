@@ -25,7 +25,7 @@ class MyFragment : BaseFragment() {
     private var _binding: FragmentMineBinding? = null
     private val binding get() = _binding!!
     private val mDialogUtil by lazy { DialogUtil() }
-    private val myViewModel by viewModels<MyViewModel>()
+    private val viewModel by viewModels<MyViewModel>()
 
     companion object {
         const val REQUEST_CODE_EDIT = 6666
@@ -43,7 +43,7 @@ class MyFragment : BaseFragment() {
                 ApiManage.getCookieJar().clear()
                 UserUtil.setLoginStatus(false)
 //                UserUtil.clearCookie()
-                myViewModel.logout()
+                viewModel.logout()
             }
         }
         binding.tvEdit.setOnClickListener {
@@ -53,16 +53,26 @@ class MyFragment : BaseFragment() {
             )
         }
 
-        myViewModel.logoutSuccess.observe(this) {
-            if (it) {
-                //退回到登录页面
-                activity?.finish()
-                startActivity(Intent(context, LoginActivity::class.java))
+        viewModel.apply {
+            logoutSuccess.observe(this@MyFragment) {
+                if (it) {
+                    //退回到登录页面
+                    activity?.finish()
+                    startActivity(Intent(context, LoginActivity::class.java))
+                }
+            }
+            errorLiveData.observe(this@MyFragment) {
+                toast(it)
+            }
+            loadingLiveData.observe(this@MyFragment) {
+                if (it) showLoading() else hideLoading()
+
             }
         }
-        myViewModel.errorLiveData.observe(this) {
-            toast(it)
-        }
+    }
+
+    override fun initData() {
+        viewModel.getUserInfo()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

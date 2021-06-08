@@ -18,6 +18,7 @@ object NetConstants {
     const val COLLECT_WEBSITE = "lg/collect/addtool/json"
     const val UPDATE_COLLECT_WEBSITE = "lg/collect/updatetool/json"
     const val DELETE_COLLECT_WEBSITE = "lg/collect/deletetool/json"
+    const val GET_USER_INFO = "lg/coin/userinfo/json"
 
 
 

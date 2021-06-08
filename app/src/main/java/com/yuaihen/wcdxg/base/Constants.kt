@@ -22,6 +22,7 @@ object Constants {
     const val AUTHOR = "author"
     const val TITLE = "title"
     const val COLLECT = "collect"
+    const val USER_NAME = "userName"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

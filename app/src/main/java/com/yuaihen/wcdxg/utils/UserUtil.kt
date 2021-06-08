@@ -24,4 +24,13 @@ object UserUtil {
     fun getLoginStatus(): Boolean {
         return SPUtils.getBoolean(Constants.LOGIN_STATUS)
     }
+
+    fun setUserName(userName: String) {
+        SPUtils.setString(Constants.USER_NAME, userName)
+    }
+
+    fun getUserName(): String {
+        return SPUtils.getString(Constants.USER_NAME)
+    }
+
 }
