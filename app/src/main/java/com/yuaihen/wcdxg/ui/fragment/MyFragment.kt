@@ -10,6 +10,7 @@ import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentMineBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyViewModel
 import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.model.UserInfoModel
 import com.yuaihen.wcdxg.ui.activity.EditUserInfoActivity
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
 import com.yuaihen.wcdxg.utils.DialogUtil
@@ -66,13 +67,19 @@ class MyFragment : BaseFragment() {
             }
             loadingLiveData.observe(this@MyFragment) {
                 if (it) showLoading() else hideLoading()
-
+            }
+            userInfoLiveData.observe(this@MyFragment) {
+                setUserInfo(it)
             }
         }
     }
 
     override fun initData() {
         viewModel.getUserInfo()
+    }
+
+    private fun setUserInfo(data: UserInfoModel.Data) {
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
