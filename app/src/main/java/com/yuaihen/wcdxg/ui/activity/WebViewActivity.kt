@@ -62,7 +62,7 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
                 }
             }
             loadingLiveData.observe(this@WebViewActivity) {
-                
+
             }
             errorLiveData.observe(this@WebViewActivity) {
                 toast(it)
@@ -78,7 +78,7 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
             isCollect = getBooleanExtra(Constants.COLLECT, false)
         }
 
-        titleView.apply {
+        binding.titleView.apply {
             setCollectState(isCollect)
             setArticleId(articleId)
         }
