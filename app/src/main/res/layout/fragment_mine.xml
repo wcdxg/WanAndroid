@@ -73,7 +73,7 @@
                     style="@style/mine_user_title_color"
                     android:layout_width="0dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/idNumber"
+                    android:text="@string/coinCount"
                     app:layout_constraintEnd_toEndOf="@+id/nickName"
                     app:layout_constraintStart_toStartOf="@+id/nickName"
                     app:layout_constraintTop_toBottomOf="@+id/nickName" />
@@ -82,7 +82,7 @@
                     android:id="@+id/textView2"
                     style="@style/mine_user_title_color"
                     android:layout_marginTop="10dp"
-                    android:text="@string/coinCount"
+                    android:text="@string/rank"
                     app:layout_constraintEnd_toEndOf="@+id/nickName"
                     app:layout_constraintStart_toStartOf="@+id/nickName"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -96,18 +96,18 @@
                     tools:text="我吃大西瓜" />
 
                 <TextView
-                    android:id="@+id/tv_id_number"
-                    style="@style/mine_user_value_color"
-                    app:layout_constraintStart_toStartOf="@+id/tv_name"
-                    app:layout_constraintTop_toTopOf="@+id/textView"
-                    tools:text="02161862" />
-
-                <TextView
                     android:id="@+id/tv_coin_count"
                     style="@style/mine_user_value_color"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
+                    app:layout_constraintTop_toTopOf="@+id/textView"
+                    tools:text="100000" />
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    style="@style/mine_user_value_color"
+                    app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toTopOf="@+id/textView2"
-                    tools:text="188 8888 8888" />
+                    tools:text="4700" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView

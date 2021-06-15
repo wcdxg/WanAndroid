@@ -105,7 +105,7 @@ class MyFragment : BaseFragment() {
     private fun setUserInfo(data: UserInfoModel.Data) {
         binding.apply {
             tvName.text = UserUtil.getUserName()
-            tvIdNumber.text = data.userId.toString()
+            tvRank.text = data.rank
             tvCoinCount.text = data.coinCount.toString()
         }
     }

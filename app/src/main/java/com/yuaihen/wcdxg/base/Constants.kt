@@ -24,11 +24,11 @@ object Constants {
     const val COLLECT = "collect"
     const val USER_NAME = "userName"
     const val ID_MY_COLLECT = 1
-    const val ID_MY_COLLECT2 = 2
-    const val ID_MY_COLLECT3 = 3
+    const val ID_MY_COIN = 2
+    const val ID_MY_SHARES = 3
     const val ID_MY_COLLECT4 = 4
-    const val ID_MY_COLLECT5 = 5
-    const val ID_MY_COLLECT6 = 6
+    const val ID_ABOUT_US = 5
+    const val ID_SYSTEM_CONFIG = 6
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

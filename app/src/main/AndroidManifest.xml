@@ -62,6 +62,7 @@
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.WebViewActivity" />
+        <activity android:name=".ui.activity.MyCollectActivity" />
         <activity android:name=".ui.activity.TestActivity">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->

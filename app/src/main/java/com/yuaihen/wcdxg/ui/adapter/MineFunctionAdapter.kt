@@ -57,11 +57,11 @@ class MineFunctionAdapter(private val menuList: MutableList<MineMenuModel>) :
                     MyCollectActivity::class.java
                 )
             )
-            Constants.ID_MY_COLLECT2 -> ToastUtil.show("开发中")
-            Constants.ID_MY_COLLECT3 -> ToastUtil.show("开发中")
+            Constants.ID_MY_COIN -> ToastUtil.show("开发中")
+            Constants.ID_MY_SHARES -> ToastUtil.show("开发中")
             Constants.ID_MY_COLLECT4 -> ToastUtil.show("开发中")
-            Constants.ID_MY_COLLECT5 -> ToastUtil.show("开发中")
-            Constants.ID_MY_COLLECT6 -> ToastUtil.show("开发中")
+            Constants.ID_ABOUT_US -> ToastUtil.show("开发中")
+            Constants.ID_SYSTEM_CONFIG -> ToastUtil.show("开发中")
         }
     }
 

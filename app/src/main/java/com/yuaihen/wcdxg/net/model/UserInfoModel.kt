@@ -15,7 +15,7 @@ data class UserInfoModel(
         @SerializedName("coinCount")
         val coinCount: Int = 0,
         @SerializedName("rank")
-        val rank: Int = 0,
+        val rank: String = "0",
         @SerializedName("userId")
         val userId: Int = 0,
         @SerializedName("username")
