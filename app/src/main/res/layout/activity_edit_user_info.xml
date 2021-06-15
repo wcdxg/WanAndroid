@@ -73,7 +73,7 @@
                     style="@style/mine_user_title_color"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="25dp"
-                    android:text="@string/name"
+                    android:text="@string/nickName"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -149,7 +149,7 @@
                     android:id="@+id/tv_coin_count"
                     style="@style/mine_user_title_color"
                     android:layout_marginTop="20dp"
-                    android:text="@string/phone"
+                    android:text="@string/idNumber"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toBottomOf="@+id/view5" />
 

@@ -13,11 +13,6 @@
         <attr name="titleShowBackIcon" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="MineFunctionLayout">
-        <attr name="functionName" format="string" />
-        <attr name="functionIcon" format="reference" />
-    </declare-styleable>
-
     <declare-styleable name="EditTextWithClear">
         <attr name="clearIcon" format="reference" />
     </declare-styleable>

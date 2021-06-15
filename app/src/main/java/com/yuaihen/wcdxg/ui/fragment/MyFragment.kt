@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentMineBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyViewModel
 import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.model.MineMenuModel
 import com.yuaihen.wcdxg.net.model.UserInfoModel
 import com.yuaihen.wcdxg.ui.activity.EditUserInfoActivity
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
+import com.yuaihen.wcdxg.ui.adapter.MineFunctionAdapter
 import com.yuaihen.wcdxg.utils.DialogUtil
 import com.yuaihen.wcdxg.utils.UserUtil
+import com.yuaihen.wcdxg.utils.gone
+import com.yuaihen.wcdxg.utils.visible
 
 /**
  * Created by Yuaihen.
@@ -66,7 +71,7 @@ class MyFragment : BaseFragment() {
                 toast(it)
             }
             loadingLiveData.observe(this@MyFragment) {
-                if (it) showLoading() else hideLoading()
+                if (it) binding.loadingView.visible() else binding.loadingView.gone()
             }
             userInfoLiveData.observe(this@MyFragment) {
                 setUserInfo(it)
@@ -74,12 +79,35 @@ class MyFragment : BaseFragment() {
         }
     }
 
+
     override fun initData() {
+        createMenuItem()
         viewModel.getUserInfo()
     }
 
-    private fun setUserInfo(data: UserInfoModel.Data) {
+    private fun createMenuItem() {
+        val menuNameList = resources.getStringArray(R.array.menu_name)
+        val menuId = resources.getIntArray(R.array.menu_id)
+        val menuItemList = mutableListOf<MineMenuModel>()
+        menuNameList.forEachIndexed { index, menuName ->
+            menuItemList.add(
+                MineMenuModel(
+                    menuId[index],
+                    menuName,
+                    R.drawable.ic_baseline_favorite_border_24
+                )
+            )
+        }
+        val adapter = MineFunctionAdapter(menuItemList)
+        binding.recyclerFunction.adapter = adapter
+    }
 
+    private fun setUserInfo(data: UserInfoModel.Data) {
+        binding.apply {
+            tvName.text = UserUtil.getUserName()
+            tvIdNumber.text = data.userId.toString()
+            tvCoinCount.text = data.coinCount.toString()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

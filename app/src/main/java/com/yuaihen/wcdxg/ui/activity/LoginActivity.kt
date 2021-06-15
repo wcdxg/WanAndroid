@@ -35,7 +35,7 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
 
     override fun initListener() {
         loginViewModel.loadingLiveData.observe(this) {
-            if (it) binding.progressBar.visible() else binding.progressBar.invisible()
+            if (it) binding.loadingView.visible() else binding.loadingView.invisible()
         }
         loginViewModel.errorLiveData.observe(this) {
             toast(it)
@@ -51,7 +51,7 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
     }
 
     override fun initData() {
-        binding.progressBar.invisible()
+        binding.loadingView.invisible()
         binding.btnLogin.setOnClickListener {
             KeyboardUtils.hideSoftInput(this)
             verificationAccountAndPwd()

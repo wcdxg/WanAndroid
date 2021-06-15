@@ -24,9 +24,7 @@
     <string name="idNumber">ID：</string>
     <string name="coinCount">积分：</string>
     <string name="app_notify">站内通知</string>
-    <string name="leave">请销假申请</string>
-    <string name="work_task">工作任务</string>
-    <string name="collection_manage">收藏管理</string>
+    <string name="my_collection">收藏管理</string>
     <string name="mine_publish">我的发布</string>
     <string name="exit_login">注销/切换账号</string>
     <string name="hint">提示</string>

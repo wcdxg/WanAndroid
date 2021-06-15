@@ -23,6 +23,12 @@ object Constants {
     const val TITLE = "title"
     const val COLLECT = "collect"
     const val USER_NAME = "userName"
+    const val ID_MY_COLLECT = 1
+    const val ID_MY_COLLECT2 = 2
+    const val ID_MY_COLLECT3 = 3
+    const val ID_MY_COLLECT4 = 4
+    const val ID_MY_COLLECT5 = 5
+    const val ID_MY_COLLECT6 = 6
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

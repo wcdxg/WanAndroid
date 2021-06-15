@@ -98,7 +98,7 @@
         android:layout_height="20dp"
         android:background="@drawable/article_collect_icon_selector"
         android:backgroundTint="@color/bili_bili_pink"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_chapter_name"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_chapter_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_author" />
 </androidx.constraintlayout.widget.ConstraintLayout>

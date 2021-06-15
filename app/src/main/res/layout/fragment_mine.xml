@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -97,7 +98,6 @@
                 <TextView
                     android:id="@+id/tv_id_number"
                     style="@style/mine_user_value_color"
-                    android:text="02161862"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toTopOf="@+id/textView"
                     tools:text="02161862" />
@@ -105,22 +105,19 @@
                 <TextView
                     android:id="@+id/tv_coin_count"
                     style="@style/mine_user_value_color"
-                    android:text="451"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintTop_toTopOf="@+id/textView2"
                     tools:text="188 8888 8888" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            <include
-                android:id="@+id/include_mine_function"
-                layout="@layout/include_layout_mine_function"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_function"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/cl_userInfo"
-                app:layout_constraintRight_toRightOf="@+id/cl_userInfo"
-                app:layout_constraintStart_toStartOf="@+id/cl_userInfo"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cl_userInfo" />
 
             <TextView
@@ -134,12 +131,17 @@
                 android:textColor="@color/mine_exit_login"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/include_mine_function"
-                app:layout_constraintStart_toStartOf="@+id/include_mine_function"
-                app:layout_constraintTop_toBottomOf="@+id/include_mine_function" />
+                app:layout_constraintEnd_toEndOf="@+id/recycler_function"
+                app:layout_constraintStart_toStartOf="@+id/recycler_function"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_function" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.yuaihen.wcdxg.ui.widget.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

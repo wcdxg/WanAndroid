@@ -36,11 +36,12 @@ class RegisterActivity : BaseActivity(), TextView.OnEditorActionListener {
             if (it) {
                 toast(R.string.register_success)
                 UserUtil.setLoginStatus(true)
+                UserUtil.setUserName(userName)
                 start2Activity(MainActivity::class.java, finish = true)
             }
         }
         registerViewModel.loadingLiveData.observe(this) {
-            if (it) binding.progressBar.visible() else binding.progressBar.invisible()
+            if (it) binding.loadingView.visible() else binding.loadingView.invisible()
         }
         registerViewModel.errorLiveData.observe(this) {
             toast(it)
@@ -48,7 +49,7 @@ class RegisterActivity : BaseActivity(), TextView.OnEditorActionListener {
     }
 
     override fun initData() {
-        binding.progressBar.invisible()
+        binding.loadingView.invisible()
         binding.editTextPwd.setOnEditorActionListener(this)
         binding.btnRegister.setOnClickListener {
             verificationAccountAndPwd()
@@ -66,8 +67,9 @@ class RegisterActivity : BaseActivity(), TextView.OnEditorActionListener {
         return false
     }
 
+    private var userName = ""
     private fun verificationAccountAndPwd() {
-        val userName = binding.editTextAccount.text?.trim().toString()
+        userName = binding.editTextAccount.text?.trim().toString()
         val pwd = binding.editTextPwd.text?.trim().toString()
         val repassword = binding.editTextRePwd.text?.trim().toString()
         if (userName.isEmpty() || pwd.isEmpty() || repassword.isEmpty()) {
