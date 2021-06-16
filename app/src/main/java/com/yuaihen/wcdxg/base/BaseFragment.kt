@@ -23,12 +23,6 @@ abstract class BaseFragment : Fragment() {
     private lateinit var mContext: FragmentActivity
     private var mRootView: View? = null
 
-    //Fragment对用户可见的标记
-    private var isUIVisible = false
-
-    //Fragment的View加载完毕的标记
-    private var isViewCreated = false
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context as FragmentActivity
@@ -55,10 +49,8 @@ abstract class BaseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initImmersionBar()
-//            isViewCreated = true
         initListener()
         initData()
-//            lazyLoad()
     }
 
     /**
@@ -70,36 +62,6 @@ abstract class BaseFragment : Fragment() {
             .init()
     }
 
-//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        super.setUserVisibleHint(isVisibleToUser)
-//        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-//        if (isVisibleToUser) {
-//            isUIVisible = true
-//            lazyLoad()
-//        } else {
-//            isUIVisible = false
-//        }
-//        onFragmentVisibleChange(isVisibleToUser)
-//    }
-
-    /**
-     * Fragment 是否可见
-     *
-     * @param isUIVisible
-     */
-//    open fun onFragmentVisibleChange(isUIVisible: Boolean) {
-//
-//    }
-
-//    open fun lazyLoad() {
-//        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
-//        if (isViewCreated && isUIVisible) {
-//            loadData()
-//            //数据加载完毕,恢复标记,防止重复加载
-//            isViewCreated = false
-//            isUIVisible = false
-//        }
-//    }
 
     open fun getLayoutId(): Int {
         return 0
@@ -110,9 +72,6 @@ abstract class BaseFragment : Fragment() {
 
     open fun initData() {
     }
-
-//    open fun loadData() {
-//    }
 
     abstract fun unBindView()
 
@@ -125,9 +84,6 @@ abstract class BaseFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //页面销毁,恢复标记
-//        isViewCreated = false
-//        isUIVisible = false
         hideLoading()
         unBindView()
     }
@@ -157,5 +113,4 @@ abstract class BaseFragment : Fragment() {
     protected open fun toast(msg: String) {
         mContext.runOnUiThread { ToastUtil.show(msg) }
     }
-
 }

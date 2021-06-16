@@ -116,9 +116,9 @@ class HomeViewModel : BaseViewModel() {
     /**
      * 取消收藏-从文章列表页
      */
-    fun uncollectByOriginId(id: Int) {
+    fun unCollectByOriginId(id: Int) {
         launch({
-            val response = ApiManage.getInstance().uncollectByOriginId(id)
+            val response = ApiManage.getInstance().unCollectByOriginId(id)
             when {
                 response.errorCode.isSuccess() -> {
                     errorLiveData.postValue("取消收藏成功")

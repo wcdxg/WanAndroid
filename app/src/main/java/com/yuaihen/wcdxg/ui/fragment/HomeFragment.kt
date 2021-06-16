@@ -128,8 +128,8 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
         viewModel.collectArticle(id)
     }
 
-    override fun unCollect(id: Int) {
-        viewModel.uncollectByOriginId(id)
+    override fun unCollect(id: Int, originId: Int, position: Int) {
+        viewModel.unCollectByOriginId(id)
     }
 
 }

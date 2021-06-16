@@ -57,8 +57,8 @@
 
     <ImageView
         android:id="@+id/iv_back"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_arrow_back"

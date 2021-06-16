@@ -76,48 +76,19 @@ interface ApiService {
     suspend fun getTopArticleList(): TopArticleModel
 
     /**
-     * 收藏站内文章
-     */
-    @POST("lg/collect/{id}/json")
-    suspend fun collectArticle(@Path(Constants.ID) id: Int): BaseModel
-
-    /**
-     * 收藏站外文章
-     */
-    @FormUrlEncoded
-    @POST(NetConstants.COLLECT_OTHER_WEBSITE_ARTICLE)
-    suspend fun collectArticle(
-        @Field(Constants.TITLE) title: String,
-        @Field(Constants.AUTHOR) author: String,
-        @Field(Constants.LINK) link: String,
-    ): BaseModel
-
-    /**
-     * 取消收藏
-     */
-    @POST("lg/uncollect_originId/{uncollect_originId}/json")
-    suspend fun uncollectByOriginId(@Path(Constants.UNCOLLECT_ORIGINID) uncollect_originId: Int): BaseModel
-
-    /**
-     * 取消收藏-我的收藏列表取消
-     */
-    @POST("lg/uncollect/{id}/json")
-    suspend fun uncollectById(@Path(Constants.ID) id: Int): BaseModel
-
-    /**
-     * 收藏文章列表
+     * 获取收藏文章列表
      */
     @GET("lg/collect/list/{page}/json")
-    suspend fun getCollectList(@Path(Constants.PAGE) page: Int): HomeArticleModel
+    suspend fun getCollectArticleList(@Path(Constants.PAGE) page: Int): HomeArticleModel
 
     /**
-     * 收藏网站列表
+     * 获取收藏网站列表
      */
     @GET(NetConstants.GET_COLLECT_WEBSITE)
-    suspend fun getCollectWebSiteList(): HomeArticleModel
+    suspend fun getCollectWebSiteList(): TopArticleModel
 
     /**
-     * 收藏网址
+     * 收藏网站
      */
     @GET(NetConstants.COLLECT_WEBSITE)
     suspend fun collectWebSite(
@@ -144,14 +115,36 @@ interface ApiService {
     ): BaseModel
 
     /**
+     * 收藏站内文章
+     */
+    @POST("lg/collect/{id}/json")
+    suspend fun collectArticle(@Path(Constants.ID) id: Int): BaseModel
+
+    /**
      * 收藏站外文章
      */
     @FormUrlEncoded
-    @POST("lg/collect/add/json")
-    suspend fun collectOtherWebSize(
-        @Field("title") userName: String,
-        @Field("author") author: String,
-        @Field("link") link: String,
+    @POST(NetConstants.COLLECT_OTHER_WEBSITE_ARTICLE)
+    suspend fun collectArticle(
+        @Field(Constants.TITLE) title: String,
+        @Field(Constants.AUTHOR) author: String,
+        @Field(Constants.LINK) link: String,
+    ): BaseModel
+
+    /**
+     * 取消收藏-从文章列表
+     */
+    @POST("lg/uncollect_originId/{uncollect_originId}/json")
+    suspend fun unCollectByOriginId(@Path(Constants.UNCOLLECT_ORIGINID) uncollect_originId: Int): BaseModel
+
+    /**
+     * 取消收藏-从我的收藏列表取消
+     */
+    @FormUrlEncoded
+    @POST("lg/uncollect/{id}/json")
+    suspend fun unCollectById(
+        @Path(Constants.ID) id: Int,
+        @Field(Constants.ORIGIN_ID) originId: Int = -1
     ): BaseModel
 
     /**

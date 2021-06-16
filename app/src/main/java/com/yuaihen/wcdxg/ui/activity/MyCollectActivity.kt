@@ -1,13 +1,11 @@
 package com.yuaihen.wcdxg.ui.activity
 
 import android.view.View
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityMyCollectBinding
-import com.yuaihen.wcdxg.mvvm.viewmodel.MyCollectViewModel
 import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.CollectFragment
 
@@ -19,8 +17,13 @@ import com.yuaihen.wcdxg.ui.fragment.CollectFragment
 class MyCollectActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMyCollectBinding
-    private val viewModel by viewModels<MyCollectViewModel>()
     private val adapter by lazy { ViewPager2PagerAdapter(supportFragmentManager, lifecycle) }
+    private val fragmentList by lazy {
+        mutableListOf<Fragment>().apply {
+            add(CollectFragment.newInstance(CollectFragment.COLLECT_ARTICLE_ARTICLE))
+            add(CollectFragment.newInstance(CollectFragment.COLLECT_ARTICLE_WEBSITE))
+        }
+    }
 
     override fun getBindingView(): View {
         binding = ActivityMyCollectBinding.inflate(layoutInflater)
@@ -35,13 +38,7 @@ class MyCollectActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val list = mutableListOf<Fragment>().apply {
-            add(CollectFragment())
-            add(CollectFragment())
-        }
-        val adapter = ViewPager2PagerAdapter(supportFragmentManager, lifecycle)
-        adapter.addFragmentList(list)
-
+        adapter.addFragmentList(fragmentList)
         binding.apply {
             viewPager.adapter = adapter
             TabLayoutMediator(

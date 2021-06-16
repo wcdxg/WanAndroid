@@ -1,5 +1,6 @@
 package com.yuaihen.wcdxg.mvvm.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yuaihen.wcdxg.net.ApiManage
@@ -17,7 +18,7 @@ class CollectPagingSource : PagingSource<Int, ArticleModel>() {
         try {
             //默认加载第0页数据
             val nextPageNumber = params.key ?: 0
-            val response = ApiManage.getInstance().getCollectList(nextPageNumber)
+            val response = ApiManage.getInstance().getCollectArticleList(nextPageNumber)
             if (response.errorCode.isSuccess()) {
                 return LoadResult.Page(
                     data = response.data.datas,
@@ -32,7 +33,6 @@ class CollectPagingSource : PagingSource<Int, ArticleModel>() {
         } catch (e: Exception) {
             return LoadResult.Error(e)
         }
-
         return LoadResult.Error(Error("error"))
     }
 

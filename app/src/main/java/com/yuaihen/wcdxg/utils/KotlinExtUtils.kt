@@ -25,20 +25,6 @@ fun String.loadIntoImage(iv: ImageView) {
     GlideUtil.showImageView(iv, this)
 }
 
-fun String.trimHtml(): String {
-    this.replace("</p>", "")
-    this.replace("<p>", "")
-    this.replace("\r", "")
-    this.replace("\n", "")
-    this.replace("<li>", "")
-    this.replace("</li>", "")
-    this.replace("<ol>", "")
-    this.replace("</ol>", "")
-    this.replace("<strong>", "")
-    this.replace("</strong>", "")
-    return this
-}
-
 //@BindingAdapter("isGoneFromStr")
 //fun bindIsGone(view: View, str: String? = "") {
 //    view.visibility = if (str.isNullOrEmpty()) {

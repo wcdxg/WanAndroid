@@ -43,6 +43,7 @@
     <string name="my_collect">我的收藏</string>
     <string name="collect_article">收藏文章</string>
     <string name="collect_website">收藏网站</string>
+    <string name="result_empty">啥都木有找到~</string>
 
 
 </resources>

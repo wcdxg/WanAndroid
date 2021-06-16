@@ -28,7 +28,7 @@ class ApiManage {
 
     companion object {
 
-        const val TAG = "data"
+        const val TAG = "api"
 
         @Volatile
         private var instance: ApiService? = null

@@ -8,6 +8,6 @@ interface OnCollectClickListener {
 
     fun onCollect(id: Int)
 
-    fun unCollect(id: Int)
+    fun unCollect(id: Int, originId: Int = -1, position: Int = 0)
 
 }

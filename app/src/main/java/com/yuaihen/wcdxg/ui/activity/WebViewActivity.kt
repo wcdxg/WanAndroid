@@ -1,5 +1,7 @@
 package com.yuaihen.wcdxg.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Message
 import android.util.Log
@@ -40,6 +42,18 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     private var articleId = 0
     private var isCollect = false
 
+    companion object {
+        fun start(context: Context, url: String, articleId: Int, collected: Boolean) {
+            val intent = Intent(context, WebViewActivity::class.java).apply {
+                putExtra("url", url)
+                putExtra("articleId", articleId)
+                putExtra("collected", collected)
+//                putExtra("articleId", articleId)
+            }
+            context.startActivity(intent)
+        }
+    }
+
     override fun getBindingView(): View {
         binding = ActivityWebviewBinding.inflate(layoutInflater)
         return binding.root
@@ -67,7 +81,6 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
             errorLiveData.observe(this@WebViewActivity) {
                 toast(it)
             }
-
         }
 
     }
@@ -190,8 +203,8 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
         viewModel.collectArticle(id)
     }
 
-    override fun unCollect(id: Int) {
-        viewModel.uncollectByOriginId(id)
+    override fun unCollect(id: Int, originId: Int, position: Int) {
+        viewModel.unCollectByOriginId(id)
     }
 
 
