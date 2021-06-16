@@ -29,6 +29,11 @@ fun String.trimHtml(): String {
     this.replace("</p>", "")
     this.replace("<p>", "")
     this.replace("\r", "")
+    this.replace("\n", "")
+    this.replace("<li>", "")
+    this.replace("</li>", "")
+    this.replace("<ol>", "")
+    this.replace("</ol>", "")
     this.replace("<strong>", "")
     this.replace("</strong>", "")
     return this

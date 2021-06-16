@@ -90,7 +90,6 @@
                 <TextView
                     android:id="@+id/tv_name"
                     style="@style/mine_user_value_color"
-                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toEndOf="@+id/nickName"
                     app:layout_constraintTop_toTopOf="@+id/nickName"
                     tools:text="我吃大西瓜" />

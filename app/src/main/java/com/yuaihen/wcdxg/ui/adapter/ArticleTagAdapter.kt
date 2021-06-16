@@ -1,4 +1,4 @@
-package com.yuaihen.wcdxg.ui.home.adapter
+package com.yuaihen.wcdxg.ui.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.yuaihen.wcdxg.ui.home.adapter
+package com.yuaihen.wcdxg.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

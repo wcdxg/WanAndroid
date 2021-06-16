@@ -1,15 +1,13 @@
-package com.yuaihen.wcdxg.ui.home.adapter
+package com.yuaihen.wcdxg.ui.adapter
 
-import android.app.Activity
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
-import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.databinding.HomeBannerItemBinding
 import com.yuaihen.wcdxg.net.model.BannerModel
-import com.yuaihen.wcdxg.ui.home.HomeFragment
+import com.yuaihen.wcdxg.ui.fragment.HomeFragment
 import com.yuaihen.wcdxg.utils.GlideUtil
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
 import com.yuaihen.wcdxg.viewbinding.getViewHolder

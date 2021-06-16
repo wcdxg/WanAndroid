@@ -1,4 +1,4 @@
-package com.yuaihen.wcdxg.ui.home
+package com.yuaihen.wcdxg.ui.fragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +10,8 @@ import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentTestBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
-import com.yuaihen.wcdxg.ui.home.adapter.ArticleLoadStateAdapter
-import com.yuaihen.wcdxg.ui.home.adapter.HomeArticleAdapter
+import com.yuaihen.wcdxg.ui.adapter.ArticleLoadStateAdapter
+import com.yuaihen.wcdxg.ui.adapter.HomeArticleAdapter
 import kotlinx.coroutines.launch
 
 /**

@@ -37,4 +37,5 @@ class ViewPager2PagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
     override fun createFragment(position: Int): Fragment {
         return fragmentList[position]
     }
+
 }

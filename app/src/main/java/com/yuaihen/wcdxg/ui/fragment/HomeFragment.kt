@@ -1,4 +1,4 @@
-package com.yuaihen.wcdxg.ui.home
+package com.yuaihen.wcdxg.ui.fragment
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -14,10 +14,10 @@ import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
-import com.yuaihen.wcdxg.ui.home.adapter.ArticleLoadStateAdapter
-import com.yuaihen.wcdxg.ui.home.adapter.HomeArticleAdapter
-import com.yuaihen.wcdxg.ui.home.adapter.HomeBannerAdapter
-import com.yuaihen.wcdxg.ui.home.adapter.TopArticleAdapter
+import com.yuaihen.wcdxg.ui.adapter.ArticleLoadStateAdapter
+import com.yuaihen.wcdxg.ui.adapter.HomeArticleAdapter
+import com.yuaihen.wcdxg.ui.adapter.HomeBannerAdapter
+import com.yuaihen.wcdxg.ui.adapter.TopArticleAdapter
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import kotlinx.coroutines.launch
 

@@ -32,7 +32,7 @@ class HomeViewModel : BaseViewModel() {
     private val _topArticleLiveData = MutableLiveData<List<ArticleModel>>()
     val topArticleLiveData = _topArticleLiveData
 
-    /**e
+    /**
      * 获取轮播图
      */
     fun getBanner() {

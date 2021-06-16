@@ -12,8 +12,8 @@ import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityMainBinding
 import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.MyFragment
-import com.yuaihen.wcdxg.ui.home.HomeFragment
-import com.yuaihen.wcdxg.ui.home.TestFragment
+import com.yuaihen.wcdxg.ui.fragment.HomeFragment
+import com.yuaihen.wcdxg.ui.fragment.TestFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
