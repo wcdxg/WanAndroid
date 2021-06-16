@@ -54,6 +54,6 @@ class MyViewModel : BaseViewModel() {
             errorLiveData.postValue(it)
         }, {
             loadingLiveData.postValue(false)
-        })
+        }, false)
     }
 }

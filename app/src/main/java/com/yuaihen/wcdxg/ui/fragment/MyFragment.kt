@@ -71,7 +71,7 @@ class MyFragment : BaseFragment() {
                 toast(it)
             }
             loadingLiveData.observe(this@MyFragment) {
-                if (it) binding.loadingView.visible() else binding.loadingView.gone()
+//                if (it) binding.loadingView.visible() else binding.loadingView.gone()
             }
             userInfoLiveData.observe(this@MyFragment) {
                 setUserInfo(it)

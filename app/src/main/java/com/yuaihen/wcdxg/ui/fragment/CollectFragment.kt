@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
+import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentCollectBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyCollectViewModel
@@ -29,7 +30,7 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
 
     private var _binding: FragmentCollectBinding? = null
     private val binding get() = _binding!!
-    private var currentIndex = 0
+    private var currentIndex = 0    //当前页面是收藏文章还是收藏网站
     private val viewModel by viewModels<MyCollectViewModel>()
     private val pagingAdapter by lazy { HomeArticleAdapter(true) }
     private val webSiteAdapter by lazy { TopArticleAdapter(true) }
@@ -82,7 +83,7 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
             }
             unCollectStatus.observe(viewLifecycleOwner) {
                 if (it) {
-                    toast("取消收藏成功")
+                    toast(getString(R.string.unCollect_success))
                     pagingAdapter.notifyItemRemoved(currentItemPos)
                 }
             }

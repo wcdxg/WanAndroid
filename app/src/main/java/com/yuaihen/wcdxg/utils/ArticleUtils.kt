@@ -34,6 +34,10 @@ object ArticleUtils {
                         "匿名"
                     }
                 }
+                tvAuthor.setOnClickListener {
+                    //TODO 点击事件未添加
+                    ToastUtil.show("TODO ")
+                }
                 tvPublishTime.text = it.niceDate
                 tvTitle.text = Html.fromHtml(it.title)
                 if (it.desc.isEmpty()) {
