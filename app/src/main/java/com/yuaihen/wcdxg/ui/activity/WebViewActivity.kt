@@ -45,9 +45,9 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     companion object {
         fun start(context: Context, url: String, articleId: Int, collected: Boolean) {
             val intent = Intent(context, WebViewActivity::class.java).apply {
-                putExtra("url", url)
-                putExtra("articleId", articleId)
-                putExtra("collected", collected)
+                putExtra(Constants.URL, url)
+                putExtra(Constants.ARTICLE_ID, articleId)
+                putExtra(Constants.COLLECTED, collected)
 //                putExtra("articleId", articleId)
             }
             context.startActivity(intent)
@@ -88,7 +88,7 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     override fun initData() {
         intent.apply {
             articleId = getIntExtra(Constants.ID, 0)
-            isCollect = getBooleanExtra(Constants.COLLECT, false)
+            isCollect = getBooleanExtra(Constants.COLLECTED, false)
         }
 
         binding.titleView.apply {

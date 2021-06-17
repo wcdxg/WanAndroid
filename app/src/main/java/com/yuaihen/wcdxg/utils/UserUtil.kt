@@ -33,4 +33,11 @@ object UserUtil {
         return SPUtils.getString(Constants.USER_NAME)
     }
 
+    fun setUserCoinCount(coinCount: Int) {
+        SPUtils.setInt(Constants.COIN_COUNT, coinCount)
+    }
+
+    fun getUserCoinCount(): Int {
+        return SPUtils.getInt(Constants.COIN_COUNT)
+    }
 }

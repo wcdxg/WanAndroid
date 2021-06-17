@@ -22,7 +22,8 @@ object Constants {
     const val LINK = "link"
     const val AUTHOR = "author"
     const val TITLE = "title"
-    const val COLLECT = "collect"
+    const val COLLECTED = "collect"
+    const val ARTICLE_ID = "articleId"
     const val USER_NAME = "userName"
     const val ID_MY_COLLECT = 1
     const val ID_MY_COIN = 2
@@ -30,6 +31,7 @@ object Constants {
     const val ID_MY_COLLECT4 = 4
     const val ID_ABOUT_US = 5
     const val ID_SYSTEM_CONFIG = 6
+    const val COIN_COUNT = "coinCount"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

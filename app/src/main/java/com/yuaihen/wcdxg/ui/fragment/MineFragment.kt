@@ -18,15 +18,13 @@ import com.yuaihen.wcdxg.ui.activity.LoginActivity
 import com.yuaihen.wcdxg.ui.adapter.MineFunctionAdapter
 import com.yuaihen.wcdxg.utils.DialogUtil
 import com.yuaihen.wcdxg.utils.UserUtil
-import com.yuaihen.wcdxg.utils.gone
-import com.yuaihen.wcdxg.utils.visible
 
 /**
  * Created by Yuaihen.
  * on 2021/3/26
  * 我的
  */
-class MyFragment : BaseFragment() {
+class MineFragment : BaseFragment() {
 
     private var _binding: FragmentMineBinding? = null
     private val binding get() = _binding!!
@@ -60,20 +58,17 @@ class MyFragment : BaseFragment() {
         }
 
         viewModel.apply {
-            logoutSuccess.observe(this@MyFragment) {
+            logoutSuccess.observe(this@MineFragment) {
                 if (it) {
                     //退回到登录页面
                     activity?.finish()
                     startActivity(Intent(context, LoginActivity::class.java))
                 }
             }
-            errorLiveData.observe(this@MyFragment) {
+            errorLiveData.observe(this@MineFragment) {
                 toast(it)
             }
-            loadingLiveData.observe(this@MyFragment) {
-//                if (it) binding.loadingView.visible() else binding.loadingView.gone()
-            }
-            userInfoLiveData.observe(this@MyFragment) {
+            userInfoLiveData.observe(this@MineFragment) {
                 setUserInfo(it)
             }
         }
@@ -107,6 +102,7 @@ class MyFragment : BaseFragment() {
             tvName.text = UserUtil.getUserName()
             tvRank.text = data.rank
             tvCoinCount.text = data.coinCount.toString()
+            UserUtil.setUserCoinCount(data.coinCount)
         }
     }
 

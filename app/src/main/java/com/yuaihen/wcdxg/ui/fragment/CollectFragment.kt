@@ -19,6 +19,7 @@ import com.yuaihen.wcdxg.ui.adapter.ArticleLoadStateAdapter
 import com.yuaihen.wcdxg.ui.adapter.HomeArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.TopArticleAdapter
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
+import com.yuaihen.wcdxg.utils.gone
 import kotlinx.coroutines.launch
 
 /**
@@ -130,6 +131,7 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
     }
 
     private fun showEmptyView(isShow: Boolean) {
+        binding.loadingView.gone()
         binding.ivEmpty.isVisible = isShow
         binding.tvEmpty.isVisible = isShow
     }

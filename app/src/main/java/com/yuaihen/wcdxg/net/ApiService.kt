@@ -153,4 +153,15 @@ interface ApiService {
     @GET(NetConstants.GET_USER_INFO)
     suspend fun getUserInfo(): UserInfoModel
 
+    /**
+     * 获取用户积分记录
+     */
+    @GET("lg/coin/list/{page}/json")
+    suspend fun getCoinRecord(@Path(Constants.PAGE) page: Int): CoinRecordModel
+
+    /**
+     * 获取积分排行榜记录
+     */
+    @GET("coin/rank/{page}/json")
+    suspend fun getCoinRank(@Path(Constants.PAGE) page: Int): CoinRecordModel
 }

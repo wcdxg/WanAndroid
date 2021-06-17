@@ -1,13 +1,13 @@
 package com.yuaihen.wcdxg.ui.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.MineFunctionItemBinding
 import com.yuaihen.wcdxg.net.model.MineMenuModel
 import com.yuaihen.wcdxg.ui.activity.MyCollectActivity
+import com.yuaihen.wcdxg.ui.fragment.CoinActivity
 import com.yuaihen.wcdxg.utils.ToastUtil
 import com.yuaihen.wcdxg.utils.gone
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
@@ -51,13 +51,8 @@ class MineFunctionAdapter(private val menuList: MutableList<MineMenuModel>) :
 
     private fun openPageById(id: Int, context: Context) {
         when (id) {
-            Constants.ID_MY_COLLECT -> context.startActivity(
-                Intent(
-                    context,
-                    MyCollectActivity::class.java
-                )
-            )
-            Constants.ID_MY_COIN -> ToastUtil.show("开发中")
+            Constants.ID_MY_COLLECT -> MyCollectActivity.start(context)
+            Constants.ID_MY_COIN -> CoinActivity.start(context)
             Constants.ID_MY_SHARES -> ToastUtil.show("开发中")
             Constants.ID_MY_COLLECT4 -> ToastUtil.show("开发中")
             Constants.ID_ABOUT_US -> ToastUtil.show("开发中")

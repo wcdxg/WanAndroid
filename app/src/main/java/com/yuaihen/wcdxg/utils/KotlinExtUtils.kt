@@ -2,7 +2,9 @@ package com.yuaihen.wcdxg.utils
 
 import android.view.View
 import android.widget.ImageView
-import androidx.databinding.BindingAdapter
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 
 /**
  * Created by Yuaihen.
@@ -10,15 +12,21 @@ import androidx.databinding.BindingAdapter
  * Kotlin扩展函数工具类
  */
 fun View.gone() {
-    this.visibility = View.GONE
+    if (!this.isGone) {
+        this.visibility = View.GONE
+    }
 }
 
 fun View.visible() {
-    this.visibility = View.VISIBLE
+    if (!this.isVisible) {
+        this.visibility = View.VISIBLE
+    }
 }
 
 fun View.invisible() {
-    this.visibility = View.INVISIBLE
+    if (!this.isInvisible) {
+        this.visibility = View.INVISIBLE
+    }
 }
 
 fun String.loadIntoImage(iv: ImageView) {

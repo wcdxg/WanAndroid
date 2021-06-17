@@ -45,6 +45,7 @@
     <string name="collect_website">收藏网站</string>
     <string name="result_empty">啥都木有找到~</string>
     <string name="unCollect_success">取消收藏成功~</string>
+    <string name="myCoin">我的积分</string>
 
 
 </resources>
