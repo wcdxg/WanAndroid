@@ -15,8 +15,8 @@ import com.yuaihen.wcdxg.databinding.LoadStateItemBinding
  * on 2021/5/28
  * Paging LoadState Adapter
  */
-class ArticleLoadStateAdapter(private val retry: () -> Unit) :
-    LoadStateAdapter<ArticleLoadStateAdapter.LoadStateViewHolder>() {
+class MyPagingLoadStateAdapter(private val retry: () -> Unit) :
+    LoadStateAdapter<MyPagingLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
         return holder.bind(loadState)

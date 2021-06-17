@@ -14,7 +14,7 @@ import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
-import com.yuaihen.wcdxg.ui.adapter.ArticleLoadStateAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
 import com.yuaihen.wcdxg.ui.adapter.HomeArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.HomeBannerAdapter
 import com.yuaihen.wcdxg.ui.adapter.TopArticleAdapter
@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
     }
 
     override fun initListener() {
-        pagingAdapter.withLoadStateFooter(ArticleLoadStateAdapter(pagingAdapter::retry))
+        pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
         viewModel.apply {
             loadingLiveData.observe(this@HomeFragment) {
                 if (it) showLoading() else hideLoading()

@@ -15,7 +15,7 @@ import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentCollectBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyCollectViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
-import com.yuaihen.wcdxg.ui.adapter.ArticleLoadStateAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
 import com.yuaihen.wcdxg.ui.adapter.HomeArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.TopArticleAdapter
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
@@ -67,7 +67,7 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
             binding.recycler.adapter = pagingAdapter
             addPagingAdapterListener()
             pagingAdapter.addOnCollectClickListener(this)
-            pagingAdapter.withLoadStateFooter(ArticleLoadStateAdapter(pagingAdapter::retry))
+            pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
         } else {
             binding.recycler.adapter = webSiteAdapter
             webSiteAdapter.addOnCollectClickListener(this)

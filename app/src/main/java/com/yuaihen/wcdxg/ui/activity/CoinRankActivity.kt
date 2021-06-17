@@ -13,6 +13,7 @@ import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityCoinRankBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.CoinViewModel
 import com.yuaihen.wcdxg.ui.adapter.CoinRankAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
 import com.yuaihen.wcdxg.utils.gone
 import kotlinx.coroutines.launch
 
@@ -60,6 +61,7 @@ class CoinRankActivity : BaseActivity() {
     }
 
     private fun addPagingAdapterListener() {
+        adapter.withLoadStateFooter(MyPagingLoadStateAdapter(adapter::retry))
         adapter.addLoadStateListener {
             when (it.refresh) {
                 is LoadState.NotLoading -> {

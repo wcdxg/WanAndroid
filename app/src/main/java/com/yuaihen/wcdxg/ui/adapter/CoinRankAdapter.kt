@@ -57,7 +57,10 @@ class CoinRankAdapter :
                     0 -> tvRank.setBackgroundResource(R.drawable.ic_rank_1)
                     1 -> tvRank.setBackgroundResource(R.drawable.ic_rank_2)
                     2 -> tvRank.setBackgroundResource(R.drawable.ic_rank_3)
-                    else -> tvRank.text = "${position + 1}"
+                    else -> {
+                        tvRank.setBackgroundDrawable(null)
+                        tvRank.text = "${position + 1}"
+                    }
                 }
             }
         }
