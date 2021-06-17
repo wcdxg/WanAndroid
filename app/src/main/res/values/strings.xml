@@ -48,6 +48,14 @@
     <string name="myCoin">我的积分</string>
     <string name="coinRank">积分排行榜</string>
     <string name="app_setting">系统设置</string>
+    <string name="aboutUs">关于作者</string>
+    <string name="slogan">将心比心，便是佛心!</string>
+    <string name="about_us_github">Github</string>
+    <string name="about_us_jianshu">简书</string>
+    <string name="about_us_qq">QQ</string>
+    <string name="about_us_QQ_value">706375160</string>
+    <string name="about_us_jianshu_value">https://www.jianshu.com/u/df82428f0062</string>
+    <string name="about_us_github_value">https://github.com/yuaihen</string>
 
 
 </resources>

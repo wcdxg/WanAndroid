@@ -83,7 +83,7 @@ dependencies {
     implementation 'com.zxy.android:tiny:1.1.0'
     implementation 'me.jessyan:autosize:1.2.1'
     implementation 'com.blankj:utilcodex:1.29.0'
-    implementation 'jp.wasabeef:glide-transformations:2.0.0'
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.5'

@@ -3,10 +3,11 @@ package com.yuaihen.wcdxg.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import com.gyf.immersionbar.ImmersionBar
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityAboutUsBinding
-import com.yuaihen.wcdxg.utils.GlideUtil
+import com.yuaihen.wcdxg.utils.ClipboardUtil
 
 /**
  * Created by Yuaihen.
@@ -30,6 +31,24 @@ class AboutUsActivity : BaseActivity() {
     }
 
     override fun initData() {
-        GlideUtil.showImageViewBlur(binding.ivBg, R.drawable.ic_head_test)
+        binding.apply {
+            tvGithubUrl.setOnClickListener {
+                WebViewActivity.start(this@AboutUsActivity, tvGithubUrl.text.toString())
+            }
+            tvJianshuUrl.setOnClickListener {
+                WebViewActivity.start(this@AboutUsActivity, tvJianshuUrl.text.toString())
+            }
+            tvQq.setOnClickListener {
+                toast("已复制到剪切板")
+                ClipboardUtil.copyStrToClipboard(this@AboutUsActivity, tvQq.text.toString())
+            }
+        }
+    }
+
+    override fun initImmersionBar() {
+        super.initImmersionBar()
+        ImmersionBar.with(this)
+            .statusBarColor(R.color.bili_bili_pink)
+            .init()
     }
 }

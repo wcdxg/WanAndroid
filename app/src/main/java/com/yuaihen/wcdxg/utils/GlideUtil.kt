@@ -81,17 +81,14 @@ object GlideUtil {
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .placeholder(R.color.bitmap_place_hold)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(BlurTransformation(imageView.context))
+            .transform(BlurTransformation(25, 3))
             .into(imageView)
     }
 
     fun showImageViewBlur(imageView: ImageView, resId: Int) {
         Glide.with(imageView.context)
             .load(resId)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .placeholder(R.color.bitmap_place_hold)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(BlurTransformation(imageView.context))
+            .transform(BlurTransformation(5, 1))
             .into(imageView)
     }
 
@@ -103,7 +100,7 @@ object GlideUtil {
             .load(url)
             .placeholder(R.color.bitmap_place_hold)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CropCircleTransformation(imageView.context))
+            .transform(CropCircleTransformation())
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(imageView)
     }
@@ -116,7 +113,7 @@ object GlideUtil {
             .load(url)
             .placeholder(R.color.bitmap_place_hold)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CropSquareTransformation(imageView.context))
+            .transform(CropSquareTransformation())
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(imageView)
     }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -16,6 +16,7 @@ import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.ui.interf.OnTitleViewBackClickListener
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.gone
+import com.yuaihen.wcdxg.utils.visible
 
 /**
  * Created by Yuaihen.
@@ -24,7 +25,7 @@ import com.yuaihen.wcdxg.utils.gone
  */
 class TitleView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var _binding: TitleViewBinding? = null
     private val binding = TitleViewBinding.inflate(LayoutInflater.from(context), this, true)
@@ -87,6 +88,7 @@ class TitleView @JvmOverloads constructor(
         }
     }
 
+
     fun setTitle(title: String) {
         binding.tvTitle.text = title
     }
@@ -105,6 +107,14 @@ class TitleView @JvmOverloads constructor(
 
     fun hideBackIcon() {
         binding.ivBack.gone()
+    }
+
+    fun showCollectIcon() {
+        binding.ivCollect.visible()
+    }
+
+    fun hideCollectIcon() {
+        binding.ivCollect.gone()
     }
 
     fun setBgColor(colorResId: Int) {

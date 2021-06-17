@@ -13,6 +13,7 @@
         android:visibility="visible"
         app:titleColor="@color/white"
         app:titleShowBackIcon="true"
+        app:titleShowCollectIcon="true"
         app:titleViewBgColor="@color/bili_bili_pink" />
 
 </LinearLayout>

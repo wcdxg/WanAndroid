@@ -43,12 +43,11 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     private var isCollect = false
 
     companion object {
-        fun start(context: Context, url: String, articleId: Int, collected: Boolean) {
+        fun start(context: Context, url: String, articleId: Int = 0, collected: Boolean = false) {
             val intent = Intent(context, WebViewActivity::class.java).apply {
                 putExtra(Constants.URL, url)
                 putExtra(Constants.ARTICLE_ID, articleId)
                 putExtra(Constants.COLLECTED, collected)
-//                putExtra("articleId", articleId)
             }
             context.startActivity(intent)
         }
@@ -94,6 +93,10 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
         binding.titleView.apply {
             setCollectState(isCollect)
             setArticleId(articleId)
+        }
+
+        if (articleId == 0 && !isCollect) {
+            binding.titleView.hideCollectIcon()
         }
     }
 
