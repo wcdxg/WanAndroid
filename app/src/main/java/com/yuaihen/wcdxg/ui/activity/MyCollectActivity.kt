@@ -40,7 +40,7 @@ class MyCollectActivity : BaseActivity() {
          * 跳转到当前页面
          */
         fun start(context: Context, bundle: Bundle? = null) {
-            val intent = Intent(context, this::class.java).apply {
+            val intent = Intent(context, MyCollectActivity::class.java).apply {
                 bundle?.let { putExtras(it) }
             }
             context.startActivity(intent)

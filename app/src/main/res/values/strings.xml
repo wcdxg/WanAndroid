@@ -47,6 +47,7 @@
     <string name="unCollect_success">取消收藏成功~</string>
     <string name="myCoin">我的积分</string>
     <string name="coinRank">积分排行榜</string>
+    <string name="app_setting">系统设置</string>
 
 
 </resources>

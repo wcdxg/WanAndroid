@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.MineFunctionItemBinding
 import com.yuaihen.wcdxg.net.model.MineMenuModel
+import com.yuaihen.wcdxg.ui.activity.AboutUsActivity
 import com.yuaihen.wcdxg.ui.activity.MyCollectActivity
 import com.yuaihen.wcdxg.ui.fragment.CoinActivity
 import com.yuaihen.wcdxg.utils.ToastUtil
@@ -55,7 +56,7 @@ class MineFunctionAdapter(private val menuList: MutableList<MineMenuModel>) :
             Constants.ID_MY_COIN -> CoinActivity.start(context)
             Constants.ID_MY_SHARES -> ToastUtil.show("开发中")
             Constants.ID_MY_COLLECT4 -> ToastUtil.show("开发中")
-            Constants.ID_ABOUT_US -> ToastUtil.show("开发中")
+            Constants.ID_ABOUT_US -> AboutUsActivity.start(context)
             Constants.ID_SYSTEM_CONFIG -> ToastUtil.show("开发中")
         }
     }

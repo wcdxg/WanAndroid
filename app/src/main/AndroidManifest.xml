@@ -47,10 +47,10 @@
             android:name=".ui.activity.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.activity.LoginActivity"
@@ -65,12 +65,12 @@
         <activity android:name=".ui.activity.MyCollectActivity" />
         <activity android:name=".ui.fragment.CoinActivity" />
         <activity android:name=".ui.activity.CoinRankActivity" />
-        <activity android:name=".ui.activity.TestActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+        <activity android:name=".ui.activity.AppSettingActivity" />
+        <activity android:name=".ui.activity.AboutUsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

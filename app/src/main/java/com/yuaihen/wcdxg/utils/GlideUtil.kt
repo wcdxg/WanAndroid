@@ -1,4 +1,5 @@
 package com.yuaihen.wcdxg.utils
+
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -77,6 +78,16 @@ object GlideUtil {
     fun showImageViewBlur(imageView: ImageView, url: String?) {
         Glide.with(imageView.context)
             .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .placeholder(R.color.bitmap_place_hold)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .transform(BlurTransformation(imageView.context))
+            .into(imageView)
+    }
+
+    fun showImageViewBlur(imageView: ImageView, resId: Int) {
+        Glide.with(imageView.context)
+            .load(resId)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .placeholder(R.color.bitmap_place_hold)
             .transition(DrawableTransitionOptions.withCrossFade())
