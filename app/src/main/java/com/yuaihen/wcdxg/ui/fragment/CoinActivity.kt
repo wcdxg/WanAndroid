@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.gyf.immersionbar.ImmersionBar
+import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityCoinBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.CoinViewModel
@@ -26,6 +28,7 @@ class CoinActivity : BaseActivity() {
     private lateinit var binding: ActivityCoinBinding
     private val viewModel by viewModels<CoinViewModel>()
     private val adapter by lazy { CoinRecordAdapter() }
+    private var isLoadDataEnd = false
 
     override fun getBindingView(): View {
         binding = ActivityCoinBinding.inflate(layoutInflater)
@@ -65,7 +68,9 @@ class CoinActivity : BaseActivity() {
         adapter.addLoadStateListener {
             when (it.refresh) {
                 is LoadState.NotLoading -> {
-                    binding.loadingView.gone()
+                    if (isLoadDataEnd) {
+                        binding.loadingView.gone()
+                    }
                 }
                 is LoadState.Error -> binding.loadingView.gone()
                 is LoadState.Loading -> {
@@ -73,6 +78,7 @@ class CoinActivity : BaseActivity() {
             }
         }
     }
+
 
     private var tempCoinCount = 0
     override fun initData() {
@@ -82,6 +88,7 @@ class CoinActivity : BaseActivity() {
 
     private fun getCoinRecord() {
         viewModel.getCoinRecord()
+        isLoadDataEnd = true
     }
 
     private fun setCoinCount() {
@@ -94,5 +101,12 @@ class CoinActivity : BaseActivity() {
             }
         }
         binding.tvCoinCount.text = coinCount.toString()
+    }
+
+    override fun initImmersionBar() {
+        super.initImmersionBar()
+        ImmersionBar.with(this)
+            .statusBarColor(R.color.bili_bili_pink)
+            .init()
     }
 }

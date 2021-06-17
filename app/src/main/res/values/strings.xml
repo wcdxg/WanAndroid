@@ -46,6 +46,7 @@
     <string name="result_empty">啥都木有找到~</string>
     <string name="unCollect_success">取消收藏成功~</string>
     <string name="myCoin">我的积分</string>
+    <string name="coinRank">积分排行榜</string>
 
 
 </resources>

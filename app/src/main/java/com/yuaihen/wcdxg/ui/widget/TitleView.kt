@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.yuaihen.wcdxg.R
@@ -15,7 +16,6 @@ import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.ui.interf.OnTitleViewBackClickListener
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.gone
-import com.yuaihen.wcdxg.utils.visible
 
 /**
  * Created by Yuaihen.
@@ -30,33 +30,24 @@ class TitleView @JvmOverloads constructor(
     private val binding = TitleViewBinding.inflate(LayoutInflater.from(context), this, true)
     private var titleName = ""
     private var showBackIcon = false
+    private var showCollectIcon = false
     private val TAG = "TitleView"
     private var titleColor: Int = 0
     private var titleViewColor: Int = 0
     private var isCollect = false
     private var articleId = 0
+    private val bgColor = resources.getColor(R.color.bili_bili_pink)
 
     init {
         context.theme.obtainStyledAttributes(attrs, R.styleable.TitleView, 0, 0).apply {
             try {
                 titleName = getString(R.styleable.TitleView_titleName) ?: ""
-                showBackIcon = getBoolean(R.styleable.TitleView_titleShowBackIcon, false)
-                val iconId = getResourceId(
-                    R.styleable.TitleView_titleBackIcon,
-                    R.drawable.ic_arrow_left_36dp
-                )
-                titleColor = getColor(R.styleable.TitleView_titleColor, Color.BLACK)
-                titleViewColor = getColor(R.styleable.TitleView_titleViewBgColor, Color.WHITE)
-
-                if (showBackIcon) {
-                    binding.ivBack.visible()
-                    if (iconId != 0) {
-                        binding.ivBack.setImageResource(iconId)
-                    }
-                } else {
-                    binding.ivBack.gone()
-                }
-
+                showBackIcon = getBoolean(R.styleable.TitleView_titleShowBackIcon, true)
+                showCollectIcon = getBoolean(R.styleable.TitleView_titleShowCollectIcon, false)
+                titleColor = getColor(R.styleable.TitleView_titleColor, Color.WHITE)
+                titleViewColor = getColor(R.styleable.TitleView_titleViewBgColor, bgColor)
+                binding.ivBack.isVisible = showBackIcon
+                binding.ivCollect.isVisible = showCollectIcon
                 binding.apply {
                     tvTitle.text = titleName
                     clRoot.setBackgroundColor(titleViewColor)

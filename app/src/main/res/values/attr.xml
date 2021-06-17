@@ -11,6 +11,7 @@
         <attr name="titleColor" format="color" />
         <attr name="titleViewBgColor" format="color" />
         <attr name="titleShowBackIcon" format="boolean" />
+        <attr name="titleShowCollectIcon" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="EditTextWithClear">
