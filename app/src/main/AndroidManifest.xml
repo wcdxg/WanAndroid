@@ -37,10 +37,10 @@
             android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity
@@ -66,12 +66,7 @@
         <activity android:name=".ui.fragment.CoinActivity" />
         <activity android:name=".ui.activity.CoinRankActivity" />
         <activity android:name=".ui.activity.AppSettingActivity" />
-        <activity android:name=".ui.activity.AboutUsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.activity.AboutUsActivity" />
 
         <meta-data
             android:name="design_width_in_dp"

@@ -35,8 +35,18 @@ class AboutUsActivity : BaseActivity() {
             tvGithubUrl.setOnClickListener {
                 WebViewActivity.start(this@AboutUsActivity, tvGithubUrl.text.toString())
             }
+            tvGithubUrl.setOnLongClickListener {
+                ClipboardUtil.copyStrToClipboard(this@AboutUsActivity, tvGithubUrl.text.toString())
+                toast("已复制到剪切板")
+                true
+            }
             tvJianshuUrl.setOnClickListener {
                 WebViewActivity.start(this@AboutUsActivity, tvJianshuUrl.text.toString())
+            }
+            tvJianshuUrl.setOnLongClickListener {
+                ClipboardUtil.copyStrToClipboard(this@AboutUsActivity, tvJianshuUrl.text.toString())
+                toast("已复制到剪切板")
+                true
             }
             tvQq.setOnClickListener {
                 toast("已复制到剪切板")
