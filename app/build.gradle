@@ -90,7 +90,7 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:3.7.47'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     implementation 'com.just.agentweb:agentweb-androidx:4.1.4' // (必选)
-    implementation 'com.kongzue.dialogx:DialogX:0.0.35'
+    implementation 'com.github.kongzue.DialogX:DialogX:0.0.39'
     implementation('com.squareup.retrofit2:retrofit:2.9.0') {
         exclude group: 'com.squareup.okhttp3', module: 'okhttp'
         exclude group: 'com.squareup.okio', module: 'okio'

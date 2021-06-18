@@ -26,9 +26,8 @@
     <string name="app_notify">站内通知</string>
     <string name="my_collection">收藏管理</string>
     <string name="mine_publish">我的发布</string>
-    <string name="exit_login">注销/切换账号</string>
-    <string name="hint">提示</string>
-    <string name="exit_login_hint">是否注销/切换目前账号</string>
+    <string name="exit_login">退出登录</string>
+    <string name="exit_login_hint">确定要退出登录吗?</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="edit_info">编辑资料</string>
@@ -47,7 +46,7 @@
     <string name="unCollect_success">取消收藏成功~</string>
     <string name="myCoin">我的积分</string>
     <string name="coinRank">积分排行榜</string>
-    <string name="app_setting">系统设置</string>
+    <string name="app_setting">设置</string>
     <string name="aboutUs">关于作者</string>
     <string name="slogan">将心比心，便是佛心!</string>
     <string name="about_us_github">Github</string>
@@ -56,6 +55,10 @@
     <string name="about_us_QQ_value">706375160</string>
     <string name="about_us_jianshu_value">https://www.jianshu.com/u/df82428f0062</string>
     <string name="about_us_github_value">https://github.com/yuaihen</string>
+    <string name="clear_cache_tip">确定要清除缓存吗？</string>
+    <string name="dart_mode">深色模式</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="clear_cache_success">缓存清除成功</string>
 
 
 </resources>

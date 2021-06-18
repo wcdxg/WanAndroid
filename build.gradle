@@ -7,7 +7,6 @@ buildscript {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         maven { url "https://jitpack.io" }
-        maven { url "https://s01.oss.sonatype.org/content/groups/public" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'

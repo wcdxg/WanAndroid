@@ -28,7 +28,6 @@ class MineFragment : BaseFragment() {
 
     private var _binding: FragmentMineBinding? = null
     private val binding get() = _binding!!
-    private val mDialogUtil by lazy { DialogUtil() }
     private val viewModel by viewModels<MyViewModel>()
 
     companion object {
@@ -41,15 +40,6 @@ class MineFragment : BaseFragment() {
     }
 
     override fun initListener() {
-        binding.tvExitLogin.setOnClickListener {
-            mDialogUtil.showExitLoginDialog(requireContext()) {
-                //清除保存的Cookie信息
-                ApiManage.getCookieJar().clear()
-                UserUtil.setLoginStatus(false)
-//                UserUtil.clearCookie()
-                viewModel.logout()
-            }
-        }
         binding.tvEdit.setOnClickListener {
             startActivityForResult(
                 Intent(requireContext(), EditUserInfoActivity::class.java),

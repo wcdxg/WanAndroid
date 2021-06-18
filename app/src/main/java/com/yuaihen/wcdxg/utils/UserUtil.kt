@@ -40,4 +40,12 @@ object UserUtil {
     fun getUserCoinCount(): Int {
         return SPUtils.getInt(Constants.COIN_COUNT)
     }
+
+    fun setDarkMode(darkMode: Boolean) {
+        SPUtils.setBoolean(Constants.DARK_MODE, darkMode)
+    }
+
+    fun getDartMode(): Boolean {
+        return SPUtils.getBoolean(Constants.DARK_MODE)
+    }
 }

@@ -6,7 +6,8 @@ import androidx.core.content.ContextCompat
 import com.kongzue.dialogx.dialogs.CustomDialog
 import com.kongzue.dialogx.interfaces.OnBindView
 import com.yuaihen.wcdxg.R
-import com.yuaihen.wcdxg.databinding.DialogExitLoginBinding
+import com.yuaihen.wcdxg.databinding.DialogMessageTipBinding
+
 
 /**
  * Created by Yuaihen.
@@ -19,17 +20,38 @@ class DialogUtil {
      * @param block 调用退出登录接口
      */
     fun showExitLoginDialog(context: Context, listener: () -> Unit) {
-        CustomDialog.show(object : OnBindView<CustomDialog>(R.layout.dialog_exit_login) {
+        CustomDialog.show(object : OnBindView<CustomDialog>(R.layout.dialog_message_tip) {
             override fun onBind(dialog: CustomDialog, v: View) {
                 dialog.setMaskColor(ContextCompat.getColor(context, R.color.dialog_mask_color))
-                val binding = DialogExitLoginBinding.bind(v)
-                binding.btnCancel.setOnClickListener { dialog.dismiss() }
-                binding.btnConfirm.setOnClickListener {
-                    dialog.dismiss()
-                    listener()
+                val binding = DialogMessageTipBinding.bind(v)
+                binding.apply {
+                    tvTitle.text = context.getString(R.string.exit_login_hint)
+                    tvCancel.setOnClickListener { dialog.dismiss() }
+                    tvConfirm.setOnClickListener {
+                        dialog.dismiss()
+                        listener()
+                    }
                 }
             }
+        })
+    }
 
+    /**
+     * 清除缓存
+     */
+    fun clearCacheDialog(context: Context, listener: () -> Unit) {
+        CustomDialog.show(object : OnBindView<CustomDialog>(R.layout.dialog_message_tip) {
+            override fun onBind(dialog: CustomDialog, v: View) {
+                dialog.setMaskColor(ContextCompat.getColor(context, R.color.dialog_mask_color))
+                val binding = DialogMessageTipBinding.bind(v)
+                binding.apply {
+                    tvCancel.setOnClickListener { dialog.dismiss() }
+                    tvConfirm.setOnClickListener {
+                        dialog.dismiss()
+                        listener()
+                    }
+                }
+            }
         })
     }
 }

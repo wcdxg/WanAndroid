@@ -32,6 +32,7 @@ object Constants {
     const val ID_ABOUT_US = 5
     const val ID_SYSTEM_CONFIG = 6
     const val COIN_COUNT = "coinCount"
+    const val DARK_MODE = "darkMode"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

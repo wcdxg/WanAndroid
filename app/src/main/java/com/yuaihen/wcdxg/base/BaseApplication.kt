@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.blankj.utilcode.util.AppUtils
 import com.kongzue.dialogx.DialogX
+import com.kongzue.dialogx.style.MaterialStyle
 import com.lzy.imagepicker.ImagePicker
 import com.tencent.bugly.Bugly
 import com.tencent.mmkv.MMKV
@@ -38,7 +39,7 @@ class BaseApplication : Application() {
         //DialogX
         DialogX.init(this)
         //设置主题样式
-//        DialogX.globalStyle = MaterialStyle.style();
+        DialogX.globalStyle = MaterialStyle.style();
 //        DialogX.globalTheme = DialogX.THEME.LIGHT
 //        DialogX.cancelable = true
 //        DialogX.backgroundColor = resources.getColor(R.color.dialog_mask_color)
