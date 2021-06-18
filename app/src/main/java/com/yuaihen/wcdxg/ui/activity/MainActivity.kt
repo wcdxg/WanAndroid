@@ -13,6 +13,7 @@ import com.yuaihen.wcdxg.databinding.ActivityMainBinding
 import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.HomeFragment
 import com.yuaihen.wcdxg.ui.fragment.MineFragment
+import com.yuaihen.wcdxg.ui.fragment.TestFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -22,7 +23,8 @@ class MainActivity : BaseActivity() {
     private var menuItem: MenuItem? = null
     private val fragmentList = mutableListOf<Fragment>().apply {
         add(HomeFragment())
-        add(MineFragment())
+        add(TestFragment())
+        add(TestFragment())
         add(MineFragment())
     }
 
@@ -58,8 +60,9 @@ class MainActivity : BaseActivity() {
             if (binding.bottomNavigationView.selectedItemId == it.itemId) return@setOnNavigationItemSelectedListener true
             when (it.itemId) {
                 R.id.nav_home -> binding.viewPager.currentItem = 0
-                R.id.nav_test -> binding.viewPager.currentItem = 1
-                R.id.nav_mine -> binding.viewPager.currentItem = 2
+                R.id.nav_qa -> binding.viewPager.currentItem = 1
+                R.id.nav_nav -> binding.viewPager.currentItem = 2
+                R.id.nav_mine -> binding.viewPager.currentItem = 3
             }
             true
         }

@@ -3,16 +3,19 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/ic_shouye"
         android:title="@string/home" />
 
     <item
-        android:id="@+id/nav_test"
-        android:icon="@drawable/ic_baseline_menu_book_24"
-        android:title="@string/word_book" />
+        android:id="@+id/nav_qa"
+        android:icon="@drawable/ic_pinglun"
+        android:title="@string/question_answer" />
     <item
-
+        android:id="@+id/nav_nav"
+        android:icon="@drawable/ic_faxian"
+        android:title="@string/discovery" />
+    <item
         android:id="@+id/nav_mine"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/ic_wode"
         android:title="@string/mine" />
 </menu>

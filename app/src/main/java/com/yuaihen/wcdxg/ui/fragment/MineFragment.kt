@@ -10,13 +10,10 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentMineBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyViewModel
-import com.yuaihen.wcdxg.net.ApiManage
 import com.yuaihen.wcdxg.net.model.MineMenuModel
 import com.yuaihen.wcdxg.net.model.UserInfoModel
 import com.yuaihen.wcdxg.ui.activity.EditUserInfoActivity
-import com.yuaihen.wcdxg.ui.activity.LoginActivity
 import com.yuaihen.wcdxg.ui.adapter.MineFunctionAdapter
-import com.yuaihen.wcdxg.utils.DialogUtil
 import com.yuaihen.wcdxg.utils.UserUtil
 
 /**
@@ -66,16 +63,18 @@ class MineFragment : BaseFragment() {
     private fun createMenuItem() {
         val menuNameList = resources.getStringArray(R.array.menu_name)
         val menuId = resources.getIntArray(R.array.menu_id)
+        val ty = resources.obtainTypedArray(R.array.menu_icon)
         val menuItemList = mutableListOf<MineMenuModel>()
         menuNameList.forEachIndexed { index, menuName ->
             menuItemList.add(
                 MineMenuModel(
                     menuId[index],
                     menuName,
-                    R.drawable.ic_baseline_favorite_border_24
+                    ty.getResourceId(index, 0)
                 )
             )
         }
+        ty.recycle()
         val adapter = MineFunctionAdapter(menuItemList)
         binding.recyclerFunction.adapter = adapter
     }

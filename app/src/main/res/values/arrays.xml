@@ -18,4 +18,13 @@
         <item>6</item>
     </integer-array>
 
+    <string-array name="menu_icon">
+        <item>@drawable/ic_baseline_favorite_border_24</item>
+        <item>@drawable/ic_coin_24dp</item>
+        <item>@drawable/ic_baseline_favorite_24</item>
+        <item>@drawable/ic_coin_24dp</item>
+        <item>@drawable/ic_about_24dp</item>
+        <item>@drawable/ic_setzhi</item>
+    </string-array>
+
 </resources>
