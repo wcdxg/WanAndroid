@@ -54,8 +54,6 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
     override fun initListener() {
         super.initListener()
         currentIndex = arguments?.getInt("index") ?: 0
-        Log.d("hello", "initData: $currentIndex")
-
         binding.swipeRefresh.setOnRefreshListener {
             if (currentIndex == COLLECT_ARTICLE_ARTICLE) {
                 pagingAdapter.refresh()

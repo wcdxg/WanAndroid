@@ -39,6 +39,18 @@ class AppSettingActivity : BaseActivity() {
 
     override fun initListener() {
         super.initListener()
+        viewModel.apply {
+            logoutSuccess.observe(this@AppSettingActivity) { logoutSuccess ->
+                if (logoutSuccess) {
+                    //退回到登录页面
+                    start2Activity(LoginActivity::class.java, finish = true)
+                }
+            }
+            errorLiveData.observe(this@AppSettingActivity) {
+                toast(it)
+            }
+        }
+
         binding.apply {
             tvExitLogin.setOnClickListener {
                 mDialogUtil.showExitLoginDialog(this@AppSettingActivity) {

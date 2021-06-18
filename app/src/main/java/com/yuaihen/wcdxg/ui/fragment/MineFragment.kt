@@ -48,13 +48,6 @@ class MineFragment : BaseFragment() {
         }
 
         viewModel.apply {
-            logoutSuccess.observe(this@MineFragment) {
-                if (it) {
-                    //退回到登录页面
-                    activity?.finish()
-                    startActivity(Intent(context, LoginActivity::class.java))
-                }
-            }
             errorLiveData.observe(this@MineFragment) {
                 toast(it)
             }
