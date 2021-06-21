@@ -16,7 +16,7 @@ import com.yuaihen.wcdxg.viewbinding.getViewHolder
  * on 2021/5/28
  * 首页文章列表
  */
-class HomeArticleAdapter(private val isCollectPage: Boolean = false) :
+class ArticleAdapter(private val isCollectPage: Boolean = false) :
     PagingDataAdapter<ArticleModel, BaseBindingViewHolder<ArticleRecycleItemBinding>>(
         DifferCallback
     ) {

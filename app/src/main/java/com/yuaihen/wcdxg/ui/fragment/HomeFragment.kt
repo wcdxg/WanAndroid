@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.ConcatAdapter
 import com.yuaihen.wcdxg.base.BaseFragment
@@ -14,9 +15,9 @@ import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
-import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
-import com.yuaihen.wcdxg.ui.adapter.HomeArticleAdapter
+import com.yuaihen.wcdxg.ui.adapter.ArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.HomeBannerAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
 import com.yuaihen.wcdxg.ui.adapter.TopArticleAdapter
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<HomeViewModel>()
-    private val pagingAdapter by lazy { HomeArticleAdapter() }
+    private val pagingAdapter by lazy { ArticleAdapter() }
     private val topArticleAdapter by lazy { TopArticleAdapter() }
     private val bannerAdapter by lazy { HomeBannerAdapter(this) }
 
@@ -40,7 +41,7 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
     }
 
     override fun initListener() {
-        pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
+        addPagingAdapterListener()
         viewModel.apply {
             loadingLiveData.observe(this@HomeFragment) {
                 if (it) showLoading() else hideLoading()
@@ -72,6 +73,20 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
 
         topArticleAdapter.addOnCollectClickListener(this)
         pagingAdapter.addOnCollectClickListener(this)
+    }
+
+    private fun addPagingAdapterListener() {
+        pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
+        pagingAdapter.addLoadStateListener {
+            when (it.refresh) {
+                is LoadState.NotLoading -> {
+                    binding.swipeRefresh.isRefreshing = false
+                }
+                is LoadState.Error -> binding.swipeRefresh.isRefreshing = false
+                is LoadState.Loading -> {
+                }
+            }
+        }
     }
 
     override fun initData() {

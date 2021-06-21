@@ -14,6 +14,7 @@ import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.HomeFragment
 import com.yuaihen.wcdxg.ui.fragment.MineFragment
 import com.yuaihen.wcdxg.ui.fragment.TestFragment
+import com.yuaihen.wcdxg.ui.fragment.WenDaFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,7 @@ class MainActivity : BaseActivity() {
     private var menuItem: MenuItem? = null
     private val fragmentList = mutableListOf<Fragment>().apply {
         add(HomeFragment())
-        add(TestFragment())
+        add(WenDaFragment())
         add(TestFragment())
         add(MineFragment())
     }

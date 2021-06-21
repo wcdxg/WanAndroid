@@ -7,8 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.yuaihen.wcdxg.mvvm.BaseViewModel
-import com.yuaihen.wcdxg.mvvm.paging.CoinRankPagingSource
-import com.yuaihen.wcdxg.mvvm.paging.CoinRecordPagingSource
+import com.yuaihen.wcdxg.mvvm.paging.BaseCoinPagingSource
 import com.yuaihen.wcdxg.mvvm.repository.CoinRepository
 import com.yuaihen.wcdxg.net.model.CoinRecordModel
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +34,7 @@ class CoinViewModel : BaseViewModel() {
                 //pageSize一页加载多少条  prefetchDistance表示距离底部多少条数据开始预加载，设置0则表示滑到底部才加载
                 PagingConfig(pageSize = 20, prefetchDistance = 5, initialLoadSize = 20)
             ) {
-                CoinRecordPagingSource()
+                BaseCoinPagingSource(BaseCoinPagingSource.COIN_RECORD)
             }.flow.cachedIn(this).collectLatest {
                 _coinRecordLiveData.value = it
             }
@@ -51,7 +50,7 @@ class CoinViewModel : BaseViewModel() {
                 //pageSize一页加载多少条  prefetchDistance表示距离底部多少条数据开始预加载，设置0则表示滑到底部才加载
                 PagingConfig(pageSize = 20, prefetchDistance = 5, initialLoadSize = 20)
             ) {
-                CoinRankPagingSource()
+                BaseCoinPagingSource(BaseCoinPagingSource.COIN_RANK)
             }.flow.cachedIn(this).collectLatest {
                 _coinRankRecordLiveData.value = it
             }

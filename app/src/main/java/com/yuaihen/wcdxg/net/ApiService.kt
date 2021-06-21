@@ -164,4 +164,10 @@ interface ApiService {
      */
     @GET("coin/rank/{page}/json")
     suspend fun getCoinRank(@Path(Constants.PAGE) page: Int): CoinRecordModel
+
+    /**
+     * 问答
+     */
+    @GET("wenda/list/{page}/json")
+    suspend fun getWendaList(@Path(Constants.PAGE) page: Int): HomeArticleModel
 }

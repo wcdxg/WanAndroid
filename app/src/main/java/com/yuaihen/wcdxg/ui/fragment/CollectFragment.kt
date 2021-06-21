@@ -1,7 +1,6 @@
 package com.yuaihen.wcdxg.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,8 @@ import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentCollectBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyCollectViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
+import com.yuaihen.wcdxg.ui.adapter.ArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
-import com.yuaihen.wcdxg.ui.adapter.HomeArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.TopArticleAdapter
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.utils.gone
@@ -33,7 +32,7 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
     private val binding get() = _binding!!
     private var currentIndex = 0    //当前页面是收藏文章还是收藏网站
     private val viewModel by viewModels<MyCollectViewModel>()
-    private val pagingAdapter by lazy { HomeArticleAdapter(true) }
+    private val pagingAdapter by lazy { ArticleAdapter(true) }
     private val webSiteAdapter by lazy { TopArticleAdapter(true) }
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
         _binding = FragmentCollectBinding.inflate(inflater)

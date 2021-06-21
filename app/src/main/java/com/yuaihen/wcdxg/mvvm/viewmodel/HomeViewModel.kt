@@ -7,7 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.yuaihen.wcdxg.mvvm.BaseViewModel
-import com.yuaihen.wcdxg.mvvm.paging.HomeArticlePagingSource
+import com.yuaihen.wcdxg.mvvm.paging.BaseArticlePagingSource
 import com.yuaihen.wcdxg.mvvm.repository.HomeRepository
 import com.yuaihen.wcdxg.net.ApiManage
 import com.yuaihen.wcdxg.net.ApiService
@@ -62,7 +62,7 @@ class HomeViewModel : BaseViewModel() {
                 //pageSize一页加载多少条  prefetchDistance表示距离底部多少条数据开始预加载，设置0则表示滑到底部才加载
                 PagingConfig(pageSize = 20, prefetchDistance = 3, initialLoadSize = 20)
             ) {
-                HomeArticlePagingSource()
+                BaseArticlePagingSource(BaseArticlePagingSource.HOME_ARTICLE)
             }.flow.cachedIn(this).collectLatest {
                 _articleLiveData.value = it
             }
