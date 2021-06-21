@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.yuaihen.wcdxg.mvvm.BaseViewModel
 import com.yuaihen.wcdxg.mvvm.paging.BaseCoinPagingSource
-import com.yuaihen.wcdxg.mvvm.repository.CoinRepository
 import com.yuaihen.wcdxg.net.model.CoinRecordModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,7 +18,6 @@ import kotlinx.coroutines.launch
  */
 class CoinViewModel : BaseViewModel() {
 
-    private val repository = CoinRepository()
     private val _coinRecordLiveData = MutableLiveData<PagingData<CoinRecordModel.Data.Data>>()
     val coinRecordLiveData = _coinRecordLiveData
     private val _coinRankRecordLiveData = MutableLiveData<PagingData<CoinRecordModel.Data.Data>>()

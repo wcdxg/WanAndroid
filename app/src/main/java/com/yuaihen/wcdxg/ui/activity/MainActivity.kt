@@ -13,7 +13,7 @@ import com.yuaihen.wcdxg.databinding.ActivityMainBinding
 import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.HomeFragment
 import com.yuaihen.wcdxg.ui.fragment.MineFragment
-import com.yuaihen.wcdxg.ui.fragment.TestFragment
+import com.yuaihen.wcdxg.ui.fragment.NavFragment
 import com.yuaihen.wcdxg.ui.fragment.WenDaFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
     private val fragmentList = mutableListOf<Fragment>().apply {
         add(HomeFragment())
         add(WenDaFragment())
-        add(TestFragment())
+        add(NavFragment())
         add(MineFragment())
     }
 

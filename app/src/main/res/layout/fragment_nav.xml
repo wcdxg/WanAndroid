@@ -7,19 +7,11 @@
     <View
         android:id="@+id/view"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="50dp"
         android:background="@color/bili_bili_pink"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        style="@style/titleStyle"
-        android:text="@string/my_collect"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_back" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -32,9 +24,9 @@
         app:tabIndicator="@color/white"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorFullWidth="false"
-        app:tabIndicatorHeight="1dp"
-        app:tabMaxWidth="200dp"
-        app:tabMinWidth="200dp"
+        app:tabIndicatorHeight="2dp"
+        app:tabMaxWidth="80dp"
+        app:tabMinWidth="80dp"
         app:tabMode="scrollable"
         app:tabPaddingEnd="20dp"
         app:tabPaddingStart="20dp"
@@ -42,24 +34,21 @@
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@color/white50" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <com.yuaihen.wcdxg.ui.widget.NestedScrollableHost
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+
+    </com.yuaihen.wcdxg.ui.widget.NestedScrollableHost>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

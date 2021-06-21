@@ -4,23 +4,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.yuaihen.wcdxg.base.BaseFragment
-import com.yuaihen.wcdxg.databinding.FragmentEmptyBinding
+import com.yuaihen.wcdxg.databinding.FragmentCardBinding
 
 /**
  * Created by Yuaihen.
- * on 2021/6/18
+ * on 2021/6/21
+ * 发现栏目下 通用Fragment
  */
-class TestFragment : BaseFragment() {
-
-    private var _binding: FragmentEmptyBinding? = null
+class CardFragment : BaseFragment() {
+    private var _binding: FragmentCardBinding? = null
     private val binding get() = _binding!!
 
-    override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View? {
-        _binding = FragmentEmptyBinding.inflate(inflater)
+    override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
+        _binding = FragmentCardBinding.inflate(inflater)
         return binding.root
     }
 
     override fun unBindView() {
         _binding = null
     }
+
 }
