@@ -34,15 +34,12 @@ abstract class BaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //使用Navigation时避免重新创建Fragment
-        if (mRootView == null) {
-            val resId = getLayoutId()
-            mRootView = if (resId != 0) {
-                inflater.inflate(resId, container, false)
-            } else {
-                getBindingView(inflater, container)
-            }
+        val resId = getLayoutId()
+        return if (resId != 0) {
+            inflater.inflate(resId, container, false)
+        } else {
+            getBindingView(inflater, container)!!
         }
-        return mRootView!!
     }
 
 

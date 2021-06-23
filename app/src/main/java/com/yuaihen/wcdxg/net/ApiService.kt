@@ -170,4 +170,17 @@ interface ApiService {
      */
     @GET("wenda/list/{page}/json")
     suspend fun getWendaList(@Path(Constants.PAGE) page: Int): HomeArticleModel
+
+    /**
+     * 知识体系
+     */
+    @GET("tree/json")
+    suspend fun getKnowledgeTree(): KnowLedgeTreeModel
+
+    /**
+     * 获取导航分类
+     */
+    @GET("navi/json")
+    suspend fun getNaviData(): HomeArticleModel
+
 }

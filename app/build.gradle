@@ -8,10 +8,7 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('..\\zhzg.jks')
-            storePassword '1f4b335e4fdb558d30d60db2db9d3e8c'
-            keyAlias 'zhzg'
-            keyPassword '1f4b335e4fdb558d30d60db2db9d3e8c'
+
         }
         debug {
         }
@@ -112,5 +109,6 @@ dependencies {
     }
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.androidkun:XTabLayout:1.1.5'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation project(':livedatabus')
 }

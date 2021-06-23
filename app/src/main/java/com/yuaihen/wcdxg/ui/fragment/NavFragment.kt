@@ -1,8 +1,6 @@
 package com.yuaihen.wcdxg.ui.fragment
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -24,10 +22,10 @@ class NavFragment : BaseFragment() {
     private val adapter by lazy { ViewPager2PagerAdapter(childFragmentManager, lifecycle) }
     private val fragmentList by lazy {
         mutableListOf<Fragment>().apply {
-            add(CardFragment())
-            add(CardFragment())
-            add(CardFragment())
-            add(CardFragment())
+            add(CardFragment.newInstance(CardFragment.KNOWLEDGE_TREE))
+            add(CardFragment.newInstance(CardFragment.PAGE_NAV))
+            add(CardFragment.newInstance(CardFragment.OFFICIAL_ACCOUNTS))
+            add(CardFragment.newInstance(CardFragment.PROJECT))
         }
     }
 
@@ -35,11 +33,6 @@ class NavFragment : BaseFragment() {
         _binding = FragmentNavBinding.inflate(inflater)
         return binding.root
     }
-
-    override fun initListener() {
-        super.initListener()
-    }
-
 
     override fun initData() {
         super.initData()

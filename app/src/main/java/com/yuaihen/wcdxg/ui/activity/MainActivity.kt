@@ -53,6 +53,7 @@ class MainActivity : BaseActivity() {
             adapter = ViewPager2PagerAdapter(supportFragmentManager, lifecycle).also {
                 it.addFragmentList(fragmentList)
             }
+            offscreenPageLimit = 4
         }
 
         //BottomNavigationView点击事件
@@ -60,15 +61,18 @@ class MainActivity : BaseActivity() {
             menuItem = it
             if (binding.bottomNavigationView.selectedItemId == it.itemId) return@setOnNavigationItemSelectedListener true
             when (it.itemId) {
-                R.id.nav_home -> binding.viewPager.currentItem = 0
-                R.id.nav_qa -> binding.viewPager.currentItem = 1
-                R.id.nav_nav -> binding.viewPager.currentItem = 2
-                R.id.nav_mine -> binding.viewPager.currentItem = 3
+                R.id.nav_home -> switchVPCurrentItem(0)
+                R.id.nav_qa -> switchVPCurrentItem(1)
+                R.id.nav_nav -> switchVPCurrentItem(2)
+                R.id.nav_mine -> switchVPCurrentItem(3)
             }
             true
         }
     }
 
+    private fun switchVPCurrentItem(index: Int) {
+        binding.viewPager.setCurrentItem(index, true)
+    }
 
     private var isLastPage = false
     override fun onBackPressed() {
