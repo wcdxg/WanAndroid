@@ -89,7 +89,8 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
         }
     }
 
-    override fun initData() {
+    override fun lazyLoadData() {
+        super.lazyLoadData()
         //在这里合并多个Adapter
         val concatConfig = ConcatAdapter.Config.Builder().setIsolateViewTypes(true).build()
         val concatAdapter =

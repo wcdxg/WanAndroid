@@ -32,7 +32,7 @@
     </style>
 
     <style name="TabLayoutTextStyle">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="titleStyle">

@@ -9,7 +9,7 @@ import com.yuaihen.wcdxg.net.model.MineMenuModel
 import com.yuaihen.wcdxg.ui.activity.AboutUsActivity
 import com.yuaihen.wcdxg.ui.activity.AppSettingActivity
 import com.yuaihen.wcdxg.ui.activity.MyCollectActivity
-import com.yuaihen.wcdxg.ui.fragment.CoinActivity
+import com.yuaihen.wcdxg.ui.activity.CoinActivity
 import com.yuaihen.wcdxg.utils.ToastUtil
 import com.yuaihen.wcdxg.utils.gone
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder

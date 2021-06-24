@@ -64,8 +64,9 @@ class WenDaFragment : BaseFragment() {
     }
 
     private var isFirstLoading = false
-    override fun initData() {
-        super.initData()
+
+    override fun lazyLoadData() {
+        super.lazyLoadData()
         binding.recycler.adapter = adapter
         binding.loadingView.visible()
         isFirstLoading = true

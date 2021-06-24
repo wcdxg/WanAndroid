@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.fragment.app.FragmentPagerAdapter
 import com.gyf.immersionbar.ImmersionBar
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityMyCollectBinding
-import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyViewPagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.CollectFragment
 
 /**
@@ -21,7 +21,12 @@ import com.yuaihen.wcdxg.ui.fragment.CollectFragment
 class MyCollectActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMyCollectBinding
-    private val adapter by lazy { ViewPager2PagerAdapter(supportFragmentManager, lifecycle) }
+    private val adapter by lazy {
+        MyViewPagerAdapter(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+    }
     private val fragmentList by lazy {
         mutableListOf<Fragment>().apply {
             add(CollectFragment.newInstance(CollectFragment.COLLECT_ARTICLE_ARTICLE))
@@ -55,18 +60,14 @@ class MyCollectActivity : BaseActivity() {
     }
 
     override fun initData() {
-        adapter.addFragmentList(fragmentList)
+        val titleList = mutableListOf<String>().apply {
+            add(getString(R.string.collect_article))
+            add(getString(R.string.collect_website))
+        }
+        adapter.addFragmentList(fragmentList, titleList)
         binding.apply {
             viewPager.adapter = adapter
-            TabLayoutMediator(
-                tabLayout, viewPager, true, true
-            ) { tab, position ->
-                if (position == 0) {
-                    tab.text = getString(R.string.collect_article)
-                } else {
-                    tab.text = getString(R.string.collect_website)
-                }
-            }.attach()
+            tabLayout.setupWithViewPager(viewPager)
         }
     }
 

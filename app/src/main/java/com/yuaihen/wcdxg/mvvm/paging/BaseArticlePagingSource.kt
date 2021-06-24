@@ -1,5 +1,6 @@
 package com.yuaihen.wcdxg.mvvm.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yuaihen.wcdxg.net.ApiManage
@@ -12,11 +13,16 @@ import com.yuaihen.wcdxg.utils.isSuccess
  * on 2021/6/21
  * 文章列表页通用的PagingSource
  */
-class BaseArticlePagingSource(private val index: Int) : PagingSource<Int, ArticleModel>() {
+class BaseArticlePagingSource(
+    private val index: Int,
+    private val cid: Int = 0
+) :
+    PagingSource<Int, ArticleModel>() {
     companion object {
         const val HOME_ARTICLE = 1
         const val COLLECT_ARTICLE = 2
         const val WENDA_ARTICLE = 3
+        const val KNOWLEDGE_ARTICLE = 4
     }
 
     override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? {
@@ -46,7 +52,13 @@ class BaseArticlePagingSource(private val index: Int) : PagingSource<Int, Articl
                     nextPageNumber = params.key ?: 1
                     response = ApiManage.getInstance().getWendaList(nextPageNumber)
                 }
+                KNOWLEDGE_ARTICLE -> {
+                    //默认加载第1页数据
+                    nextPageNumber = params.key ?: 0
+                    response = ApiManage.getInstance().getKnowledgeArticleByCid(nextPageNumber, cid)
+                }
                 else -> {
+
                 }
             }
 
@@ -64,6 +76,7 @@ class BaseArticlePagingSource(private val index: Int) : PagingSource<Int, Articl
                 }
             }
         } catch (e: Exception) {
+            Log.d("hello", "BaseArticlePagingSource error: $e")
             return LoadResult.Error(e)
         }
         return LoadResult.Error(Error("error"))

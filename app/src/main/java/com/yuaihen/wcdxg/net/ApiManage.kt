@@ -72,8 +72,8 @@ class ApiManage {
                 addInterceptor {
                     var request = it.request()
                     if (!NetworkUtils.isAvailable()) {
-                        //网络不可用 离线缓存保存4周 单位秒
-                        val maxStale = 60 * 60 * 24 * 7
+                        //网络不可用 离线缓存保存1周 单位秒
+                        val maxStale = 60 * 60 * 24 * 1
                         val tempCacheControl = CacheControl.Builder()
                             .onlyIfCached()
                             .maxStale(maxStale, TimeUnit.SECONDS)

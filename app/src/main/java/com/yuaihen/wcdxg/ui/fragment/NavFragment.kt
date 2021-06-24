@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.fragment.app.FragmentPagerAdapter
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentNavBinding
-import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyViewPagerAdapter
 
 /**
  * Created by Yuaihen.
@@ -19,7 +19,12 @@ class NavFragment : BaseFragment() {
 
     private var _binding: FragmentNavBinding? = null
     private val binding get() = _binding!!
-    private val adapter by lazy { ViewPager2PagerAdapter(childFragmentManager, lifecycle) }
+    private val adapter by lazy {
+        MyViewPagerAdapter(
+            childFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+    }
     private val fragmentList by lazy {
         mutableListOf<Fragment>().apply {
             add(CardFragment.newInstance(CardFragment.KNOWLEDGE_TREE))
@@ -34,21 +39,18 @@ class NavFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun initData() {
-        super.initData()
-        adapter.addFragmentList(fragmentList)
+    override fun lazyLoadData() {
+        super.lazyLoadData()
+        val titleList = mutableListOf<String>().apply {
+            add(getString(R.string.knowledge_system))
+            add(getString(R.string.navigation))
+            add(getString(R.string.official_accounts))
+            add(getString(R.string.project))
+        }
+        adapter.addFragmentList(fragmentList, titleList)
         binding.apply {
             viewPager.adapter = adapter
-            TabLayoutMediator(
-                tabLayout, viewPager, true, true
-            ) { tab, position ->
-                when (position) {
-                    0 -> tab.text = getString(R.string.knowledge_system)
-                    1 -> tab.text = getString(R.string.navigation)
-                    2 -> tab.text = getString(R.string.official_accounts)
-                    3 -> tab.text = getString(R.string.project)
-                }
-            }.attach()
+            tabLayout.setupWithViewPager(viewPager)
         }
     }
 

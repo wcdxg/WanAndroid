@@ -178,6 +178,15 @@ interface ApiService {
     suspend fun getKnowledgeTree(): KnowLedgeTreeModel
 
     /**
+     * 获取知识体系下的文章列表
+     */
+    @GET("article/list/{page}/json")
+    suspend fun getKnowledgeArticleByCid(
+        @Path(Constants.PAGE) page: Int,
+        @Query(Constants.CID) cid: Int
+    ): HomeArticleModel
+
+    /**
      * 获取导航分类
      */
     @GET("navi/json")

@@ -54,8 +54,8 @@ class MineFragment : BaseFragment() {
         }
     }
 
-
-    override fun initData() {
+    override fun lazyLoadData() {
+        super.lazyLoadData()
         createMenuItem()
         viewModel.getUserInfo()
     }

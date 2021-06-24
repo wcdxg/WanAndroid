@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.yuaihen.wcdxg.base.BaseFragment
+import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.FragmentCardBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.CardViewModel
 import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
+import com.yuaihen.wcdxg.ui.activity.KnowledgeActivity
 import com.yuaihen.wcdxg.ui.adapter.NavAdapter
 import com.yuaihen.wcdxg.utils.gone
 
@@ -60,12 +62,12 @@ class CardFragment : BaseFragment(), NavAdapter.OnItemClickListener {
     }
 
     private var mAdapter: NavAdapter? = null
-    override fun initData() {
-        super.initData()
+
+    override fun lazyLoadData() {
+        super.lazyLoadData()
         index = arguments?.getInt("index") ?: 0
         mAdapter = NavAdapter(index).apply {
             setOnItemClickListener(this@CardFragment)
-
         }
         binding.recyclerView.adapter = mAdapter
 
@@ -82,8 +84,17 @@ class CardFragment : BaseFragment(), NavAdapter.OnItemClickListener {
     }
 
 
-    override fun onItemClick(view: KnowLedgeTreeModel.Data, position: Int) {
-
+    /**
+     * 体系item点击
+     */
+    override fun onItemClick(data: KnowLedgeTreeModel.Data, position: Int) {
+        if (index == KNOWLEDGE_TREE) {
+            val bundle = Bundle().apply {
+                putParcelable(Constants.KNOWLEDGE_LABEL, data)
+                putInt(Constants.POSITION, position)
+            }
+            KnowledgeActivity.start(requireContext(), bundle)
+        }
     }
 
     override fun unBindView() {

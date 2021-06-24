@@ -1,5 +1,6 @@
 package com.yuaihen.wcdxg.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -47,16 +48,18 @@ class NavAdapter(private val index: Int) :
                     val data: KnowLedgeTreeModel.Data =
                         mData[position] as KnowLedgeTreeModel.Data
                     tvClassName.text = data.name
-                    data.children.forEach {
+                    data.children.forEachIndexed { index, modelData ->
                         val child = createOrGetCacheFlexItemTextView(fbl)
-                        child.text = it.name
-                        child.setOnClickListener { _ ->
-                            mOnClickListener?.onItemClick(it, position)
+                        child.text = modelData.name
+                        child.setOnClickListener {
+                            mOnClickListener?.onItemClick(data, index)
+                            Log.d("hello", "onBindViewHolder: $index")
                         }
                         fbl.addView(child)
                     }
                     itemView.setOnClickListener {
                         mOnClickListener?.onItemClick(data, 0)
+                        Log.d("hello", "onBindViewHolder: $position")
                     }
                 }
                 CardFragment.PAGE_NAV -> {
@@ -101,7 +104,7 @@ class NavAdapter(private val index: Int) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(view: KnowLedgeTreeModel.Data, position: Int)
+        fun onItemClick(data: KnowLedgeTreeModel.Data, position: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {

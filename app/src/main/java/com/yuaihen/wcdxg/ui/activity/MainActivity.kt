@@ -4,13 +4,14 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager.widget.ViewPager
 import com.gyf.immersionbar.ImmersionBar
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityMainBinding
-import com.yuaihen.wcdxg.ui.adapter.ViewPager2PagerAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyViewPagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.HomeFragment
 import com.yuaihen.wcdxg.ui.fragment.MineFragment
 import com.yuaihen.wcdxg.ui.fragment.NavFragment
@@ -36,10 +37,20 @@ class MainActivity : BaseActivity() {
 
     override fun initListener() {
         super.initListener()
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
             override fun onPageSelected(position: Int) {
                 val selectID = binding.bottomNavigationView.menu[position].itemId
                 binding.bottomNavigationView.selectedItemId = selectID
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
             }
         })
     }
@@ -50,7 +61,10 @@ class MainActivity : BaseActivity() {
 
     private fun setupViewPager() {
         binding.viewPager.apply {
-            adapter = ViewPager2PagerAdapter(supportFragmentManager, lifecycle).also {
+            adapter = MyViewPagerAdapter(
+                supportFragmentManager,
+                FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+            ).also {
                 it.addFragmentList(fragmentList)
             }
             offscreenPageLimit = 4

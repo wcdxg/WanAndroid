@@ -11,12 +11,12 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseFragment
-import com.yuaihen.wcdxg.databinding.FragmentCollectBinding
+import com.yuaihen.wcdxg.base.Constants
+import com.yuaihen.wcdxg.databinding.FragmentArticleBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.MyCollectViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.adapter.ArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
-import com.yuaihen.wcdxg.ui.adapter.TopArticleAdapter
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.utils.gone
 import kotlinx.coroutines.launch
@@ -24,61 +24,39 @@ import kotlinx.coroutines.launch
 /**
  * Created by Yuaihen.
  * on 2021/6/16
- * 收藏页面-文章和网站
+ * 文章列表页面
  */
-class CollectFragment : BaseFragment(), OnCollectClickListener {
+class ArticleFragment : BaseFragment(), OnCollectClickListener {
 
-    private var _binding: FragmentCollectBinding? = null
+    private var _binding: FragmentArticleBinding? = null
     private val binding get() = _binding!!
-    private var currentIndex = 0    //当前页面是收藏文章还是收藏网站
+    private var currentPageCid = 0
     private val viewModel by viewModels<MyCollectViewModel>()
-    private val pagingAdapter by lazy { ArticleAdapter(true) }
-    private val webSiteAdapter by lazy { TopArticleAdapter(true) }
+    private val pagingAdapter by lazy { ArticleAdapter() }
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
-        _binding = FragmentCollectBinding.inflate(inflater)
+        _binding = FragmentArticleBinding.inflate(inflater)
         return binding.root
     }
 
     companion object {
-        const val COLLECT_ARTICLE_ARTICLE = 1
-        const val COLLECT_ARTICLE_WEBSITE = 2
-
-        fun newInstance(index: Int) = CollectFragment().also {
+        fun create(id: Int) = ArticleFragment().also {
             it.arguments = Bundle().apply {
-                putInt("index", index)
+                putInt(Constants.CID, id)
             }
         }
     }
 
     override fun initListener() {
         super.initListener()
-        currentIndex = arguments?.getInt("index") ?: 0
         binding.swipeRefresh.setOnRefreshListener {
-            if (currentIndex == COLLECT_ARTICLE_ARTICLE) {
-                pagingAdapter.refresh()
-            } else {
-                getCollectWebSite()
-            }
+            pagingAdapter.refresh()
         }
-        if (currentIndex == COLLECT_ARTICLE_ARTICLE) {
-            binding.recycler.adapter = pagingAdapter
-            addPagingAdapterListener()
-            pagingAdapter.addOnCollectClickListener(this)
-            pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
-        } else {
-            binding.recycler.adapter = webSiteAdapter
-            webSiteAdapter.addOnCollectClickListener(this)
-        }
+        binding.recycler.adapter = pagingAdapter
+        addPagingAdapterListener()
+        pagingAdapter.addOnCollectClickListener(this)
+        pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
 
         viewModel.apply {
-            collectArticleLiveData.observe(viewLifecycleOwner) {
-                binding.swipeRefresh.isRefreshing = false
-                setCollectArticleToAdapter(it)
-            }
-            collectWebSiteLiveData.observe(viewLifecycleOwner) {
-                binding.swipeRefresh.isRefreshing = false
-                setCollectWebSiteToAdapter(it)
-            }
             unCollectStatus.observe(viewLifecycleOwner) {
                 if (it) {
                     toast(getString(R.string.unCollect_success))
@@ -88,6 +66,10 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
             errorLiveData.observe(viewLifecycleOwner) {
                 binding.swipeRefresh.isRefreshing = false
                 toast(it)
+            }
+            knowledgeArticleLiveData.observe(this@ArticleFragment) {
+                binding.swipeRefresh.isRefreshing = false
+                setCollectArticleToAdapter(it)
             }
         }
     }
@@ -118,62 +100,39 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
         }
     }
 
-    private fun setCollectWebSiteToAdapter(list: List<ArticleModel>) {
-        if (list.isNullOrEmpty()) {
-            showEmptyView(true)
-        } else {
-            showEmptyView(false)
-            webSiteAdapter.submitList(list)
-        }
-    }
-
     private fun showEmptyView(isShow: Boolean) {
         binding.loadingView.gone()
         binding.ivEmpty.isVisible = isShow
         binding.tvEmpty.isVisible = isShow
     }
 
-
     override fun lazyLoadData() {
         super.lazyLoadData()
-        if (currentIndex == COLLECT_ARTICLE_ARTICLE) {
-            getCollectArticle()
-        } else if (currentIndex == COLLECT_ARTICLE_WEBSITE) {
-            getCollectWebSite()
-        }
+        currentPageCid = arguments?.getInt(Constants.CID) ?: 0
+        getArticleForCid()
     }
 
-    private fun getCollectArticle() {
-        viewModel.getCollectArticle()
+    private fun getArticleForCid() {
+        viewModel.getKnowledgeArticleByCid(currentPageCid)
         isLoadDataEnd = true
-    }
-
-    private fun getCollectWebSite() {
-        viewModel.getCollectWebSite()
     }
 
     private fun unCollectArticle(id: Int, originId: Int) {
         viewModel.unCollectById(id, originId)
     }
 
-    private fun unCollectWebSite(id: Int) {
-        viewModel.deleteCollectWebSite(id)
-    }
-
     override fun onCollect(id: Int) {
+        viewModel.collectArticle(id)
     }
 
     private var currentItemPos = 0
     override fun unCollect(id: Int, originId: Int, position: Int) {
         currentItemPos = position
-        if (currentIndex == COLLECT_ARTICLE_ARTICLE) {
-            unCollectArticle(id, originId)
-        } else if (currentIndex == COLLECT_ARTICLE_WEBSITE) {
-            unCollectWebSite(id)
-        }
+        unCollectArticle(id, originId)
     }
 
     override fun unBindView() {
         _binding = null
     }
+
 }

@@ -1,4 +1,4 @@
-package com.yuaihen.wcdxg.ui.fragment
+package com.yuaihen.wcdxg.ui.activity
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,6 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityCoinBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.CoinViewModel
-import com.yuaihen.wcdxg.ui.activity.CoinRankActivity
 import com.yuaihen.wcdxg.ui.adapter.CoinRecordAdapter
 import com.yuaihen.wcdxg.utils.UserUtil
 import com.yuaihen.wcdxg.utils.gone

@@ -26,6 +26,8 @@ class MyCollectViewModel : BaseViewModel() {
     private val _collectWebSiteLiveData = MutableLiveData<List<ArticleModel>>()
     val collectWebSiteLiveData = _collectWebSiteLiveData
     val unCollectStatus = MutableLiveData(false)
+    private val _knowledgeArticleLiveData = MutableLiveData<PagingData<ArticleModel>>()
+    val knowledgeArticleLiveData = _knowledgeArticleLiveData
 
     /**
      * 获取收藏的文章列表  页码：拼接在链接中，从0开始。
@@ -109,6 +111,22 @@ class MyCollectViewModel : BaseViewModel() {
         }, {
 
         }, isShowLoading = false)
+    }
+
+    /**
+     * 根据cid获取知识体系下的文章
+     */
+    fun getKnowledgeArticleByCid(cid: Int) {
+        viewModelScope.launch {
+            Pager(
+                //pageSize一页加载多少条  prefetchDistance表示距离底部多少条数据开始预加载，设置0则表示滑到底部才加载
+                PagingConfig(pageSize = 20, prefetchDistance = 5, initialLoadSize = 20)
+            ) {
+                BaseArticlePagingSource(BaseArticlePagingSource.KNOWLEDGE_ARTICLE, cid)
+            }.flow.cachedIn(this).collectLatest {
+                _knowledgeArticleLiveData.value = it
+            }
+        }
     }
 
 }

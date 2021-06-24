@@ -22,6 +22,7 @@ abstract class BaseFragment : Fragment() {
 
     private lateinit var mContext: FragmentActivity
     private var mRootView: View? = null
+    private var firstInit = true
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,6 +46,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        LogUtil.d("hello", "onActivityCreated: ")
         initImmersionBar()
         initListener()
         initData()
@@ -68,6 +70,14 @@ abstract class BaseFragment : Fragment() {
     }
 
     open fun initData() {
+
+    }
+
+    /**
+     * 懒加载数据
+     */
+    open fun lazyLoadData() {
+
     }
 
     abstract fun unBindView()
@@ -81,6 +91,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        LogUtil.d("hello", "onDestroyView")
         hideLoading()
         unBindView()
     }
@@ -109,5 +120,24 @@ abstract class BaseFragment : Fragment() {
 
     protected open fun toast(msg: String) {
         mContext.runOnUiThread { ToastUtil.show(msg) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LogUtil.d("hello", "onResume")
+        if (firstInit) {
+            firstInit = !firstInit
+            lazyLoadData()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LogUtil.d("hello", "onDestroy: ")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        LogUtil.d("hello", "onDetach: ")
     }
 }
