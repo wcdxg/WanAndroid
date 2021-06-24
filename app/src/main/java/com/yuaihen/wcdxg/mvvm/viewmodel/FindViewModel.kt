@@ -90,13 +90,13 @@ class FindViewModel : BaseViewModel() {
     /**
      * 获取微信公众号文章列表
      */
-    fun getWxArticleList() {
+    fun getWxArticleList(id: Int) {
         viewModelScope.launch {
             Pager(
                 //pageSize一页加载多少条  prefetchDistance表示距离底部多少条数据开始预加载，设置0则表示滑到底部才加载
                 PagingConfig(pageSize = 20, prefetchDistance = 3, initialLoadSize = 20)
             ) {
-                BaseArticlePagingSource(BaseArticlePagingSource.WX_ARTICLE)
+                BaseArticlePagingSource(BaseArticlePagingSource.WX_ARTICLE, wxAccountId = id)
             }.flow.cachedIn(this).collectLatest {
                 _wxArticleLiveData.value = it
             }

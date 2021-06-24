@@ -77,12 +77,10 @@ class NavAdapter(private val index: Int) :
                     }
                 }
                 FindFragment.OFFICIAL_ACCOUNTS -> {
-//                    val lp = rootView.layoutParams
                     val lp = LinearLayout.LayoutParams(rootView.layoutParams)
                     lp.topMargin = 0
                     lp.bottomMargin = 0
                     rootView.layoutParams = lp
-//                    itemView.layoutParams = lp
                     tvClassName.gone()
                     fbl.gone()
                     cardView.visible()

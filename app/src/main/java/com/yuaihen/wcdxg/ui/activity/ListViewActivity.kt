@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gyf.immersionbar.ImmersionBar
+import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.ActivityListViewBinding
@@ -109,11 +111,12 @@ class ListViewActivity : BaseActivity() {
             name = getStringExtra(Constants.NAME) ?: ""
         }
 
+        binding.titleView.setTitle(name)
         getWxArticleList()
     }
 
     private fun getWxArticleList() {
-        viewModel.getWxArticleList()
+        viewModel.getWxArticleList(id)
         isLoadDataEnd = true
     }
 
@@ -124,6 +127,12 @@ class ListViewActivity : BaseActivity() {
             ivEmpty.isVisible = isShow
             tvEmpty.isVisible = isShow
         }
+    }
 
+    override fun initImmersionBar() {
+        super.initImmersionBar()
+        ImmersionBar.with(this)
+            .statusBarColor(R.color.bili_bili_pink)
+            .init()
     }
 }

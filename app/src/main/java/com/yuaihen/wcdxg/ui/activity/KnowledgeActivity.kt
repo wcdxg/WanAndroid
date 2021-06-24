@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import com.gyf.immersionbar.ImmersionBar
+import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.ActivityKnowledgeBinding
@@ -77,7 +79,13 @@ class KnowledgeActivity : BaseActivity() {
         }
 
         binding.viewPager.setCurrentItem(selectTab, false)
-
     }
 
+
+    override fun initImmersionBar() {
+        super.initImmersionBar()
+        ImmersionBar.with(this)
+            .statusBarColor(R.color.bili_bili_pink)
+            .init()
+    }
 }
