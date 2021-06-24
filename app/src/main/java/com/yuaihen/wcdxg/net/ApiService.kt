@@ -192,4 +192,19 @@ interface ApiService {
     @GET("navi/json")
     suspend fun getNavigationData(): NavigationModel
 
+    /**
+     * 公众号列表
+     */
+    @GET("wxarticle/chapters/json")
+    suspend fun getOfficialAccounts(): OfficialAccountsModel
+
+    /**
+     * 获取公众号内的所有文章
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    suspend fun getWxArticle(
+        @Path(Constants.PAGE) page: Int,
+        @Path(Constants.ID) id: Int
+    ): HomeArticleModel
+
 }

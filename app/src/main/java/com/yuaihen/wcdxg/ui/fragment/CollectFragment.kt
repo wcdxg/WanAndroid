@@ -64,7 +64,6 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
             binding.recycler.adapter = pagingAdapter
             addPagingAdapterListener()
             pagingAdapter.addOnCollectClickListener(this)
-            pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
         } else {
             binding.recycler.adapter = webSiteAdapter
             webSiteAdapter.addOnCollectClickListener(this)
@@ -93,6 +92,7 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
     }
 
     private fun addPagingAdapterListener() {
+        pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
         pagingAdapter.addLoadStateListener {
             when (it.refresh) {
                 is LoadState.NotLoading -> {

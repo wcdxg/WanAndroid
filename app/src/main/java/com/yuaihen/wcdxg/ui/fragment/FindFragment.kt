@@ -12,6 +12,7 @@ import com.yuaihen.wcdxg.databinding.FragmentFindBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.FindViewModel
 import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
 import com.yuaihen.wcdxg.ui.activity.KnowledgeActivity
+import com.yuaihen.wcdxg.ui.activity.ListViewActivity
 import com.yuaihen.wcdxg.ui.activity.WebViewActivity
 import com.yuaihen.wcdxg.ui.adapter.NavAdapter
 import com.yuaihen.wcdxg.utils.gone
@@ -62,6 +63,9 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
             navigationLiveData.observe(this@FindFragment) {
                 setDataToAdapter(it)
             }
+            officialAccountLiveData.observe(this@FindFragment) {
+                setDataToAdapter(it)
+            }
         }
         binding.swipeRefresh.setOnRefreshListener {
             when (index) {
@@ -87,10 +91,12 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
             setOnItemClickListener(this@FindFragment)
         }
         binding.recyclerView.adapter = mAdapter
-
         getDataForIndex()
     }
 
+    /**
+     * 根据索引获取对应Tab的数据
+     */
     private fun getDataForIndex() {
         when (index) {
             KNOWLEDGE_TREE -> viewModel.getKnowledgeTree()
@@ -119,6 +125,14 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
      */
     override fun onNaviItemClick(link: String) {
         WebViewActivity.start(requireContext(), link)
+    }
+
+    override fun onWxItemClick(id: Int, name: String) {
+        val bundle = Bundle().apply {
+            putInt(Constants.ID, id)
+            putString(Constants.NAME, name)
+        }
+        ListViewActivity.start(requireContext(), bundle)
     }
 
     override fun unBindView() {

@@ -10,6 +10,7 @@ import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.databinding.FragmentWendaBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.WenDaViewModel
 import com.yuaihen.wcdxg.ui.adapter.ArticleAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
 import com.yuaihen.wcdxg.utils.gone
 import com.yuaihen.wcdxg.utils.visible
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class WenDaFragment : BaseFragment() {
     private var _binding: FragmentWendaBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<WenDaViewModel>()
-    private val adapter by lazy { ArticleAdapter() }
+    private val pagingAdapter by lazy { ArticleAdapter() }
 
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
         _binding = FragmentWendaBinding.inflate(layoutInflater)
@@ -36,16 +37,17 @@ class WenDaFragment : BaseFragment() {
         addPagingAdapterListener()
         viewModel.wenDaArticleLiveData.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
-                adapter.submitData(it)
+                pagingAdapter.submitData(it)
             }
         }
         binding.swipeRefresh.setOnRefreshListener {
-            adapter.refresh()
+            pagingAdapter.refresh()
         }
     }
 
     private fun addPagingAdapterListener() {
-        adapter.addLoadStateListener {
+        pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
+        pagingAdapter.addLoadStateListener {
             when (it.refresh) {
                 is LoadState.NotLoading -> {
                     if (isFirstLoading) {
@@ -67,7 +69,7 @@ class WenDaFragment : BaseFragment() {
 
     override fun lazyLoadData() {
         super.lazyLoadData()
-        binding.recycler.adapter = adapter
+        binding.recycler.adapter = pagingAdapter
         binding.loadingView.visible()
         isFirstLoading = true
         viewModel.getWenDaList()
