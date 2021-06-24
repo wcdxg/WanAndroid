@@ -27,10 +27,10 @@ class NavFragment : BaseFragment() {
     }
     private val fragmentList by lazy {
         mutableListOf<Fragment>().apply {
-            add(CardFragment.newInstance(CardFragment.KNOWLEDGE_TREE))
-            add(CardFragment.newInstance(CardFragment.PAGE_NAV))
-            add(CardFragment.newInstance(CardFragment.OFFICIAL_ACCOUNTS))
-            add(CardFragment.newInstance(CardFragment.PROJECT))
+            add(FindFragment.newInstance(FindFragment.KNOWLEDGE_TREE))
+            add(FindFragment.newInstance(FindFragment.PAGE_NAV))
+            add(FindFragment.newInstance(FindFragment.OFFICIAL_ACCOUNTS))
+            add(FindFragment.newInstance(FindFragment.PROJECT))
         }
     }
 

@@ -8,10 +8,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.base.Constants
-import com.yuaihen.wcdxg.databinding.FragmentCardBinding
-import com.yuaihen.wcdxg.mvvm.viewmodel.CardViewModel
+import com.yuaihen.wcdxg.databinding.FragmentFindBinding
+import com.yuaihen.wcdxg.mvvm.viewmodel.FindViewModel
 import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
 import com.yuaihen.wcdxg.ui.activity.KnowledgeActivity
+import com.yuaihen.wcdxg.ui.activity.WebViewActivity
 import com.yuaihen.wcdxg.ui.adapter.NavAdapter
 import com.yuaihen.wcdxg.utils.gone
 
@@ -20,14 +21,14 @@ import com.yuaihen.wcdxg.utils.gone
  * on 2021/6/21
  * 发现栏目下 通用Fragment
  */
-class CardFragment : BaseFragment(), NavAdapter.OnItemClickListener {
-    private var _binding: FragmentCardBinding? = null
+class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
+    private var _binding: FragmentFindBinding? = null
     private val binding get() = _binding!!
     private var index = 0
-    private val viewModel by viewModels<CardViewModel>()
+    private val viewModel by viewModels<FindViewModel>()
 
     override fun getBindingView(inflater: LayoutInflater, container: ViewGroup?): View {
-        _binding = FragmentCardBinding.inflate(inflater)
+        _binding = FragmentFindBinding.inflate(inflater)
         return binding.root
     }
 
@@ -37,7 +38,7 @@ class CardFragment : BaseFragment(), NavAdapter.OnItemClickListener {
         const val OFFICIAL_ACCOUNTS = 2 //公众号
         const val PROJECT = 3           //项目
 
-        fun newInstance(index: Int) = CardFragment().apply {
+        fun newInstance(index: Int) = FindFragment().apply {
             arguments = Bundle().also {
                 it.putInt("index", index)
             }
@@ -47,18 +48,34 @@ class CardFragment : BaseFragment(), NavAdapter.OnItemClickListener {
     override fun initListener() {
         super.initListener()
         viewModel.apply {
-            loadingLiveData.observe(this@CardFragment) {
+            loadingLiveData.observe(this@FindFragment) {
                 binding.loadingView.isVisible = it
             }
-            errorLiveData.observe(this@CardFragment) {
+            errorLiveData.observe(this@FindFragment) {
+                binding.swipeRefresh.isRefreshing = false
                 binding.loadingView.gone()
                 toast(it)
             }
-
-            knowledgeLiveData.observe(this@CardFragment) {
-                mAdapter?.updateData(it)
+            knowledgeLiveData.observe(this@FindFragment) {
+                setDataToAdapter(it)
+            }
+            navigationLiveData.observe(this@FindFragment) {
+                setDataToAdapter(it)
             }
         }
+        binding.swipeRefresh.setOnRefreshListener {
+            when (index) {
+                KNOWLEDGE_TREE -> viewModel.getKnowledgeTree()
+                PAGE_NAV -> viewModel.getNavPage()
+                OFFICIAL_ACCOUNTS -> viewModel.getOfficialAccounts()
+                PROJECT -> viewModel.getProject()
+            }
+        }
+    }
+
+    private fun setDataToAdapter(list: List<Any>) {
+        binding.swipeRefresh.isRefreshing = false
+        mAdapter?.updateData(list)
     }
 
     private var mAdapter: NavAdapter? = null
@@ -67,7 +84,7 @@ class CardFragment : BaseFragment(), NavAdapter.OnItemClickListener {
         super.lazyLoadData()
         index = arguments?.getInt("index") ?: 0
         mAdapter = NavAdapter(index).apply {
-            setOnItemClickListener(this@CardFragment)
+            setOnItemClickListener(this@FindFragment)
         }
         binding.recyclerView.adapter = mAdapter
 
@@ -95,6 +112,13 @@ class CardFragment : BaseFragment(), NavAdapter.OnItemClickListener {
             }
             KnowledgeActivity.start(requireContext(), bundle)
         }
+    }
+
+    /**
+     * 导航item点击
+     */
+    override fun onNaviItemClick(link: String) {
+        WebViewActivity.start(requireContext(), link)
     }
 
     override fun unBindView() {

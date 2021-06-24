@@ -1,6 +1,5 @@
 package com.yuaihen.wcdxg.net
 
-import com.blankj.utilcode.util.NetworkUtils
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
@@ -10,7 +9,6 @@ import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.NetConstants
 import okhttp3.Cache
-import okhttp3.CacheControl
 import okhttp3.OkHttpClient
 import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
@@ -69,33 +67,33 @@ class ApiManage {
                 retryOnConnectionFailure(true)
                 //添加缓存拦截器
                 cache(cache)
-                addInterceptor {
-                    var request = it.request()
-                    if (!NetworkUtils.isAvailable()) {
-                        //网络不可用 离线缓存保存1周 单位秒
-                        val maxStale = 60 * 60 * 24 * 1
-                        val tempCacheControl = CacheControl.Builder()
-                            .onlyIfCached()
-                            .maxStale(maxStale, TimeUnit.SECONDS)
-                            .build()
-                        request = request.newBuilder()
-                            .cacheControl(tempCacheControl)
-                            .build()
-                    }
-
-                    it.proceed(request)
-                }
-                addNetworkInterceptor {
-                    //只有网络拦截器环节才会写入缓存写入缓存,在有网络的时候 设置缓存时间
-                    val request = it.request()
-                    val originalResponse = it.proceed(request)
-                    val maxAge = 1 * 60 //在线缓存在1分钟内可读取 单位秒
-                    originalResponse.newBuilder()
-                        .removeHeader("Pragma")//清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
-                        .removeHeader("Cache-Control")
-                        .header("Cache-Control", "public, max-age=$maxAge")
-                        .build()
-                }
+//                addInterceptor {
+//                    var request = it.request()
+//                    if (!NetworkUtils.isAvailable()) {
+//                        //网络不可用 离线缓存保存1周 单位秒
+//                        val maxStale = 60 * 60 * 24 * 1
+//                        val tempCacheControl = CacheControl.Builder()
+//                            .onlyIfCached()
+//                            .maxStale(maxStale, TimeUnit.SECONDS)
+//                            .build()
+//                        request = request.newBuilder()
+//                            .cacheControl(tempCacheControl)
+//                            .build()
+//                    }
+//
+//                    it.proceed(request)
+//                }
+//                addNetworkInterceptor {
+//                    //只有网络拦截器环节才会写入缓存写入缓存,在有网络的时候 设置缓存时间
+//                    val request = it.request()
+//                    val originalResponse = it.proceed(request)
+//                    val maxAge = 1 * 60 //在线缓存在1分钟内可读取 单位秒
+//                    originalResponse.newBuilder()
+//                        .removeHeader("Pragma")//清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
+//                        .removeHeader("Cache-Control")
+//                        .header("Cache-Control", "public, max-age=$maxAge")
+//                        .build()
+//                }
             }
 
             if (BuildConfig.DEBUG) {

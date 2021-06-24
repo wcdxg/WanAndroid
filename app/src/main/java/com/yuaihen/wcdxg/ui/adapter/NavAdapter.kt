@@ -1,6 +1,5 @@
 package com.yuaihen.wcdxg.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,7 +8,8 @@ import com.google.android.flexbox.FlexboxLayout
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.databinding.NavAdapterItemBinding
 import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
-import com.yuaihen.wcdxg.ui.fragment.CardFragment
+import com.yuaihen.wcdxg.net.model.NavigationModel
+import com.yuaihen.wcdxg.ui.fragment.FindFragment
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
 import com.yuaihen.wcdxg.viewbinding.getViewHolder
 import java.util.*
@@ -44,7 +44,7 @@ class NavAdapter(private val index: Int) :
     ) {
         with(holder.mBinding) {
             when (index) {
-                CardFragment.KNOWLEDGE_TREE -> {
+                FindFragment.KNOWLEDGE_TREE -> {
                     val data: KnowLedgeTreeModel.Data =
                         mData[position] as KnowLedgeTreeModel.Data
                     tvClassName.text = data.name
@@ -53,22 +53,29 @@ class NavAdapter(private val index: Int) :
                         child.text = modelData.name
                         child.setOnClickListener {
                             mOnClickListener?.onItemClick(data, index)
-                            Log.d("hello", "onBindViewHolder: $index")
                         }
                         fbl.addView(child)
                     }
                     itemView.setOnClickListener {
                         mOnClickListener?.onItemClick(data, 0)
-                        Log.d("hello", "onBindViewHolder: $position")
                     }
                 }
-                CardFragment.PAGE_NAV -> {
+                FindFragment.PAGE_NAV -> {
+                    val data = mData[position] as NavigationModel.Data
+                    tvClassName.text = data.name
+                    data.articles.forEachIndexed { _, modelData ->
+                        val child = createOrGetCacheFlexItemTextView(fbl)
+                        child.text = modelData.title
+                        child.setOnClickListener {
+                            mOnClickListener?.onNaviItemClick(modelData.link)
+                        }
+                        fbl.addView(child)
+                    }
+                }
+                FindFragment.OFFICIAL_ACCOUNTS -> {
 
                 }
-                CardFragment.OFFICIAL_ACCOUNTS -> {
-
-                }
-                CardFragment.PROJECT -> {
+                FindFragment.PROJECT -> {
                 }
                 else -> {
                 }
@@ -105,6 +112,7 @@ class NavAdapter(private val index: Int) :
 
     interface OnItemClickListener {
         fun onItemClick(data: KnowLedgeTreeModel.Data, position: Int)
+        fun onNaviItemClick(link: String)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {

@@ -190,6 +190,6 @@ interface ApiService {
      * 获取导航分类
      */
     @GET("navi/json")
-    suspend fun getNaviData(): HomeArticleModel
+    suspend fun getNavigationData(): NavigationModel
 
 }
