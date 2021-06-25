@@ -35,6 +35,7 @@ class ListViewActivity : BaseActivity() {
     private var id = 0
     private var name = ""
     private var isLoadDataEnd = false
+    private var loadType = WX_Article
 
     override fun getBindingView(): View {
         binding = ActivityListViewBinding.inflate(layoutInflater)
@@ -42,6 +43,8 @@ class ListViewActivity : BaseActivity() {
     }
 
     companion object {
+        const val WX_Article = 1
+        const val PROJECT_Article = 2
         fun start(context: Context, bundle: Bundle?) {
             val intent = Intent(context, ListViewActivity::class.java).apply {
                 bundle?.let {
@@ -73,12 +76,15 @@ class ListViewActivity : BaseActivity() {
                 binding.loadingView.isVisible = it
             }
             wxArticleLiveData.observe(this@ListViewActivity) {
-                setCollectArticleToAdapter(it)
+                setArticleListToAdapter(it)
+            }
+            projectArticleLiveData.observe(this@ListViewActivity) {
+                setArticleListToAdapter(it)
             }
         }
     }
 
-    private fun setCollectArticleToAdapter(pagingData: PagingData<ArticleModel>) {
+    private fun setArticleListToAdapter(pagingData: PagingData<ArticleModel>) {
         binding.swipeRefresh.isRefreshing = false
         lifecycleScope.launch {
             pagingAdapter.submitData(pagingData)
@@ -109,10 +115,20 @@ class ListViewActivity : BaseActivity() {
         intent.apply {
             id = getIntExtra(Constants.ID, 0)
             name = getStringExtra(Constants.NAME) ?: ""
+            loadType = getIntExtra(Constants.LOAD_TYPE, 0)
         }
 
         binding.titleView.setTitle(name)
-        getWxArticleList()
+        if (loadType == WX_Article) {
+            getWxArticleList()
+        } else if (loadType == PROJECT_Article) {
+            getProjectArticleList()
+        }
+    }
+
+    private fun getProjectArticleList() {
+        viewModel.getProjectArticleList(id)
+        isLoadDataEnd = true
     }
 
     private fun getWxArticleList() {

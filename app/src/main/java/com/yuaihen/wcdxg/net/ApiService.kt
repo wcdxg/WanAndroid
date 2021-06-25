@@ -207,4 +207,18 @@ interface ApiService {
         @Path(Constants.ID) id: Int
     ): HomeArticleModel
 
+    /**
+     * 获取项目列表
+     */
+    @GET("project/tree/json")
+    suspend fun getProjectTree(): OfficialAccountsModel
+
+    /**
+     * 项目分类下的文章列表
+     */
+    @GET("project/list/{page}/json")
+    suspend fun getProjectArticle(
+        @Path(Constants.PAGE) page: Int,
+        @Query(Constants.ID) id: Int
+    ): HomeArticleModel
 }

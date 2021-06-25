@@ -24,7 +24,7 @@ class FindRepository : BaseRepository {
         return ApiManage.getInstance().getOfficialAccounts()
     }
 
-    suspend fun getProject() {
-
+    suspend fun getProjectTree(): OfficialAccountsModel {
+        return ApiManage.getInstance().getProjectTree()
     }
 }

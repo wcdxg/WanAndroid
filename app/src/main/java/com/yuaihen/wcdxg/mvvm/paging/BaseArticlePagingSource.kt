@@ -15,8 +15,7 @@ import com.yuaihen.wcdxg.utils.isSuccess
  */
 class BaseArticlePagingSource(
     private val index: Int,
-    private val cid: Int = 0,
-    private val wxAccountId: Int = 0
+    private val id: Int = 0,
 ) :
     PagingSource<Int, ArticleModel>() {
     companion object {
@@ -25,6 +24,7 @@ class BaseArticlePagingSource(
         const val WENDA_ARTICLE = 3     //每日问答
         const val KNOWLEDGE_ARTICLE = 4 //知识体系对应tag文章
         const val WX_ARTICLE = 5        //微信公众号文章
+        const val PROJECT_ARTICLE = 6        //项目分类下的文章
     }
 
     override fun getRefreshKey(state: PagingState<Int, ArticleModel>): Int? {
@@ -56,11 +56,15 @@ class BaseArticlePagingSource(
                 }
                 KNOWLEDGE_ARTICLE -> {
                     nextPageNumber = params.key ?: 0
-                    response = ApiManage.getInstance().getKnowledgeArticleByCid(nextPageNumber, cid)
+                    response = ApiManage.getInstance().getKnowledgeArticleByCid(nextPageNumber, id)
                 }
                 WX_ARTICLE -> {
                     nextPageNumber = params.key ?: 1
-                    response = ApiManage.getInstance().getWxArticle(nextPageNumber, wxAccountId)
+                    response = ApiManage.getInstance().getWxArticle(nextPageNumber, id)
+                }
+                PROJECT_ARTICLE -> {
+                    nextPageNumber = params.key ?: 1
+                    response = ApiManage.getInstance().getProjectArticle(nextPageNumber, id)
                 }
                 else -> {
 

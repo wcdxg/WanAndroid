@@ -1,5 +1,6 @@
 package com.yuaihen.wcdxg.ui.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -11,6 +12,7 @@ import com.yuaihen.wcdxg.databinding.NavAdapterItemBinding
 import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
 import com.yuaihen.wcdxg.net.model.NavigationModel
 import com.yuaihen.wcdxg.net.model.OfficialAccountsModel
+import com.yuaihen.wcdxg.ui.activity.ListViewActivity
 import com.yuaihen.wcdxg.ui.fragment.FindFragment
 import com.yuaihen.wcdxg.utils.gone
 import com.yuaihen.wcdxg.utils.visible
@@ -51,7 +53,7 @@ class NavAdapter(private val index: Int) :
                 FindFragment.KNOWLEDGE_TREE -> {
                     val data: KnowLedgeTreeModel.Data =
                         mData[position] as KnowLedgeTreeModel.Data
-                    tvClassName.text = data.name
+                    tvClassName.text = Html.fromHtml(data.name)
                     data.children.forEachIndexed { index, modelData ->
                         val child = createOrGetCacheFlexItemTextView(fbl)
                         child.text = modelData.name
@@ -66,7 +68,7 @@ class NavAdapter(private val index: Int) :
                 }
                 FindFragment.PAGE_NAV -> {
                     val data = mData[position] as NavigationModel.Data
-                    tvClassName.text = data.name
+                    tvClassName.text = Html.fromHtml(data.name)
                     data.articles.forEachIndexed { _, modelData ->
                         val child = createOrGetCacheFlexItemTextView(fbl)
                         child.text = modelData.title
@@ -85,12 +87,32 @@ class NavAdapter(private val index: Int) :
                     fbl.gone()
                     cardView.visible()
                     val data = mData[position] as OfficialAccountsModel.Data
-                    tvCardName.text = data.name
+                    tvCardName.text = Html.fromHtml(data.name)
                     cardView.setOnClickListener {
-                        mOnClickListener?.onWxItemClick(data.id, data.name)
+                        mOnClickListener?.onWxItemClick(
+                            data.id,
+                            data.name,
+                            ListViewActivity.WX_Article
+                        )
                     }
                 }
                 FindFragment.PROJECT -> {
+                    val lp = LinearLayout.LayoutParams(rootView.layoutParams)
+                    lp.topMargin = 0
+                    lp.bottomMargin = 0
+                    rootView.layoutParams = lp
+                    tvClassName.gone()
+                    fbl.gone()
+                    cardView.visible()
+                    val data = mData[position] as OfficialAccountsModel.Data
+                    tvCardName.text = Html.fromHtml(data.name)
+                    cardView.setOnClickListener {
+                        mOnClickListener?.onWxItemClick(
+                            data.id,
+                            data.name,
+                            ListViewActivity.PROJECT_Article
+                        )
+                    }
                 }
                 else -> {
                 }
@@ -128,7 +150,7 @@ class NavAdapter(private val index: Int) :
     interface OnItemClickListener {
         fun onItemClick(data: KnowLedgeTreeModel.Data, position: Int)
         fun onNaviItemClick(link: String)
-        fun onWxItemClick(id: Int, name: String)
+        fun onWxItemClick(id: Int, name: String, loadType: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {

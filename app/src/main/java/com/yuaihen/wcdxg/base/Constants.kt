@@ -36,6 +36,7 @@ object Constants {
     const val DARK_MODE = "darkMode"
     const val KNOWLEDGE_LABEL = "knowledge_label"
     const val POSITION = "position"
+    const val LOAD_TYPE = "loadType"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

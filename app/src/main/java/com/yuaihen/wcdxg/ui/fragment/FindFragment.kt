@@ -66,13 +66,16 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
             officialAccountLiveData.observe(this@FindFragment) {
                 setDataToAdapter(it)
             }
+            projectTreeList.observe(this@FindFragment) {
+                setDataToAdapter(it)
+            }
         }
         binding.swipeRefresh.setOnRefreshListener {
             when (index) {
                 KNOWLEDGE_TREE -> viewModel.getKnowledgeTree()
                 PAGE_NAV -> viewModel.getNavPage()
                 OFFICIAL_ACCOUNTS -> viewModel.getOfficialAccounts()
-                PROJECT -> viewModel.getProject()
+                PROJECT -> viewModel.getProjectTree()
             }
         }
     }
@@ -102,7 +105,7 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
             KNOWLEDGE_TREE -> viewModel.getKnowledgeTree()
             PAGE_NAV -> viewModel.getNavPage()
             OFFICIAL_ACCOUNTS -> viewModel.getOfficialAccounts()
-            PROJECT -> viewModel.getProject()
+            PROJECT -> viewModel.getProjectTree()
         }
     }
 
@@ -127,10 +130,14 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
         WebViewActivity.start(requireContext(), link)
     }
 
-    override fun onWxItemClick(id: Int, name: String) {
+    /**
+     * 微信公众号和项目列表item点击
+     */
+    override fun onWxItemClick(id: Int, name: String, loadType: Int) {
         val bundle = Bundle().apply {
             putInt(Constants.ID, id)
             putString(Constants.NAME, name)
+            putInt(Constants.LOAD_TYPE, loadType)
         }
         ListViewActivity.start(requireContext(), bundle)
     }
