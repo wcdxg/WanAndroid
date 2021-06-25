@@ -10,7 +10,7 @@ import com.yuaihen.wcdxg.base.BaseFragment
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.FragmentFindBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.FindViewModel
-import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
+import com.yuaihen.wcdxg.net.model.ArticleListModel
 import com.yuaihen.wcdxg.ui.activity.KnowledgeActivity
 import com.yuaihen.wcdxg.ui.activity.ListViewActivity
 import com.yuaihen.wcdxg.ui.activity.WebViewActivity
@@ -111,9 +111,9 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
 
 
     /**
-     * 体系item点击
+     * 知识体系item点击
      */
-    override fun onItemClick(data: KnowLedgeTreeModel.Data, position: Int) {
+    override fun onItemClick(data: ArticleListModel.Data, position: Int) {
         if (index == KNOWLEDGE_TREE) {
             val bundle = Bundle().apply {
                 putParcelable(Constants.KNOWLEDGE_LABEL, data)

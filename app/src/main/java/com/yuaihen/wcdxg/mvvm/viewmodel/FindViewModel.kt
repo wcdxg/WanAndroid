@@ -10,9 +10,7 @@ import com.yuaihen.wcdxg.mvvm.BaseViewModel
 import com.yuaihen.wcdxg.mvvm.paging.BaseArticlePagingSource
 import com.yuaihen.wcdxg.mvvm.repository.FindRepository
 import com.yuaihen.wcdxg.net.model.ArticleModel
-import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
-import com.yuaihen.wcdxg.net.model.NavigationModel
-import com.yuaihen.wcdxg.net.model.OfficialAccountsModel
+import com.yuaihen.wcdxg.net.model.ArticleListModel
 import com.yuaihen.wcdxg.utils.isSuccess
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,15 +22,15 @@ import kotlinx.coroutines.launch
 class FindViewModel : BaseViewModel() {
 
     private val repository = FindRepository()
-    private val _knowledgeLiveData = MutableLiveData<List<KnowLedgeTreeModel.Data>>()
+    private val _knowledgeLiveData = MutableLiveData<List<ArticleListModel.Data>>()
     val knowledgeLiveData = _knowledgeLiveData
-    private val _navigationLiveData = MutableLiveData<List<NavigationModel.Data>>()
+    private val _navigationLiveData = MutableLiveData<List<ArticleListModel.Data>>()
     val navigationLiveData = _navigationLiveData
-    private val _officialAccountLiveData = MutableLiveData<List<OfficialAccountsModel.Data>>()
+    private val _officialAccountLiveData = MutableLiveData<List<ArticleListModel.Data>>()
     val officialAccountLiveData = _officialAccountLiveData
     private val _wxArticleLiveData = MutableLiveData<PagingData<ArticleModel>>()
     val wxArticleLiveData = _wxArticleLiveData
-    private val _projectTreeList = MutableLiveData<List<OfficialAccountsModel.Data>>()
+    private val _projectTreeList = MutableLiveData<List<ArticleListModel.Data>>()
     val projectTreeList = _projectTreeList
     private val _projectArticleLiveData = MutableLiveData<PagingData<ArticleModel>>()
     val projectArticleLiveData = _projectArticleLiveData

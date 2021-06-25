@@ -175,7 +175,7 @@ interface ApiService {
      * 知识体系
      */
     @GET("tree/json")
-    suspend fun getKnowledgeTree(): KnowLedgeTreeModel
+    suspend fun getKnowledgeTree(): ArticleListModel
 
     /**
      * 获取知识体系下的文章列表
@@ -190,13 +190,13 @@ interface ApiService {
      * 获取导航分类
      */
     @GET("navi/json")
-    suspend fun getNavigationData(): NavigationModel
+    suspend fun getNavigationData(): ArticleListModel
 
     /**
      * 公众号列表
      */
     @GET("wxarticle/chapters/json")
-    suspend fun getOfficialAccounts(): OfficialAccountsModel
+    suspend fun getOfficialAccounts(): ArticleListModel
 
     /**
      * 获取公众号内的所有文章
@@ -211,7 +211,7 @@ interface ApiService {
      * 获取项目列表
      */
     @GET("project/tree/json")
-    suspend fun getProjectTree(): OfficialAccountsModel
+    suspend fun getProjectTree(): ArticleListModel
 
     /**
      * 项目分类下的文章列表
@@ -221,4 +221,10 @@ interface ApiService {
         @Path(Constants.PAGE) page: Int,
         @Query(Constants.ID) id: Int
     ): HomeArticleModel
+
+    /**
+     * 搜索热词
+     */
+    @GET("hotkey/json")
+    suspend fun getSearchHotKey(): ArticleListModel
 }

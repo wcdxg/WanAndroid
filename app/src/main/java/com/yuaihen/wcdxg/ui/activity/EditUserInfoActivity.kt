@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import com.bigkoo.pickerview.R
 import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.gyf.immersionbar.ImmersionBar
 import com.isseiaoki.simplecropview.FreeCropImageView
 import com.lzy.imagepicker.ImagePicker
 import com.lzy.imagepicker.bean.ImageItem
@@ -15,7 +16,6 @@ import com.lzy.imagepicker.ui.ImageGridActivity
 import com.lzy.imagepicker.view.CropImageView
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivityEditUserInfoBinding
-import com.yuaihen.wcdxg.ui.interf.OnTitleViewListener
 import com.yuaihen.wcdxg.utils.LOGGER
 import java.text.SimpleDateFormat
 import java.util.*
@@ -162,5 +162,12 @@ class EditUserInfoActivity : BaseActivity() {
 
     override fun initData() {
 
+    }
+
+    override fun initImmersionBar() {
+        super.initImmersionBar()
+        ImmersionBar.with(this)
+            .statusBarColor(com.yuaihen.wcdxg.R.color.bili_bili_pink)
+            .init()
     }
 }

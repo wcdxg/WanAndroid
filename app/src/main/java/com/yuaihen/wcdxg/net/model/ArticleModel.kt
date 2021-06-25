@@ -1,11 +1,14 @@
 package com.yuaihen.wcdxg.net.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Yuaihen.
  * on 2021/6/7
  */
+@Parcelize
 data class ArticleModel(
     @SerializedName("apkLink")
     val apkLink: String = "",
@@ -75,4 +78,4 @@ data class ArticleModel(
     val zan: Int = 0,
     @SerializedName("originId")
     val originId: Int = -1
-)
+) : Parcelable

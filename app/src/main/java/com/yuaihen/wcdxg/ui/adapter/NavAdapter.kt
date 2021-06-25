@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayout
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.databinding.NavAdapterItemBinding
-import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
-import com.yuaihen.wcdxg.net.model.NavigationModel
-import com.yuaihen.wcdxg.net.model.OfficialAccountsModel
+import com.yuaihen.wcdxg.net.model.ArticleListModel
 import com.yuaihen.wcdxg.ui.activity.ListViewActivity
 import com.yuaihen.wcdxg.ui.fragment.FindFragment
 import com.yuaihen.wcdxg.utils.gone
@@ -51,8 +49,8 @@ class NavAdapter(private val index: Int) :
         with(holder.mBinding) {
             when (index) {
                 FindFragment.KNOWLEDGE_TREE -> {
-                    val data: KnowLedgeTreeModel.Data =
-                        mData[position] as KnowLedgeTreeModel.Data
+                    val data: ArticleListModel.Data =
+                        mData[position] as ArticleListModel.Data
                     tvClassName.text = Html.fromHtml(data.name)
                     data.children.forEachIndexed { index, modelData ->
                         val child = createOrGetCacheFlexItemTextView(fbl)
@@ -67,7 +65,7 @@ class NavAdapter(private val index: Int) :
                     }
                 }
                 FindFragment.PAGE_NAV -> {
-                    val data = mData[position] as NavigationModel.Data
+                    val data = mData[position] as ArticleListModel.Data
                     tvClassName.text = Html.fromHtml(data.name)
                     data.articles.forEachIndexed { _, modelData ->
                         val child = createOrGetCacheFlexItemTextView(fbl)
@@ -86,7 +84,7 @@ class NavAdapter(private val index: Int) :
                     tvClassName.gone()
                     fbl.gone()
                     cardView.visible()
-                    val data = mData[position] as OfficialAccountsModel.Data
+                    val data = mData[position] as ArticleListModel.Data
                     tvCardName.text = Html.fromHtml(data.name)
                     cardView.setOnClickListener {
                         mOnClickListener?.onWxItemClick(
@@ -104,7 +102,7 @@ class NavAdapter(private val index: Int) :
                     tvClassName.gone()
                     fbl.gone()
                     cardView.visible()
-                    val data = mData[position] as OfficialAccountsModel.Data
+                    val data = mData[position] as ArticleListModel.Data
                     tvCardName.text = Html.fromHtml(data.name)
                     cardView.setOnClickListener {
                         mOnClickListener?.onWxItemClick(
@@ -148,7 +146,7 @@ class NavAdapter(private val index: Int) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(data: KnowLedgeTreeModel.Data, position: Int)
+        fun onItemClick(data: ArticleListModel.Data, position: Int)
         fun onNaviItemClick(link: String)
         fun onWxItemClick(id: Int, name: String, loadType: Int)
     }

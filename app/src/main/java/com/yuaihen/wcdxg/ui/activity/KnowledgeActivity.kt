@@ -11,7 +11,7 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.base.Constants
 import com.yuaihen.wcdxg.databinding.ActivityKnowledgeBinding
-import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
+import com.yuaihen.wcdxg.net.model.ArticleListModel
 import com.yuaihen.wcdxg.ui.adapter.MyViewPagerAdapter
 import com.yuaihen.wcdxg.ui.fragment.ArticleFragment
 
@@ -54,7 +54,7 @@ class KnowledgeActivity : BaseActivity() {
     override fun initData() {
         //获取知识体系传递过来的bundle和position
         intent.apply {
-            val data = getParcelableExtra<KnowLedgeTreeModel.Data>(Constants.KNOWLEDGE_LABEL)
+            val data = getParcelableExtra<ArticleListModel.Data>(Constants.KNOWLEDGE_LABEL)
             selectTab = getIntExtra(Constants.POSITION, 0)
 
             data?.let {
@@ -64,7 +64,7 @@ class KnowledgeActivity : BaseActivity() {
     }
 
 
-    private fun createTab(data: KnowLedgeTreeModel.Data) {
+    private fun createTab(data: ArticleListModel.Data) {
         binding.titleView.setTitle(data.name)
         data.children.forEach { childrenData ->
             fragmentList.add(ArticleFragment.create(childrenData.id))

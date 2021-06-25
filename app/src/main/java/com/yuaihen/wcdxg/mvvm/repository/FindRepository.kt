@@ -2,9 +2,7 @@ package com.yuaihen.wcdxg.mvvm.repository
 
 import com.yuaihen.wcdxg.mvvm.BaseRepository
 import com.yuaihen.wcdxg.net.ApiManage
-import com.yuaihen.wcdxg.net.model.KnowLedgeTreeModel
-import com.yuaihen.wcdxg.net.model.NavigationModel
-import com.yuaihen.wcdxg.net.model.OfficialAccountsModel
+import com.yuaihen.wcdxg.net.model.ArticleListModel
 
 /**
  * Created by Yuaihen.
@@ -12,19 +10,19 @@ import com.yuaihen.wcdxg.net.model.OfficialAccountsModel
  */
 class FindRepository : BaseRepository {
 
-    suspend fun getKnowledgeTree(): KnowLedgeTreeModel {
+    suspend fun getKnowledgeTree(): ArticleListModel {
         return ApiManage.getInstance().getKnowledgeTree()
     }
 
-    suspend fun getNavigationData(): NavigationModel {
+    suspend fun getNavigationData(): ArticleListModel {
         return ApiManage.getInstance().getNavigationData()
     }
 
-    suspend fun getOfficialAccounts(): OfficialAccountsModel {
+    suspend fun getOfficialAccounts(): ArticleListModel {
         return ApiManage.getInstance().getOfficialAccounts()
     }
 
-    suspend fun getProjectTree(): OfficialAccountsModel {
+    suspend fun getProjectTree(): ArticleListModel {
         return ApiManage.getInstance().getProjectTree()
     }
 }

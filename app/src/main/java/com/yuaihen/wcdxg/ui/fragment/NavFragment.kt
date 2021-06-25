@@ -50,6 +50,7 @@ class NavFragment : BaseFragment() {
         adapter.addFragmentList(fragmentList, titleList)
         binding.apply {
             viewPager.adapter = adapter
+            viewPager.offscreenPageLimit = titleList.size
             tabLayout.setupWithViewPager(viewPager)
         }
     }

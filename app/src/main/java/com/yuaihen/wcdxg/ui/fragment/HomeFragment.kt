@@ -15,6 +15,7 @@ import com.yuaihen.wcdxg.mvvm.viewmodel.HomeViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.BannerModel
 import com.yuaihen.wcdxg.ui.activity.LoginActivity
+import com.yuaihen.wcdxg.ui.activity.SearchActivity
 import com.yuaihen.wcdxg.ui.adapter.ArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.HomeBannerAdapter
 import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
@@ -73,6 +74,10 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
 
         topArticleAdapter.addOnCollectClickListener(this)
         pagingAdapter.addOnCollectClickListener(this)
+
+        binding.llSearch.setOnClickListener {
+            SearchActivity.start(requireContext())
+        }
     }
 
     private fun addPagingAdapterListener() {
