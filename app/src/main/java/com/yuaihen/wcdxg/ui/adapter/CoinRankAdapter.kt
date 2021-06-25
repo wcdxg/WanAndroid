@@ -16,21 +16,21 @@ import com.yuaihen.wcdxg.viewbinding.getViewHolder
  * 积分排行榜
  */
 class CoinRankAdapter :
-    PagingDataAdapter<CoinRecordModel.Data.Data, BaseBindingViewHolder<CoinRankItemBinding>>(
+    PagingDataAdapter<CoinRecordModel.Data.CoinData, BaseBindingViewHolder<CoinRankItemBinding>>(
         DifferCallback
     ) {
 
-    object DifferCallback : DiffUtil.ItemCallback<CoinRecordModel.Data.Data>() {
+    object DifferCallback : DiffUtil.ItemCallback<CoinRecordModel.Data.CoinData>() {
         override fun areItemsTheSame(
-            oldItem: CoinRecordModel.Data.Data,
-            newItem: CoinRecordModel.Data.Data
+            oldItem: CoinRecordModel.Data.CoinData,
+            newItem: CoinRecordModel.Data.CoinData
         ): Boolean {
             return oldItem.userId == newItem.userId
         }
 
         override fun areContentsTheSame(
-            oldItem: CoinRecordModel.Data.Data,
-            newItem: CoinRecordModel.Data.Data
+            oldItem: CoinRecordModel.Data.CoinData,
+            newItem: CoinRecordModel.Data.CoinData
         ): Boolean {
             return oldItem == newItem
         }

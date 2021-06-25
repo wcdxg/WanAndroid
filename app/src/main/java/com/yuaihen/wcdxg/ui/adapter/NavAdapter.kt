@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.flexbox.FlexboxLayout
-import com.yuaihen.wcdxg.R
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.yuaihen.wcdxg.databinding.NavAdapterItemBinding
 import com.yuaihen.wcdxg.net.model.ArticleListModel
 import com.yuaihen.wcdxg.ui.activity.ListViewActivity
@@ -46,99 +47,101 @@ class NavAdapter(private val index: Int) :
         holder: BaseBindingViewHolder<NavAdapterItemBinding>,
         position: Int
     ) {
+        val tagList = mutableListOf<String>()
         with(holder.mBinding) {
             when (index) {
                 FindFragment.KNOWLEDGE_TREE -> {
                     val data: ArticleListModel.Data =
                         mData[position] as ArticleListModel.Data
+                    data.children.forEach { modelData ->
+                        tagList.add(modelData.name)
+                    }
                     tvClassName.text = Html.fromHtml(data.name)
-                    data.children.forEachIndexed { index, modelData ->
-                        val child = createOrGetCacheFlexItemTextView(fbl)
-                        child.text = modelData.name
-                        child.setOnClickListener {
-                            mOnClickListener?.onItemClick(data, index)
+                    val adapter = createTagAdapter(this, tagList)
+                    adapter.setOnItemClickListener(object : FlexBoxAdapter.OnItemClickListener {
+                        override fun onFlexItemClick(name: String, position: Int) {
+                            mOnClickListener?.onKnowledgeItemClick(data, position)
                         }
-                        fbl.addView(child)
-                    }
-                    rootView.setOnClickListener {
-                        mOnClickListener?.onItemClick(data, 0)
-                    }
+                    })
                 }
                 FindFragment.PAGE_NAV -> {
                     val data = mData[position] as ArticleListModel.Data
-                    tvClassName.text = Html.fromHtml(data.name)
-                    data.articles.forEachIndexed { _, modelData ->
-                        val child = createOrGetCacheFlexItemTextView(fbl)
-                        child.text = modelData.title
-                        child.setOnClickListener {
-                            mOnClickListener?.onNaviItemClick(modelData.link)
-                        }
-                        fbl.addView(child)
+                    data.articles.forEach { modelData ->
+                        tagList.add(modelData.title)
                     }
+                    tvClassName.text = Html.fromHtml(data.name)
+                    val adapter = createTagAdapter(this, tagList)
+                    adapter.setOnItemClickListener(object : FlexBoxAdapter.OnItemClickListener {
+                        override fun onFlexItemClick(name: String, position: Int) {
+                            mOnClickListener?.onNaviItemClick(data.articles[position].link)
+                        }
+                    })
                 }
                 FindFragment.OFFICIAL_ACCOUNTS -> {
-                    val lp = LinearLayout.LayoutParams(rootView.layoutParams)
-                    lp.topMargin = 0
-                    lp.bottomMargin = 0
-                    rootView.layoutParams = lp
-                    tvClassName.gone()
-                    fbl.gone()
-                    cardView.visible()
                     val data = mData[position] as ArticleListModel.Data
-                    tvCardName.text = Html.fromHtml(data.name)
-                    cardView.setOnClickListener {
-                        mOnClickListener?.onWxItemClick(
-                            data.id,
-                            data.name,
-                            ListViewActivity.WX_Article
-                        )
-                    }
+                    showCardView(this, data, index)
                 }
                 FindFragment.PROJECT -> {
-                    val lp = LinearLayout.LayoutParams(rootView.layoutParams)
-                    lp.topMargin = 0
-                    lp.bottomMargin = 0
-                    rootView.layoutParams = lp
-                    tvClassName.gone()
-                    fbl.gone()
-                    cardView.visible()
                     val data = mData[position] as ArticleListModel.Data
-                    tvCardName.text = Html.fromHtml(data.name)
-                    cardView.setOnClickListener {
-                        mOnClickListener?.onWxItemClick(
-                            data.id,
-                            data.name,
-                            ListViewActivity.PROJECT_Article
-                        )
-                    }
+                    showCardView(this, data, index)
                 }
                 else -> {
                 }
             }
-
         }
-
     }
 
-    override fun onViewRecycled(holder: BaseBindingViewHolder<NavAdapterItemBinding>) {
-        super.onViewRecycled(holder)
-        val fbl = holder.mBinding.fbl
-        for (i in 0 until fbl.childCount) {
-            mFlexItemTextViewCaches.offer(fbl.getChildAt(i) as TextView)
+    private fun createTagAdapter(
+        binding: NavAdapterItemBinding,
+        list: List<String>
+    ): FlexBoxAdapter {
+        val tagAdapter = FlexBoxAdapter().apply {
+            setNewData(list)
         }
-        fbl.removeAllViews()
+        binding.tagRecycler.apply {
+            layoutManager = FlexboxLayoutManager(
+                context,
+                FlexDirection.ROW,
+                FlexWrap.WRAP
+            )
+            adapter = tagAdapter
+        }
+
+        return tagAdapter
     }
 
-    private fun createOrGetCacheFlexItemTextView(fbl: FlexboxLayout): TextView {
-        val tv = mFlexItemTextViewCaches.poll()
-        return tv ?: createFlexItemTextView(fbl)
-    }
-
-    private fun createFlexItemTextView(fbl: FlexboxLayout): TextView {
-        if (mInflater == null) {
-            mInflater = LayoutInflater.from(fbl.context)
+    private fun showCardView(
+        binding: NavAdapterItemBinding,
+        data: ArticleListModel.Data,
+        index: Int
+    ) {
+        binding.apply {
+            val lp = LinearLayout.LayoutParams(rootView.layoutParams)
+            lp.topMargin = 0
+            lp.bottomMargin = 0
+            rootView.layoutParams = lp
+            tvClassName.gone()
+            tagRecycler.gone()
+            cardView.visible()
+            tvCardName.text = Html.fromHtml(data.name)
+            if (index == FindFragment.OFFICIAL_ACCOUNTS) {
+                cardView.setOnClickListener {
+                    mOnClickListener?.onWxItemClick(
+                        data.id,
+                        data.name,
+                        ListViewActivity.WX_Article
+                    )
+                }
+            } else if (index == FindFragment.PROJECT) {
+                cardView.setOnClickListener {
+                    mOnClickListener?.onWxItemClick(
+                        data.id,
+                        data.name,
+                        ListViewActivity.PROJECT_Article
+                    )
+                }
+            }
         }
-        return mInflater!!.inflate(R.layout.knowledge_child_item, fbl, false) as TextView
     }
 
     override fun getItemCount(): Int {
@@ -146,7 +149,7 @@ class NavAdapter(private val index: Int) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(data: ArticleListModel.Data, position: Int)
+        fun onKnowledgeItemClick(data: ArticleListModel.Data, position: Int)
         fun onNaviItemClick(link: String)
         fun onWxItemClick(id: Int, name: String, loadType: Int)
     }

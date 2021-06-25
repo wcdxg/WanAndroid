@@ -62,7 +62,7 @@ class ListViewActivity : BaseActivity() {
             swipeRefresh.setOnRefreshListener {
                 pagingAdapter.refresh()
             }
-            recyclerView.apply {
+            recycler.apply {
                 layoutManager = LinearLayoutManager(this@ListViewActivity)
                 adapter = pagingAdapter
             }

@@ -15,7 +15,7 @@ data class CoinRecordModel(
         @SerializedName("curPage")
         val curPage: Int = 0,
         @SerializedName("datas")
-        val datas: List<Data> = listOf(),
+        val datas: List<CoinData> = listOf(),
         @SerializedName("offset")
         val offset: Int = 0,
         @SerializedName("over")
@@ -27,7 +27,7 @@ data class CoinRecordModel(
         @SerializedName("total")
         val total: Int = 0
     ) {
-        data class Data(
+        data class CoinData(
             @SerializedName("coinCount")
             val coinCount: Int = 0,
             @SerializedName("date")

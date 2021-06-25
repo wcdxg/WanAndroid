@@ -37,6 +37,7 @@ object Constants {
     const val KNOWLEDGE_LABEL = "knowledge_label"
     const val POSITION = "position"
     const val LOAD_TYPE = "loadType"
+    const val HISTORY_SEARCH = "historySearch"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

@@ -64,6 +64,11 @@
     <string name="navigation">导航</string>
     <string name="official_accounts">公众号</string>
     <string name="project">项目</string>
+    <string name="search_hint">多个关键词用空格隔开</string>
+    <string name="hot_search">热门搜索</string>
+    <string name="search_history">历史搜索</string>
+    <string name="clear">清除</string>
+    <string name="clear_history_confirm">确定要清空搜索历史？</string>
 
 
 </resources>

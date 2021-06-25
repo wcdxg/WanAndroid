@@ -93,7 +93,7 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
         mAdapter = NavAdapter(index).apply {
             setOnItemClickListener(this@FindFragment)
         }
-        binding.recyclerView.adapter = mAdapter
+        binding.recycler.adapter = mAdapter
         getDataForIndex()
     }
 
@@ -113,7 +113,7 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
     /**
      * 知识体系item点击
      */
-    override fun onItemClick(data: ArticleListModel.Data, position: Int) {
+    override fun onKnowledgeItemClick(data: ArticleListModel.Data, position: Int) {
         if (index == KNOWLEDGE_TREE) {
             val bundle = Bundle().apply {
                 putParcelable(Constants.KNOWLEDGE_LABEL, data)

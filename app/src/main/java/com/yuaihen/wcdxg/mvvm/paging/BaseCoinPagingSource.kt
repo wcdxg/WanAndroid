@@ -13,14 +13,14 @@ import com.yuaihen.wcdxg.utils.isSuccess
  * 积分获取记录
  */
 class BaseCoinPagingSource(private val index: Int) :
-    PagingSource<Int, CoinRecordModel.Data.Data>() {
+    PagingSource<Int, CoinRecordModel.Data.CoinData>() {
 
     companion object {
         const val COIN_RANK = 1
         const val COIN_RECORD = 2
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CoinRecordModel.Data.Data> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CoinRecordModel.Data.CoinData> {
         var response: CoinRecordModel? = null
         //默认加载第1页数据
         val nextPageNumber = params.key ?: 1
@@ -56,7 +56,7 @@ class BaseCoinPagingSource(private val index: Int) :
         return LoadResult.Error(Error("error"))
     }
 
-    override fun getRefreshKey(state: PagingState<Int, CoinRecordModel.Data.Data>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, CoinRecordModel.Data.CoinData>): Int? {
         return state.anchorPosition
             ?.let {
                 val anchorPage = state.closestPageToPosition(it)

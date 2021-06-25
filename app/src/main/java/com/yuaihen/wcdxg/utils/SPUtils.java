@@ -1,7 +1,15 @@
 package com.yuaihen.wcdxg.utils;
 
+import android.text.TextUtils;
+
 import com.blankj.utilcode.util.LogUtils;
+import com.google.gson.reflect.TypeToken;
 import com.tencent.mmkv.MMKV;
+import com.yuaihen.wcdxg.base.Constants;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 数据缓存工具类
@@ -9,7 +17,7 @@ import com.tencent.mmkv.MMKV;
 public class SPUtils {
 
     private static final String TAG = "SPUtils";
-    private static MMKV mmkv,cookieMMKV;
+    private static MMKV mmkv, cookieMMKV, historySearchMMKV;
 
     /**
      * MMKV支持的数据类型
@@ -29,10 +37,54 @@ public class SPUtils {
 
     public static MMKV getCookiePreferences() {
         if (cookieMMKV == null) {
-            cookieMMKV = MMKV.mmkvWithID("cookie") ;
+            cookieMMKV = MMKV.mmkvWithID("cookie");
         }
 
         return cookieMMKV;
+    }
+
+    public static MMKV getHistorySearchPreferences() {
+        if (historySearchMMKV == null) {
+            historySearchMMKV = MMKV.mmkvWithID("search");
+        }
+        return historySearchMMKV;
+    }
+
+    /**
+     * 添加历史搜索记录
+     */
+    public static void addHistorySearch(List<String> list) {
+        String result = GsonUtil.INSTANCE.getInstance().toJson(list);
+        if (!TextUtils.isEmpty(result)) {
+            getHistorySearchPreferences().encode(Constants.HISTORY_SEARCH, result);
+        }
+    }
+
+    /**
+     * 获取历史搜索记录列表
+     */
+    public static List<String> getHistorySearchList() {
+        List<String> list = new ArrayList<>();
+        String searchStr = getHistorySearchPreferences().decodeString(Constants.HISTORY_SEARCH);
+        try {
+            List<String> resultList = GsonUtil.INSTANCE.getInstance().fromJson(searchStr, new TypeToken<List<String>>() {
+            }.getType());
+
+            if (resultList != null) {
+                list.addAll(resultList);
+            }
+        } catch (Exception e) {
+            LogUtil.INSTANCE.d("SPUtil", Objects.requireNonNull(e.getLocalizedMessage()));
+        }
+
+        return list;
+    }
+
+    /**
+     * 清空历史搜索记录
+     */
+    public static void clearHistorySearch() {
+        getHistorySearchPreferences().clear().apply();
     }
 
     public static void clear() {

@@ -39,12 +39,15 @@ class DialogUtil {
     /**
      * 清除缓存
      */
-    fun clearCacheDialog(context: Context, listener: () -> Unit) {
+    fun clearCacheDialog(context: Context, dialogTitle: String? = null, listener: () -> Unit) {
         CustomDialog.show(object : OnBindView<CustomDialog>(R.layout.dialog_message_tip) {
             override fun onBind(dialog: CustomDialog, v: View) {
                 dialog.setMaskColor(ContextCompat.getColor(context, R.color.dialog_mask_color))
                 val binding = DialogMessageTipBinding.bind(v)
                 binding.apply {
+                    dialogTitle?.let {
+                        tvTitle.text = it
+                    }
                     tvCancel.setOnClickListener { dialog.dismiss() }
                     tvConfirm.setOnClickListener {
                         dialog.dismiss()

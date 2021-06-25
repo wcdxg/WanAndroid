@@ -5,6 +5,8 @@ import android.widget.ImageView
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 
 /**
  * Created by Yuaihen.
@@ -31,6 +33,11 @@ fun View.invisible() {
 
 fun String.loadIntoImage(iv: ImageView) {
     GlideUtil.showImageView(iv, this)
+}
+
+@BindingAdapter("isVisible")
+fun bindIsVisible(view: View, visible: Boolean) {
+    view.isVisible = visible
 }
 
 //@BindingAdapter("isGoneFromStr")

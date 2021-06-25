@@ -32,23 +32,30 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="我吃大西瓜" />
 
-        <TextView
-            android:id="@+id/tv_tag_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="1dp"
             android:background="@drawable/home_article_tag_shape"
             android:gravity="center"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
-            android:textColor="@color/bili_bili_pink"
-            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_author"
             app:layout_constraintLeft_toRightOf="@+id/tv_author"
-            app:layout_constraintTop_toTopOf="@+id/tv_author"
-            tools:ignore="SmallSp"
-            tools:text="本站发布" />
+            app:layout_constraintTop_toTopOf="@+id/tv_author">
+
+            <TextView
+                android:id="@+id/tv_tag_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
+                android:textColor="@color/bili_bili_pink"
+                android:textSize="10sp"
+                tools:ignore="SmallSp"
+                tools:text="本站发布" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_publish_time"
