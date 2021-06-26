@@ -23,28 +23,15 @@
 
     </com.yuaihen.wcdxg.ui.widget.SwipeRefreshHelper>
 
-    <ImageView
-        android:id="@+id/iv_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_empty"
-        android:visibility="invisible"
+    <com.yuaihen.wcdxg.ui.widget.EmptyView
+        android:id="@+id/emptyView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/result_empty"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/iv_empty"
-        app:layout_constraintStart_toStartOf="@+id/iv_empty"
-        app:layout_constraintTop_toBottomOf="@+id/iv_empty" />
 
     <com.yuaihen.wcdxg.ui.widget.LoadingView
         android:id="@+id/loadingView"

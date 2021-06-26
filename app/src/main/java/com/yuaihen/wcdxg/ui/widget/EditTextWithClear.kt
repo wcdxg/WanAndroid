@@ -55,6 +55,7 @@ class EditTextWithClear @JvmOverloads constructor(
                     && e.y < height / 2 + it.intrinsicHeight / 2
                 ) {
                     text?.clear()
+                    listener?.onClearClick()
                 }
             }
         }
@@ -76,5 +77,14 @@ class EditTextWithClear @JvmOverloads constructor(
         val icon = if (isFocused && text?.isNotEmpty() == true) iconDrawable else null
         //设置Drawable在EditText的位置
         setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, icon, null)
+    }
+
+    interface OnClearClickListener {
+        fun onClearClick()
+    }
+
+    private var listener: OnClearClickListener? = null
+    fun setOnClearClickListener(listener: OnClearClickListener) {
+        this.listener = listener
     }
 }

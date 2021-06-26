@@ -227,4 +227,14 @@ interface ApiService {
      */
     @GET("hotkey/json")
     suspend fun getSearchHotKey(): ArticleListModel
+
+    /**
+     * 搜索
+     */
+    @FormUrlEncoded
+    @POST("article/query/{page}/json")
+    suspend fun getSearchResult(
+        @Path(Constants.PAGE) page: Int,
+        @Field("k") key: String
+    ): HomeArticleModel
 }

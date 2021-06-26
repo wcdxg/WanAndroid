@@ -2,13 +2,16 @@ package com.yuaihen.wcdxg.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -18,9 +21,17 @@ import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.base.BaseActivity
 import com.yuaihen.wcdxg.databinding.ActivitySearchBinding
 import com.yuaihen.wcdxg.mvvm.viewmodel.SearchViewModel
+import com.yuaihen.wcdxg.net.model.ArticleModel
+import com.yuaihen.wcdxg.ui.adapter.ArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.FlexBoxAdapter
+import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
+import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
+import com.yuaihen.wcdxg.ui.widget.EditTextWithClear
 import com.yuaihen.wcdxg.utils.DialogUtil
 import com.yuaihen.wcdxg.utils.SPUtils
+import com.yuaihen.wcdxg.utils.gone
+import com.yuaihen.wcdxg.utils.visible
+import kotlinx.coroutines.launch
 
 /**
  * Created by Yuaihen.
@@ -28,12 +39,14 @@ import com.yuaihen.wcdxg.utils.SPUtils
  * 搜索页面
  */
 class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
-    FlexBoxAdapter.OnItemClickListener {
+    FlexBoxAdapter.OnItemClickListener,
+    EditTextWithClear.OnClearClickListener {
 
     private lateinit var binding: ActivitySearchBinding
     private val viewModel by viewModels<SearchViewModel>()
     private val dialogUtil by lazy { DialogUtil() }
     private var historyList = mutableListOf<String>()
+    private val pagingAdapter by lazy { ArticleAdapter() }
     private var hotSearchAdapter: FlexBoxAdapter? = null
     private var historySearchAdapter: FlexBoxAdapter? = null
 
@@ -53,9 +66,12 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
 
     override fun initListener() {
         super.initListener()
-        Log.d("hello", "initListener: ${viewModel.isExpandLiveData.value}")
-
+        addPagingAdapterListener()
         binding.apply {
+            searchRecycler.apply {
+                adapter = pagingAdapter
+            }
+
             ivBack.setOnClickListener {
                 KeyboardUtils.hideSoftInput(this@SearchActivity)
                 finish()
@@ -77,6 +93,7 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
                     viewModel.setExpand(!it)
                 }
             }
+            editSearch.setOnClearClickListener(this@SearchActivity)
         }
         viewModel.apply {
             loadingLiveData.observe(this@SearchActivity) {
@@ -99,8 +116,49 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
                     binding.ivExpand.setBackgroundResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
                 }
             }
+            searchArticleLiveData.observe(this@SearchActivity) {
+                setArticleToAdapter(it)
+            }
         }
+    }
 
+    private fun addPagingAdapterListener() {
+        pagingAdapter.addOnCollectClickListener(object : OnCollectClickListener {
+            override fun onCollect(id: Int) {
+                viewModel.collectArticle(id)
+            }
+
+            override fun unCollect(id: Int, originId: Int, position: Int) {
+                viewModel.unCollectByOriginId(id)
+            }
+
+        })
+        pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
+        pagingAdapter.addLoadStateListener {
+            when (it.refresh) {
+                is LoadState.NotLoading -> {
+                    if (isLoadDataEnd) {
+                        if (pagingAdapter.itemCount == 0) {
+                            showEmptyView(true)
+                        } else {
+                            showEmptyView(false)
+                        }
+                        isLoadDataEnd = false
+                    }
+                }
+                is LoadState.Error -> showEmptyView(true)
+                is LoadState.Loading -> {
+                }
+            }
+        }
+    }
+
+    private var isLoadDataEnd = false
+    private fun setArticleToAdapter(pagingData: PagingData<ArticleModel>) {
+        showSearchResultLayout(true)
+        lifecycleScope.launch {
+            pagingAdapter.submitData(pagingData)
+        }
     }
 
     override fun initData() {
@@ -112,6 +170,7 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
 
     private fun getHotSearchData() {
         viewModel.getHotSearchList()
+        isLoadDataEnd = true
     }
 
     /**
@@ -146,15 +205,22 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
     }
 
     private fun search(key: String) {
-        toast(key)
+        getSearchResult(key)
         //加入到历史搜索中
         addSearchToHistory(key)
+    }
+
+    private fun getSearchResult(key: String) {
+        viewModel.getSearchResult(key)
     }
 
     /**
      * 将搜索结果加入到历史记录
      */
     private fun addSearchToHistory(key: String) {
+        if (historyList.contains(key)) {
+            return
+        }
         historyList.add(0, key)
         historySearchAdapter?.setNewData(historyList)
         viewModel.setHistorySearchCount(historyList.size)
@@ -172,10 +238,16 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
         return false
     }
 
-
     override fun onFlexItemClick(name: String, position: Int) {
         binding.editSearch.setText(name)
         search(name)
+    }
+
+    private fun showEmptyView(isVisible: Boolean) {
+        binding.apply {
+            loadingView.gone()
+            emptyView.isVisible = isVisible
+        }
     }
 
     override fun initImmersionBar() {
@@ -183,5 +255,19 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
         ImmersionBar.with(this)
             .statusBarColor(R.color.bili_bili_pink)
             .init()
+    }
+
+    /**
+     * 清空当前搜索的结果
+     */
+    override fun onClearClick() {
+        showSearchResultLayout(false)
+    }
+
+    /**
+     * 显示搜索结果RecyclerView
+     */
+    private fun showSearchResultLayout(isVisible: Boolean) {
+        binding.searchRecycler.isVisible = isVisible
     }
 }

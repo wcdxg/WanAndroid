@@ -128,9 +128,11 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
     }
 
     private fun showEmptyView(isShow: Boolean) {
-        binding.loadingView.gone()
-        binding.ivEmpty.isVisible = isShow
-        binding.tvEmpty.isVisible = isShow
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+            loadingView.gone()
+            emptyView.isVisible = isShow
+        }
     }
 
 

@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_mine.*
 class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     OnCollectClickListener {
 
-    private val TAG = "WebViewActivity"
+
 
     private lateinit var binding: ActivityWebviewBinding
     private val viewModel by viewModels<HomeViewModel>()
@@ -43,6 +43,8 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     private var isCollect = false
 
     companion object {
+        private const val TAG = "WebViewActivity"
+
         fun start(context: Context, url: String, articleId: Int = 0, collected: Boolean = false) {
             val intent = Intent(context, WebViewActivity::class.java).apply {
                 putExtra(Constants.URL, url)
@@ -160,7 +162,7 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
         }
     }
 
-    override fun getWebChromeClient(): WebChromeClient? {
+    override fun getWebChromeClient(): WebChromeClient {
         return object : WebChromeClient() {
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 super.onReceivedTitle(view, title)

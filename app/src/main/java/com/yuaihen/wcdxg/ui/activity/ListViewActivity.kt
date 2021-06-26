@@ -19,6 +19,7 @@ import com.yuaihen.wcdxg.mvvm.viewmodel.FindViewModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.adapter.ArticleAdapter
 import com.yuaihen.wcdxg.ui.adapter.MyPagingLoadStateAdapter
+import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.utils.gone
 import kotlinx.coroutines.launch
 
@@ -92,6 +93,16 @@ class ListViewActivity : BaseActivity() {
     }
 
     private fun addPagingAdapterListener() {
+        pagingAdapter.addOnCollectClickListener(object : OnCollectClickListener {
+            override fun onCollect(id: Int) {
+                viewModel.collectArticle(id)
+            }
+
+            override fun unCollect(id: Int, originId: Int, position: Int) {
+                viewModel.unCollectByOriginId(id)
+            }
+
+        })
         pagingAdapter.withLoadStateFooter(MyPagingLoadStateAdapter(pagingAdapter::retry))
         pagingAdapter.addLoadStateListener {
             when (it.refresh) {
@@ -140,8 +151,7 @@ class ListViewActivity : BaseActivity() {
         binding.apply {
             swipeRefresh.isRefreshing = false
             loadingView.gone()
-            ivEmpty.isVisible = isShow
-            tvEmpty.isVisible = isShow
+            emptyView.isVisible = isShow
         }
     }
 

@@ -38,6 +38,7 @@ object Constants {
     const val POSITION = "position"
     const val LOAD_TYPE = "loadType"
     const val HISTORY_SEARCH = "historySearch"
+    const val KEY = "key"
 
     @JvmField
     val IMAGE_CACHE_DIRECTORY =

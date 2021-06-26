@@ -40,6 +40,11 @@ fun bindIsVisible(view: View, visible: Boolean) {
     view.isVisible = visible
 }
 
+@BindingAdapter("isGone")
+fun bindIsGone(view: View, visible: Boolean) {
+    view.isGone = visible
+}
+
 //@BindingAdapter("isGoneFromStr")
 //fun bindIsGone(view: View, str: String? = "") {
 //    view.visibility = if (str.isNullOrEmpty()) {

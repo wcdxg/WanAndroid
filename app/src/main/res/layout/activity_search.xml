@@ -15,7 +15,7 @@
         android:animateLayoutChanges="true">
 
         <View
-            android:id="@+id/view3"
+            android:id="@+id/titleView"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:background="@color/bili_bili_pink"
@@ -29,9 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_arrow_back"
-            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintBottom_toBottomOf="@+id/titleView"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view3" />
+            app:layout_constraintTop_toTopOf="@+id/titleView" />
 
         <com.yuaihen.wcdxg.ui.widget.EditTextWithClear
             android:id="@+id/editSearch"
@@ -70,7 +70,7 @@
             android:textColor="@color/bili_bili_pink"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view3" />
+            app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hot_search_recycler"
@@ -124,6 +124,19 @@
             app:layout_constraintLeft_toLeftOf="@+id/searchHistoryText"
             app:layout_constraintTop_toBottomOf="@+id/tv_clearHistory" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleView" />
+
         <com.yuaihen.wcdxg.ui.widget.LoadingView
             android:id="@+id/loadingView"
             android:layout_width="0dp"
@@ -132,5 +145,16 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.yuaihen.wcdxg.ui.widget.EmptyView
+            android:id="@+id/emptyView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
