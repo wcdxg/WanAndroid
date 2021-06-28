@@ -22,5 +22,5 @@ TODO:
 - 我的页面功能开发
 
 
-![登录](https://gitee.com/yuaihen/wcdxg/raw/master/pic/preview.png.png)
+![登录](https://gitee.com/yuaihen/wcdxg/raw/master/pic/preview.png)
 
