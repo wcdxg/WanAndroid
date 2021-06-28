@@ -23,16 +23,16 @@ TODO:
 
 
 
-![登录](https://gitee.com/yuaihen/wcdxg/raw/master/pic/%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C.png)
+![登录](https://gitee.com/yuaihen/wcdxg/raw/master/pic/登录注册.png)
 
 ![首页](https://gitee.com/yuaihen/wcdxg/raw/master/pic/首页.png)
 
-![搜索](https://gitee.com/yuaihen/wcdxg/raw/master/pic\搜索.png)
+![搜索](https://gitee.com/yuaihen/wcdxg/raw/master/pic/搜索.png)
 
-![项目](https://gitee.com/yuaihen/wcdxg/raw/master/pic\项目.png)
+![项目](https://gitee.com/yuaihen/wcdxg/raw/master/pic/项目.png)
 
-![知识体系](https://gitee.com/yuaihen/wcdxg/raw/master/pic\知识体系.png)
+![知识体系](https://gitee.com/yuaihen/wcdxg/raw/master/pic/知识体系.png)
 
-![收藏](https://gitee.com/yuaihen/wcdxg/raw/master/pic\收藏.png)
+![收藏](https://gitee.com/yuaihen/wcdxg/raw/master/pic/收藏.png)
 
-![积分排行榜](https://gitee.com/yuaihen/wcdxg/raw/master/pic\积分排行榜.png)
+![积分排行榜](https://gitee.com/yuaihen/wcdxg/raw/master/pic/积分排行榜.png)
