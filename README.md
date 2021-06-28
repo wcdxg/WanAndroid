@@ -23,7 +23,7 @@ TODO:
 
 
 
-![登录](\pic\登录注册.png)
+![登录](https://gitee.com/yuaihen/wcdxg/blob/master/pic/%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C.png)
 
 ![首页](pic\首页.png)
 
