@@ -14,8 +14,6 @@
     <color name="mine_user_title">#99222222</color>
     <color name="mine_user_value">#222222</color>
     <color name="mine_view_line">#e8eaec</color>
-    <color name="mine_exit_login">#ed4014</color>
-    <color name="collect_icon">#f86735</color>
     <color name="title_color_black">#CD000000</color>
     <color name="red_ff441a">#ff441a</color>
 </resources>

@@ -25,9 +25,6 @@
     <string name="nickName">昵称：</string>
     <string name="rank">排名：</string>
     <string name="coinCount">积分：</string>
-    <string name="app_notify">站内通知</string>
-    <string name="my_collection">收藏管理</string>
-    <string name="mine_publish">我的发布</string>
     <string name="exit_login">退出登录</string>
     <string name="exit_login_hint">确定要退出登录吗?</string>
     <string name="confirm">确定</string>

@@ -5,12 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.observe
 import com.blankj.utilcode.util.NetworkUtils
 import com.gyf.immersionbar.ImmersionBar
 import com.kongzue.dialogx.dialogs.WaitDialog
 import com.kongzue.dialogx.interfaces.OnBackPressedListener
-import com.lyt.livedatabus.LiveDataBus
 import com.yuaihen.wcdxg.R
 import com.yuaihen.wcdxg.common.event.EventCode
 import com.yuaihen.wcdxg.utils.LogUtil
@@ -45,12 +43,6 @@ abstract class BaseActivity : AppCompatActivity() {
         initView()
         initListener()
         initData()
-
-        //监听Event事件
-        LiveDataBus.get<String>(EventCode.FINISH_ALL)
-            .observe(this) {
-                finish()
-            }
     }
 
     /**
@@ -94,7 +86,6 @@ abstract class BaseActivity : AppCompatActivity() {
 //                }
 //
 //            }).setOnBackPressedListener { true }
-
     }
 
     protected open fun hideLoading() {

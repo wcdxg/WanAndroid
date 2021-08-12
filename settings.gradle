@@ -1,2 +1,2 @@
-include ':app','livedatabus'
+include ':app'
 rootProject.name = "wcdxg"
