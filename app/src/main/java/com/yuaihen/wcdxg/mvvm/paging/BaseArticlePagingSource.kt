@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.BaseResponse
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.HomeArticleModel
-import com.yuaihen.wcdxg.utils.isSuccess
 
 /**
  * Created by Yuaihen.
@@ -39,7 +39,7 @@ class BaseArticlePagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleModel> {
         var nextPageNumber = 0
-        var response: HomeArticleModel? = null
+        var response: BaseResponse<HomeArticleModel>? = null
         try {
             when (index) {
                 HOME_ARTICLE -> {
@@ -78,17 +78,15 @@ class BaseArticlePagingSource(
             }
 
             response?.let {
-                if (it.errorCode.isSuccess()) {
-                    return LoadResult.Page(
-                        data = it.data.datas,
-                        prevKey = null,
-                        nextKey = if (nextPageNumber == it.data.pageCount || it.data.over) {
-                            null
-                        } else {
-                            nextPageNumber + 1
-                        }
-                    )
-                }
+                return LoadResult.Page(
+                    data = it.data!!.datas,
+                    prevKey = null,
+                    nextKey = if (nextPageNumber == it.data!!.pageCount || it.data!!.over) {
+                        null
+                    } else {
+                        nextPageNumber + 1
+                    }
+                )
             }
         } catch (e: Exception) {
             Log.d("hello", "BaseArticlePagingSource error: $e")

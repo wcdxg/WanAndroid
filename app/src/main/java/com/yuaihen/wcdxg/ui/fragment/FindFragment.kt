@@ -55,7 +55,7 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
             errorLiveData.observe(this@FindFragment) {
                 binding.swipeRefresh.isRefreshing = false
                 binding.loadingView.gone()
-                toast(it)
+                toast(it.errorMsg)
             }
             knowledgeLiveData.observe(this@FindFragment) {
                 setDataToAdapter(it)
@@ -113,7 +113,7 @@ class FindFragment : BaseFragment(), NavAdapter.OnItemClickListener {
     /**
      * 知识体系item点击
      */
-    override fun onKnowledgeItemClick(data: ArticleListModel.Data, position: Int) {
+    override fun onKnowledgeItemClick(data: ArticleListModel, position: Int) {
         if (index == KNOWLEDGE_TREE) {
             val bundle = Bundle().apply {
                 putParcelable(Constants.KNOWLEDGE_LABEL, data)

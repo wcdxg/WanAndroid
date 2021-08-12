@@ -12,8 +12,6 @@ import com.yuaihen.wcdxg.mvvm.repository.HomeRepository
 import com.yuaihen.wcdxg.net.ApiManage
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.BannerModel
-import com.yuaihen.wcdxg.utils.LogUtil
-import com.yuaihen.wcdxg.utils.isSuccess
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,7 +22,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel : BaseViewModel() {
 
     private val repository = HomeRepository()
-    private val _bannerLiveData = MutableLiveData<List<BannerModel.Data>>()
+    private val _bannerLiveData = MutableLiveData<List<BannerModel>>()
     val bannerLiveData = _bannerLiveData
     private val _articleLiveData = MutableLiveData<PagingData<ArticleModel>>()
     val articleLiveData = _articleLiveData
@@ -35,19 +33,10 @@ class HomeViewModel : BaseViewModel() {
      * 获取轮播图
      */
     fun getBanner() {
-        launch(
+        newRequest(
             {
                 val response = repository.getBanner()
-                if (response.errorCode.isSuccess()) {
-                    val data = response.data
-                    _bannerLiveData.postValue(data)
-                } else {
-                    errorLiveData.postValue(response.errorMsg)
-                }
-            }, {
-                errorLiveData.postValue(it)
-            }, {
-//                loadingLiveData.postValue(false)
+                _bannerLiveData.postValue(response.data ?: arrayListOf())
             }, false
         )
     }
@@ -72,19 +61,10 @@ class HomeViewModel : BaseViewModel() {
      * 获取置顶文章列表
      */
     fun getArticleTop() {
-        launch({
+        newRequest({
             val response = ApiManage.getInstance().getTopArticleList()
-            if (response.errorCode.isSuccess()) {
-                _topArticleLiveData.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-                LogUtil.d("hello", "getArticleTop: request error")
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-
-        }, isShowLoading = false)
+            _topArticleLiveData.postValue(response.data)
+        }, false)
     }
 
 

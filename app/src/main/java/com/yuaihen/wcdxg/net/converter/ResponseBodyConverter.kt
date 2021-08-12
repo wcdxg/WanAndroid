@@ -1,7 +1,10 @@
 package com.yuaihen.wcdxg.net.converter
 
+import com.blankj.utilcode.util.GsonUtils
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.gson.TypeAdapter
+import com.yuaihen.wcdxg.net.exception.MyException
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import java.io.IOException
@@ -32,10 +35,30 @@ class ResponseBodyConverter<T>(private val gson: Gson, private val adapter: Type
 
     @Throws(IOException::class)
     override fun convert(value: ResponseBody): T {
-        val json = value.string()
+        val response = value.string()
         value.use {
+            val parse = JsonParser().parse(response)
+            //判断是否有error字段且error字段不为0，并且拥有reason字段
+            if (parse.isJsonObject &&
+                parse.asJsonObject.getAsJsonPrimitive("errorCode").asInt != 0 &&
+                parse.asJsonObject.has("errorMsg")
+            ) {
+                //异常处理
+                val error = parse.asJsonObject
+                val myException = MyException(
+                    error.getAsJsonPrimitive("errorCode").asInt,
+                    error.getAsJsonPrimitive("errorMsg").asString
+                )
+
+                /**
+                 * 抛出异常 统一交由
+                 * BaseViewModel#getErrorMsg(Throwable)处理
+                 */
+                throw myException
+            }
+
             return it.use {
-                adapter.read(gson.newJsonReader(StringReader(json)))
+                adapter.read(gson.newJsonReader(StringReader(response)))
             }
         }
 

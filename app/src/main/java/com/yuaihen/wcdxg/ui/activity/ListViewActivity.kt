@@ -71,7 +71,7 @@ class ListViewActivity : BaseActivity() {
         viewModel.apply {
             errorLiveData.observe(this@ListViewActivity) {
                 binding.swipeRefresh.isRefreshing = false
-                toast(it)
+                toast(it.errorMsg)
             }
             loadingLiveData.observe(this@ListViewActivity) {
                 binding.loadingView.isVisible = it
@@ -95,11 +95,11 @@ class ListViewActivity : BaseActivity() {
     private fun addPagingAdapterListener() {
         pagingAdapter.addOnCollectClickListener(object : OnCollectClickListener {
             override fun onCollect(id: Int) {
-                viewModel.collectArticle(id)
+                viewModel.collectOrCancelArticle(id, true)
             }
 
             override fun unCollect(id: Int, originId: Int, position: Int) {
-                viewModel.unCollectByOriginId(id)
+                viewModel.collectOrCancelArticle(id, false)
             }
 
         })

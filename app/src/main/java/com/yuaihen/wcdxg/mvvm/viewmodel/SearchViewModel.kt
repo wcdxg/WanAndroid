@@ -12,7 +12,6 @@ import com.yuaihen.wcdxg.mvvm.paging.BaseArticlePagingSource
 import com.yuaihen.wcdxg.mvvm.repository.SearchRepository
 import com.yuaihen.wcdxg.net.model.ArticleListModel
 import com.yuaihen.wcdxg.net.model.ArticleModel
-import com.yuaihen.wcdxg.utils.isSuccess
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -26,7 +25,7 @@ class SearchViewModel : BaseViewModel() {
     val historySearchCount: LiveData<Int> = _historySearchCount
     private val _isExpandLiveData = MutableLiveData(true)
     var isExpandLiveData: LiveData<Boolean> = _isExpandLiveData
-    private val _hotSearchLiveData = MutableLiveData<List<ArticleListModel.Data>>()
+    private val _hotSearchLiveData = MutableLiveData<List<ArticleListModel>>()
     val hotSearchLiveData = _hotSearchLiveData
     private val _searchArticleLiveData = MutableLiveData<PagingData<ArticleModel>>()
     val searchArticleLiveData = _searchArticleLiveData
@@ -43,18 +42,10 @@ class SearchViewModel : BaseViewModel() {
      * 热门搜索记录
      */
     fun getHotSearchList() {
-        launch({
+        newRequest({
             val response = repository.getHotSearchList()
-            if (response.errorCode.isSuccess()) {
-                _hotSearchLiveData.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-            loadingLiveData.postValue(false)
-        })
+            _hotSearchLiveData.postValue(response.data!!)
+        }, false)
     }
 
     /**

@@ -47,7 +47,7 @@ class AppSettingActivity : BaseActivity() {
                 }
             }
             errorLiveData.observe(this@AppSettingActivity) {
-                toast(it)
+                toast(it.errorMsg)
             }
         }
 

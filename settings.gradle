@@ -1,2 +1,2 @@
 include ':app','livedatabus'
-rootProject.name = "policeinfo"
+rootProject.name = "wcdxg"

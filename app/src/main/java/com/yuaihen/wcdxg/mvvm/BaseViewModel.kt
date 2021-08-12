@@ -4,12 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuaihen.wcdxg.net.ApiManage
-import com.yuaihen.wcdxg.net.ApiService
+import com.yuaihen.wcdxg.net.BaseResponse
+import com.yuaihen.wcdxg.net.exception.ErrorUtil
+import com.yuaihen.wcdxg.net.exception.MyException
+import com.yuaihen.wcdxg.net.model.BaseModel
 import com.yuaihen.wcdxg.utils.LogUtil
-import com.yuaihen.wcdxg.utils.isSuccess
+import com.yuaihen.wcdxg.utils.ToastUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.net.ConnectException
+import kotlinx.coroutines.withContext
 
 /**
  * Created by Yuaihen.
@@ -17,95 +20,68 @@ import java.net.ConnectException
  */
 abstract class BaseViewModel : ViewModel() {
 
-    val errorLiveData = MutableLiveData<String>()
+    val errorLiveData = MutableLiveData<MyException>()
     val loadingLiveData = MutableLiveData<Boolean>()
     val unLoginStateLiveData = MutableLiveData(false)
 
-    fun launch(
-        block: suspend () -> Unit,
-        error: suspend (String) -> Unit,
-        complete: suspend () -> Unit,
+    fun newRequest(
+        request: suspend () -> Unit,
         isShowLoading: Boolean = true
     ) {
-        loadingLiveData.postValue(isShowLoading)
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
+            loadingLiveData.value = isShowLoading
             try {
-                block()
+                withContext(Dispatchers.IO) {
+                    request()
+                }
             } catch (e: Exception) {
-                LogUtil.d(ApiManage.TAG, "request fail ${e.localizedMessage}")
-                error(getErrorMsg(e))
+                LogUtil.d(ApiManage.TAG, "newRequest fail:  ${e.localizedMessage}")
+                errorLiveData.postValue(ErrorUtil.getErrorMsg(e))
             } finally {
-                complete()
+                loadingLiveData.value = false
             }
 
         }
     }
 
-    private fun getErrorMsg(e: Exception): String {
-        return when (e) {
-            is retrofit2.HttpException -> {
-                when (e.code()) {
-                    500 -> "Code=${e.code()} ${ApiService.ERROR_500}"
-                    404 -> "Code=${e.code()} ${ApiService.ERROR_404}"
-                    else -> "Code=${e.code()} ${ApiService.ERROR_OTHER}"
+    /**
+     * 收藏或取消收藏站内文章
+     */
+    fun collectOrCancelArticle(id: Int, isCollect: Boolean) {
+        try {
+            newRequest({
+                val response: BaseResponse<String> = if (isCollect) {
+                    ApiManage.getInstance().collectArticle(id)
+                } else {
+                    ApiManage.getInstance().unCollectByOriginId(id)
                 }
-            }
-            is ConnectException -> {
-                ApiService.ERROR_OTHER
-            }
-            else -> {
-                ApiService.ERROR_OTHER
-            }
+
+                when (response.errorCode) {
+                    ErrorUtil.CODE_RESPONSE_SUCCESS -> {
+                        if (isCollect) {
+                            ToastUtil.show("收藏成功")
+                        } else {
+                            ToastUtil.show("取消收藏成功")
+                        }
+                        //                    errorLiveData.postValue("收藏成功")
+                    }
+                    ErrorUtil.CODE_LOGIN_FAIL -> {
+                        errorLiveData.postValue(
+                            MyException(
+                                ErrorUtil.CODE_LOGIN_FAIL,
+                                ErrorUtil.CODE_LOGIN_FAIL_MSG
+                            )
+                        )
+                        unLoginStateLiveData.postValue(true)
+                    }
+                    else -> {
+                        errorLiveData.postValue(MyException(response.errorCode, response.errorMsg))
+                    }
+                }
+            }, false)
+        } catch (e: Exception) {
+            errorLiveData.postValue(ErrorUtil.getErrorMsg(e))
         }
     }
 
-    /**
-     * 收藏站内文章
-     */
-    fun collectArticle(id: Int) {
-        launch({
-            val response = ApiManage.getInstance().collectArticle(id)
-            when {
-                response.errorCode.isSuccess() -> {
-                    errorLiveData.postValue("收藏成功")
-                }
-                response.errorCode == ApiService.UN_LOGIN -> {
-                    errorLiveData.postValue(response.errorMsg)
-                    unLoginStateLiveData.postValue(true)
-                }
-                else -> {
-                    errorLiveData.postValue(response.errorMsg)
-                }
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-
-        }, isShowLoading = false)
-    }
-
-    /**
-     * 取消收藏-从文章列表页
-     */
-    fun unCollectByOriginId(id: Int) {
-        launch({
-            val response = ApiManage.getInstance().unCollectByOriginId(id)
-            when {
-                response.errorCode.isSuccess() -> {
-                    errorLiveData.postValue("取消收藏成功")
-                }
-                response.errorCode == ApiService.UN_LOGIN -> {
-                    errorLiveData.postValue(response.errorMsg)
-                    unLoginStateLiveData.postValue(true)
-                }
-                else -> {
-                    errorLiveData.postValue(response.errorMsg)
-                }
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-
-        }, isShowLoading = false)
-    }
 }

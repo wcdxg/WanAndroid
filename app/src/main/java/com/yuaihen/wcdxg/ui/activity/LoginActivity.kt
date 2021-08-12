@@ -38,7 +38,7 @@ class LoginActivity : BaseActivity(), TextView.OnEditorActionListener {
             if (it) binding.loadingView.visible() else binding.loadingView.invisible()
         }
         loginViewModel.errorLiveData.observe(this) {
-            toast(it)
+            toast(it.errorMsg)
         }
         loginViewModel.loginLiveData.observe(this) {
             if (it) {

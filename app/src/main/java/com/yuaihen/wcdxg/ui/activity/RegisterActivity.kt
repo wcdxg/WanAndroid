@@ -44,7 +44,7 @@ class RegisterActivity : BaseActivity(), TextView.OnEditorActionListener {
             if (it) binding.loadingView.visible() else binding.loadingView.invisible()
         }
         registerViewModel.errorLiveData.observe(this) {
-            toast(it)
+            toast(it.errorMsg)
         }
     }
 

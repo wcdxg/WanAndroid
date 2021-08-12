@@ -18,9 +18,10 @@ import kotlinx.coroutines.launch
  */
 class CoinViewModel : BaseViewModel() {
 
-    private val _coinRecordLiveData = MutableLiveData<PagingData<CoinRecordModel.Data.CoinData>>()
+    private val _coinRecordLiveData = MutableLiveData<PagingData<CoinRecordModel.CoinData>>()
     val coinRecordLiveData = _coinRecordLiveData
-    private val _coinRankRecordLiveData = MutableLiveData<PagingData<CoinRecordModel.Data.CoinData>>()
+    private val _coinRankRecordLiveData =
+        MutableLiveData<PagingData<CoinRecordModel.CoinData>>()
     val coinRankRecordLiveData = _coinRankRecordLiveData
 
     /**

@@ -34,7 +34,6 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     OnCollectClickListener {
 
 
-
     private lateinit var binding: ActivityWebviewBinding
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -80,7 +79,7 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
 
             }
             errorLiveData.observe(this@WebViewActivity) {
-                toast(it)
+                toast(it.errorMsg)
             }
         }
 
@@ -205,11 +204,11 @@ class WebViewActivity : BaseAgentWebActivity(), OnTitleViewBackClickListener,
     }
 
     override fun onCollect(id: Int) {
-        viewModel.collectArticle(id)
+        viewModel.collectOrCancelArticle(id, true)
     }
 
     override fun unCollect(id: Int, originId: Int, position: Int) {
-        viewModel.unCollectByOriginId(id)
+        viewModel.collectOrCancelArticle(id, false)
     }
 
 

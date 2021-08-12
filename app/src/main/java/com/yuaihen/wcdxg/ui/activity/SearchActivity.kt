@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.KeyboardUtils
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -30,7 +29,6 @@ import com.yuaihen.wcdxg.ui.widget.EditTextWithClear
 import com.yuaihen.wcdxg.utils.DialogUtil
 import com.yuaihen.wcdxg.utils.SPUtils
 import com.yuaihen.wcdxg.utils.gone
-import com.yuaihen.wcdxg.utils.visible
 import kotlinx.coroutines.launch
 
 /**
@@ -100,7 +98,7 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
                 binding.loadingView.isVisible = it
             }
             errorLiveData.observe(this@SearchActivity) {
-                toast(it)
+                toast(it.errorMsg)
             }
             hotSearchLiveData.observe(this@SearchActivity) { list ->
                 val nameList = mutableListOf<String>()
@@ -125,11 +123,11 @@ class SearchActivity : BaseActivity(), TextView.OnEditorActionListener,
     private fun addPagingAdapterListener() {
         pagingAdapter.addOnCollectClickListener(object : OnCollectClickListener {
             override fun onCollect(id: Int) {
-                viewModel.collectArticle(id)
+                viewModel.collectOrCancelArticle(id, true)
             }
 
             override fun unCollect(id: Int, originId: Int, position: Int) {
-                viewModel.unCollectByOriginId(id)
+                viewModel.collectOrCancelArticle(id, false)
             }
 
         })

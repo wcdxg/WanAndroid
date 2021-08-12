@@ -51,7 +51,7 @@ class CoinRankActivity : BaseActivity() {
                 }
             }
             errorLiveData.observe(this@CoinRankActivity) {
-                toast(it)
+                toast(it.errorMsg)
             }
             loadingLiveData.observe(this@CoinRankActivity) {
                 binding.loadingView.isVisible = it

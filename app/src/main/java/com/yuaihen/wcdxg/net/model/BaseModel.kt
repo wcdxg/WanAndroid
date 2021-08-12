@@ -10,7 +10,5 @@ data class BaseModel(
     val errorCode: Int = 0,
     @SerializedName("errorMsg")
     val errorMsg: String = ""
-) {
-}
-
+)
 

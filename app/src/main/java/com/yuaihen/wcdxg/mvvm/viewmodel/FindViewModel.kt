@@ -11,7 +11,6 @@ import com.yuaihen.wcdxg.mvvm.paging.BaseArticlePagingSource
 import com.yuaihen.wcdxg.mvvm.repository.FindRepository
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.net.model.ArticleListModel
-import com.yuaihen.wcdxg.utils.isSuccess
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -22,15 +21,15 @@ import kotlinx.coroutines.launch
 class FindViewModel : BaseViewModel() {
 
     private val repository = FindRepository()
-    private val _knowledgeLiveData = MutableLiveData<List<ArticleListModel.Data>>()
+    private val _knowledgeLiveData = MutableLiveData<List<ArticleListModel>>()
     val knowledgeLiveData = _knowledgeLiveData
-    private val _navigationLiveData = MutableLiveData<List<ArticleListModel.Data>>()
+    private val _navigationLiveData = MutableLiveData<List<ArticleListModel>>()
     val navigationLiveData = _navigationLiveData
-    private val _officialAccountLiveData = MutableLiveData<List<ArticleListModel.Data>>()
+    private val _officialAccountLiveData = MutableLiveData<List<ArticleListModel>>()
     val officialAccountLiveData = _officialAccountLiveData
     private val _wxArticleLiveData = MutableLiveData<PagingData<ArticleModel>>()
     val wxArticleLiveData = _wxArticleLiveData
-    private val _projectTreeList = MutableLiveData<List<ArticleListModel.Data>>()
+    private val _projectTreeList = MutableLiveData<List<ArticleListModel>>()
     val projectTreeList = _projectTreeList
     private val _projectArticleLiveData = MutableLiveData<PagingData<ArticleModel>>()
     val projectArticleLiveData = _projectArticleLiveData
@@ -39,54 +38,30 @@ class FindViewModel : BaseViewModel() {
      * 获取知识体系下的所有分类和子类
      */
     fun getKnowledgeTree() {
-        launch({
+        newRequest({
             val response = repository.getKnowledgeTree()
-            if (response.errorCode.isSuccess()) {
-                _knowledgeLiveData.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-            loadingLiveData.postValue(false)
-        })
+            _knowledgeLiveData.postValue(response.data!!)
+        }, false)
     }
 
     /**
      * 获取导航栏目内容
      */
     fun getNavPage() {
-        launch({
+        newRequest({
             val response = repository.getNavigationData()
-            if (response.errorCode.isSuccess()) {
-                _navigationLiveData.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-            loadingLiveData.postValue(false)
-        })
+            _navigationLiveData.postValue(response.data!!)
+        }, false)
     }
 
     /**
      * 获取公众号列表
      */
     fun getOfficialAccounts() {
-        launch({
+        newRequest({
             val response = repository.getOfficialAccounts()
-            if (response.errorCode.isSuccess()) {
-                _officialAccountLiveData.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-            loadingLiveData.postValue(false)
-        })
+            _officialAccountLiveData.postValue(response.data!!)
+        }, false)
     }
 
     /**
@@ -109,18 +84,10 @@ class FindViewModel : BaseViewModel() {
      * 获取项目分类列表
      */
     fun getProjectTree() {
-        launch({
+        newRequest({
             val response = repository.getProjectTree()
-            if (response.errorCode.isSuccess()) {
-                _projectTreeList.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-            loadingLiveData.postValue(false)
-        })
+            _projectTreeList.postValue(response.data!!)
+        }, false)
     }
 
     /**

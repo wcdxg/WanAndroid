@@ -1,4 +1,5 @@
 package com.yuaihen.wcdxg.utils;
+
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -23,7 +24,7 @@ public class ToastUtil {
             }
             toast.show();
         } catch (Exception e) {
-            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage());
+            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage() == null ? "" : e.getLocalizedMessage());
         }
     }
 
@@ -35,9 +36,8 @@ public class ToastUtil {
                 toast = Toast.makeText(BaseApplication.Companion.getContext(), msg, Toast.LENGTH_LONG);
             }
             toast.show();
-
         } catch (Exception e) {
-            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage());
+            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage() == null ? "" : e.getLocalizedMessage());
         }
 
     }
@@ -52,7 +52,7 @@ public class ToastUtil {
             }
             toast.show();
         } catch (Exception e) {
-            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage());
+            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage() == null ? "" : e.getLocalizedMessage());
         }
     }
 
@@ -79,7 +79,7 @@ public class ToastUtil {
             }
 
         } catch (Exception e) {
-            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage());
+            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage() == null ? "" : e.getLocalizedMessage());
         }
     }
 
@@ -108,7 +108,7 @@ public class ToastUtil {
             }
 
         } catch (Exception e) {
-            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage());
+            LogUtil.INSTANCE.d(TAG, e.getLocalizedMessage() == null ? "" : e.getLocalizedMessage());
         }
     }
 }

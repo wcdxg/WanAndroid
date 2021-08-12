@@ -15,6 +15,6 @@ data class BaseResponse<T>(
     var errorMsg: String,
 
     @SerializedName("data")
-    var data: T,
+    var data: T?,
 
     )

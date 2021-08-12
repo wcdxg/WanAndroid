@@ -54,7 +54,7 @@ class KnowledgeActivity : BaseActivity() {
     override fun initData() {
         //获取知识体系传递过来的bundle和position
         intent.apply {
-            val data = getParcelableExtra<ArticleListModel.Data>(Constants.KNOWLEDGE_LABEL)
+            val data = getParcelableExtra<ArticleListModel>(Constants.KNOWLEDGE_LABEL)
             selectTab = getIntExtra(Constants.POSITION, 0)
 
             data?.let {
@@ -64,7 +64,7 @@ class KnowledgeActivity : BaseActivity() {
     }
 
 
-    private fun createTab(data: ArticleListModel.Data) {
+    private fun createTab(data: ArticleListModel) {
         binding.titleView.setTitle(data.name)
         data.children.forEach { childrenData ->
             fragmentList.add(ArticleFragment.create(childrenData.id))

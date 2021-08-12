@@ -2,6 +2,7 @@ package com.yuaihen.wcdxg.mvvm.repository
 
 import com.yuaihen.wcdxg.mvvm.BaseRepository
 import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.BaseResponse
 import com.yuaihen.wcdxg.net.model.ArticleListModel
 
 /**
@@ -10,19 +11,19 @@ import com.yuaihen.wcdxg.net.model.ArticleListModel
  */
 class FindRepository : BaseRepository {
 
-    suspend fun getKnowledgeTree(): ArticleListModel {
+    suspend fun getKnowledgeTree(): BaseResponse<List<ArticleListModel>> {
         return ApiManage.getInstance().getKnowledgeTree()
     }
 
-    suspend fun getNavigationData(): ArticleListModel {
+    suspend fun getNavigationData(): BaseResponse<List<ArticleListModel>> {
         return ApiManage.getInstance().getNavigationData()
     }
 
-    suspend fun getOfficialAccounts(): ArticleListModel {
+    suspend fun getOfficialAccounts(): BaseResponse<List<ArticleListModel>> {
         return ApiManage.getInstance().getOfficialAccounts()
     }
 
-    suspend fun getProjectTree(): ArticleListModel {
+    suspend fun getProjectTree(): BaseResponse<List<ArticleListModel>> {
         return ApiManage.getInstance().getProjectTree()
     }
 }

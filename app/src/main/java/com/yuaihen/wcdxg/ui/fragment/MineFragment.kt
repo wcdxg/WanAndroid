@@ -46,7 +46,7 @@ class MineFragment : BaseFragment() {
 
         viewModel.apply {
             errorLiveData.observe(this@MineFragment) {
-                toast(it)
+                toast(it.errorMsg)
             }
             userInfoLiveData.observe(this@MineFragment) {
                 setUserInfo(it)
@@ -79,7 +79,7 @@ class MineFragment : BaseFragment() {
         binding.recyclerFunction.adapter = adapter
     }
 
-    private fun setUserInfo(data: UserInfoModel.Data) {
+    private fun setUserInfo(data: UserInfoModel) {
         binding.apply {
             tvName.text = UserUtil.getUserName()
             tvRank.text = data.rank

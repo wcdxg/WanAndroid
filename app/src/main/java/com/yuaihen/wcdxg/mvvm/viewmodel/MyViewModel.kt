@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.yuaihen.wcdxg.mvvm.BaseViewModel
 import com.yuaihen.wcdxg.mvvm.repository.MyRepository
 import com.yuaihen.wcdxg.net.model.UserInfoModel
-import com.yuaihen.wcdxg.utils.isSuccess
 
 /**
  * Created by Yuaihen.
@@ -15,25 +14,17 @@ class MyViewModel : BaseViewModel() {
     private val repository = MyRepository()
     private val _logoutSuccess = MutableLiveData<Boolean>()
     val logoutSuccess = _logoutSuccess
-    private var _userInfoLiveData = MutableLiveData<UserInfoModel.Data>()
+    private var _userInfoLiveData = MutableLiveData<UserInfoModel>()
     val userInfoLiveData = _userInfoLiveData
 
     /**
      * 退出登录
      */
     fun logout() {
-        launch(
+        newRequest(
             {
                 val response = repository.logout()
-                if (response.errorCode.isSuccess()) {
-                    _logoutSuccess.postValue(true)
-                } else {
-                    errorLiveData.postValue(response.errorMsg)
-                }
-            }, {
-                errorLiveData.postValue(it)
-            }, {
-                loadingLiveData.postValue(false)
+                _logoutSuccess.postValue(true)
             }, false
 
         )
@@ -43,17 +34,9 @@ class MyViewModel : BaseViewModel() {
      * 获取用户个人信息
      */
     fun getUserInfo() {
-        launch({
+        newRequest({
             val response = repository.getUserInfo()
-            if (response.errorCode.isSuccess()) {
-                _userInfoLiveData.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-            loadingLiveData.postValue(false)
+            _userInfoLiveData.postValue(response.data!!)
         }, false)
     }
 }

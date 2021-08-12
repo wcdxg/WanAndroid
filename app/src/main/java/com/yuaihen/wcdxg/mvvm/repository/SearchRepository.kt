@@ -2,6 +2,7 @@ package com.yuaihen.wcdxg.mvvm.repository
 
 import com.yuaihen.wcdxg.mvvm.BaseRepository
 import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.BaseResponse
 import com.yuaihen.wcdxg.net.model.ArticleListModel
 
 /**
@@ -10,7 +11,7 @@ import com.yuaihen.wcdxg.net.model.ArticleListModel
  */
 class SearchRepository : BaseRepository {
 
-    suspend fun getHotSearchList(): ArticleListModel {
+    suspend fun getHotSearchList(): BaseResponse<List<ArticleListModel>> {
         return ApiManage.getInstance().getSearchHotKey()
     }
 }

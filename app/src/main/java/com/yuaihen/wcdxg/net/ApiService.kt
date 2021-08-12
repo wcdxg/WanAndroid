@@ -12,17 +12,6 @@ import retrofit2.http.*
  */
 interface ApiService {
 
-    companion object {
-        //定义后台返回的异常code
-        const val SUCCESS = 0 // 成功
-        const val UN_LOGIN = -1001 //未登录的错误码
-
-        //const val FAILURE = -1 // 失败
-        const val ERROR_500 = "服务器开小差了，请检查网络连接后重试~"
-        const val ERROR_404 = "链接地址不存在，请重试~"
-        const val ERROR_OTHER = "网络连接出错，请重试~"
-    }
-
     /**
      * 下载文件
      */
@@ -38,7 +27,7 @@ interface ApiService {
         @Field("username") userName: String,
         @Field("password") password: String,
         @Field("repassword") repassword: String
-    ): LoginModel
+    ): BaseResponse<LoginModel>
 
     /**
      * 登录
@@ -48,44 +37,44 @@ interface ApiService {
     suspend fun login(
         @Field("username") userName: String,
         @Field("password") password: String,
-    ): LoginModel
+    ): BaseResponse<LoginModel>
 
     /**
      * 退出登录
      */
     @GET(NetConstants.LOGOUT)
-    suspend fun logout(): BaseModel
+    suspend fun logout(): BaseResponse<String>
 
     /**
      * 获取轮播图
      */
     @GET(NetConstants.GET_BANNER)
-    suspend fun getBanner(): BannerModel
+    suspend fun getBanner(): BaseResponse<List<BannerModel>>
 
     /**
      * 获取首页文章列表
      * 页码，拼接在连接中，从0开始
      */
     @GET("article/list/{page}/json")
-    suspend fun getHomeArticleList(@Path("page") page: Int): HomeArticleModel
+    suspend fun getHomeArticleList(@Path("page") page: Int): BaseResponse<HomeArticleModel>
 
     /**
      * 获取置顶文章
      */
     @GET(NetConstants.GET_TOP_ARTICLE)
-    suspend fun getTopArticleList(): TopArticleModel
+    suspend fun getTopArticleList(): BaseResponse<List<ArticleModel>>
 
     /**
      * 获取收藏文章列表
      */
     @GET("lg/collect/list/{page}/json")
-    suspend fun getCollectArticleList(@Path(Constants.PAGE) page: Int): HomeArticleModel
+    suspend fun getCollectArticleList(@Path(Constants.PAGE) page: Int): BaseResponse<HomeArticleModel>
 
     /**
      * 获取收藏网站列表
      */
     @GET(NetConstants.GET_COLLECT_WEBSITE)
-    suspend fun getCollectWebSiteList(): TopArticleModel
+    suspend fun getCollectWebSiteList(): BaseResponse<List<ArticleModel>>
 
     /**
      * 收藏网站
@@ -94,7 +83,7 @@ interface ApiService {
     suspend fun collectWebSite(
         @Field(Constants.NAME) name: String,
         @Field(Constants.LINK) link: String
-    ): HomeArticleModel
+    ): BaseResponse<HomeArticleModel>
 
     /**
      * 编辑收藏网站
@@ -104,7 +93,7 @@ interface ApiService {
         @Field(Constants.ID) id: Int,
         @Field(Constants.NAME) name: String,
         @Field(Constants.LINK) link: String
-    ): BaseModel
+    ): BaseResponse<String>
 
     /**
      * 删除收藏网站
@@ -112,13 +101,13 @@ interface ApiService {
     @GET(NetConstants.DELETE_COLLECT_WEBSITE)
     suspend fun deleteCollectWebSite(
         @Field(Constants.ID) id: Int,
-    ): BaseModel
+    ): BaseResponse<String>
 
     /**
      * 收藏站内文章
      */
     @POST("lg/collect/{id}/json")
-    suspend fun collectArticle(@Path(Constants.ID) id: Int): BaseModel
+    suspend fun collectArticle(@Path(Constants.ID) id: Int): BaseResponse<String>
 
     /**
      * 收藏站外文章
@@ -129,13 +118,13 @@ interface ApiService {
         @Field(Constants.TITLE) title: String,
         @Field(Constants.AUTHOR) author: String,
         @Field(Constants.LINK) link: String,
-    ): BaseModel
+    ): BaseResponse<String>
 
     /**
      * 取消收藏-从文章列表
      */
     @POST("lg/uncollect_originId/{uncollect_originId}/json")
-    suspend fun unCollectByOriginId(@Path(Constants.UNCOLLECT_ORIGINID) uncollect_originId: Int): BaseModel
+    suspend fun unCollectByOriginId(@Path(Constants.UNCOLLECT_ORIGINID) uncollect_originId: Int): BaseResponse<String>
 
     /**
      * 取消收藏-从我的收藏列表取消
@@ -145,37 +134,37 @@ interface ApiService {
     suspend fun unCollectById(
         @Path(Constants.ID) id: Int,
         @Field(Constants.ORIGIN_ID) originId: Int = -1
-    ): BaseModel
+    ): BaseResponse<String>
 
     /**
      * 获取个人积分，需要登录后访问
      */
     @GET(NetConstants.GET_USER_INFO)
-    suspend fun getUserInfo(): UserInfoModel
+    suspend fun getUserInfo(): BaseResponse<UserInfoModel>
 
     /**
      * 获取用户积分记录
      */
     @GET("lg/coin/list/{page}/json")
-    suspend fun getCoinRecord(@Path(Constants.PAGE) page: Int): CoinRecordModel
+    suspend fun getCoinRecord(@Path(Constants.PAGE) page: Int): BaseResponse<CoinRecordModel>
 
     /**
      * 获取积分排行榜记录
      */
     @GET("coin/rank/{page}/json")
-    suspend fun getCoinRank(@Path(Constants.PAGE) page: Int): CoinRecordModel
+    suspend fun getCoinRank(@Path(Constants.PAGE) page: Int): BaseResponse<CoinRecordModel>
 
     /**
      * 问答
      */
     @GET("wenda/list/{page}/json")
-    suspend fun getWendaList(@Path(Constants.PAGE) page: Int): HomeArticleModel
+    suspend fun getWendaList(@Path(Constants.PAGE) page: Int): BaseResponse<HomeArticleModel>
 
     /**
      * 知识体系
      */
     @GET("tree/json")
-    suspend fun getKnowledgeTree(): ArticleListModel
+    suspend fun getKnowledgeTree(): BaseResponse<List<ArticleListModel>>
 
     /**
      * 获取知识体系下的文章列表
@@ -184,19 +173,19 @@ interface ApiService {
     suspend fun getKnowledgeArticleByCid(
         @Path(Constants.PAGE) page: Int,
         @Query(Constants.CID) cid: Int
-    ): HomeArticleModel
+    ): BaseResponse<HomeArticleModel>
 
     /**
      * 获取导航分类
      */
     @GET("navi/json")
-    suspend fun getNavigationData(): ArticleListModel
+    suspend fun getNavigationData(): BaseResponse<List<ArticleListModel>>
 
     /**
      * 公众号列表
      */
     @GET("wxarticle/chapters/json")
-    suspend fun getOfficialAccounts(): ArticleListModel
+    suspend fun getOfficialAccounts(): BaseResponse<List<ArticleListModel>>
 
     /**
      * 获取公众号内的所有文章
@@ -205,13 +194,13 @@ interface ApiService {
     suspend fun getWxArticle(
         @Path(Constants.PAGE) page: Int,
         @Path(Constants.ID) id: Int
-    ): HomeArticleModel
+    ): BaseResponse<HomeArticleModel>
 
     /**
      * 获取项目列表
      */
     @GET("project/tree/json")
-    suspend fun getProjectTree(): ArticleListModel
+    suspend fun getProjectTree(): BaseResponse<List<ArticleListModel>>
 
     /**
      * 项目分类下的文章列表
@@ -220,13 +209,13 @@ interface ApiService {
     suspend fun getProjectArticle(
         @Path(Constants.PAGE) page: Int,
         @Query(Constants.ID) id: Int
-    ): HomeArticleModel
+    ): BaseResponse<HomeArticleModel>
 
     /**
      * 搜索热词
      */
     @GET("hotkey/json")
-    suspend fun getSearchHotKey(): ArticleListModel
+    suspend fun getSearchHotKey(): BaseResponse<List<ArticleListModel>>
 
     /**
      * 搜索
@@ -236,5 +225,5 @@ interface ApiService {
     suspend fun getSearchResult(
         @Path(Constants.PAGE) page: Int,
         @Field("k") key: String
-    ): HomeArticleModel
+    ): BaseResponse<HomeArticleModel>
 }

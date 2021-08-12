@@ -49,7 +49,7 @@ class CoinActivity : BaseActivity() {
 
         viewModel.apply {
             errorLiveData.observe(this@CoinActivity) {
-                toast(it)
+                toast(it.errorMsg)
             }
             coinRecordLiveData.observe(this@CoinActivity) {
                 lifecycleScope.launch {

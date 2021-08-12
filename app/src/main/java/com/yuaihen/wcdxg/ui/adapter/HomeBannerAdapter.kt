@@ -17,10 +17,10 @@ import com.yuaihen.wcdxg.viewbinding.getViewHolder
  * on 2021/5/30
  * 主页Banner Adapter
  */
-class HomeBannerAdapter(val homeFragment: HomeFragment) :
+class HomeBannerAdapter(private val homeFragment: HomeFragment) :
     RecyclerView.Adapter<BaseBindingViewHolder<HomeBannerItemBinding>>() {
 
-    private val data = mutableListOf<BannerModel.Data>()
+    private val data = mutableListOf<BannerModel>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,10 +36,10 @@ class HomeBannerAdapter(val homeFragment: HomeFragment) :
         holder.mBinding.banner.apply {
             addBannerLifecycleObserver(homeFragment.viewLifecycleOwner)
             setIndicator(CircleIndicator(getContext()))
-            setAdapter(object : BannerImageAdapter<BannerModel.Data>(data) {
+            setAdapter(object : BannerImageAdapter<BannerModel>(data) {
                 override fun onBindView(
                     holder: BannerImageHolder?,
-                    data: BannerModel.Data?,
+                    data: BannerModel?,
                     position: Int,
                     size: Int
                 ) {
@@ -49,7 +49,7 @@ class HomeBannerAdapter(val homeFragment: HomeFragment) :
         }
     }
 
-    fun setData(newData: MutableList<BannerModel.Data>) {
+    fun setData(newData: MutableList<BannerModel>) {
         data.addAll(newData)
         notifyDataSetChanged()
     }

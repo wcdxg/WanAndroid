@@ -2,7 +2,9 @@ package com.yuaihen.wcdxg.mvvm.repository
 
 import com.yuaihen.wcdxg.mvvm.BaseRepository
 import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.BaseResponse
 import com.yuaihen.wcdxg.net.model.BaseModel
+import com.yuaihen.wcdxg.net.model.LoginModel
 import com.yuaihen.wcdxg.net.model.UserInfoModel
 
 /**
@@ -11,11 +13,11 @@ import com.yuaihen.wcdxg.net.model.UserInfoModel
  */
 class MyRepository : BaseRepository {
 
-    suspend fun logout(): BaseModel {
+    suspend fun logout(): BaseResponse<String> {
         return ApiManage.getInstance().logout()
     }
 
-    suspend fun getUserInfo(): UserInfoModel {
+    suspend fun getUserInfo(): BaseResponse<UserInfoModel> {
         return ApiManage.getInstance().getUserInfo()
     }
 }

@@ -28,8 +28,6 @@ class NavAdapter(private val index: Int) :
 
     private val mData: MutableList<Any> = mutableListOf()
     private var mOnClickListener: OnItemClickListener? = null
-    private val mFlexItemTextViewCaches: Queue<TextView> = LinkedList()
-    private var mInflater: LayoutInflater? = null
 
     fun updateData(data: List<Any>) {
         mData.addAll(data)
@@ -51,8 +49,8 @@ class NavAdapter(private val index: Int) :
         with(holder.mBinding) {
             when (index) {
                 FindFragment.KNOWLEDGE_TREE -> {
-                    val data: ArticleListModel.Data =
-                        mData[position] as ArticleListModel.Data
+                    val data: ArticleListModel =
+                        mData[position] as ArticleListModel
                     data.children.forEach { modelData ->
                         tagList.add(modelData.name)
                     }
@@ -65,7 +63,7 @@ class NavAdapter(private val index: Int) :
                     })
                 }
                 FindFragment.PAGE_NAV -> {
-                    val data = mData[position] as ArticleListModel.Data
+                    val data = mData[position] as ArticleListModel
                     data.articles.forEach { modelData ->
                         tagList.add(modelData.title)
                     }
@@ -78,11 +76,11 @@ class NavAdapter(private val index: Int) :
                     })
                 }
                 FindFragment.OFFICIAL_ACCOUNTS -> {
-                    val data = mData[position] as ArticleListModel.Data
+                    val data = mData[position] as ArticleListModel
                     showCardView(this, data, index)
                 }
                 FindFragment.PROJECT -> {
-                    val data = mData[position] as ArticleListModel.Data
+                    val data = mData[position] as ArticleListModel
                     showCardView(this, data, index)
                 }
                 else -> {
@@ -112,7 +110,7 @@ class NavAdapter(private val index: Int) :
 
     private fun showCardView(
         binding: NavAdapterItemBinding,
-        data: ArticleListModel.Data,
+        data: ArticleListModel,
         index: Int
     ) {
         binding.apply {
@@ -149,7 +147,7 @@ class NavAdapter(private val index: Int) :
     }
 
     interface OnItemClickListener {
-        fun onKnowledgeItemClick(data: ArticleListModel.Data, position: Int)
+        fun onKnowledgeItemClick(data: ArticleListModel, position: Int)
         fun onNaviItemClick(link: String)
         fun onWxItemClick(id: Int, name: String, loadType: Int)
     }

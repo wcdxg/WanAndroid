@@ -8,6 +8,7 @@ import com.ihsanbal.logging.LoggingInterceptor
 import com.yuaihen.wcdxg.BuildConfig
 import com.yuaihen.wcdxg.base.BaseApplication
 import com.yuaihen.wcdxg.base.NetConstants
+import com.yuaihen.wcdxg.net.converter.MyGsonConverterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.internal.platform.Platform
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by Yuaihen.
  * on 2020/6/10
+ * Retrofit创建 设置控制类
  */
 class ApiManage {
 
@@ -37,7 +39,7 @@ class ApiManage {
                 .baseUrl(NetConstants.APP_BASE_URL)
                 .client(getClient())
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MyGsonConverterFactory.create())
                 .build()
                 .create(ApiService::class.java)
                 .apply { instance = this }

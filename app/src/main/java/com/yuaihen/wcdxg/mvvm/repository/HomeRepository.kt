@@ -2,6 +2,7 @@ package com.yuaihen.wcdxg.mvvm.repository
 
 import com.yuaihen.wcdxg.mvvm.BaseRepository
 import com.yuaihen.wcdxg.net.ApiManage
+import com.yuaihen.wcdxg.net.BaseResponse
 import com.yuaihen.wcdxg.net.model.BannerModel
 
 /**
@@ -10,7 +11,7 @@ import com.yuaihen.wcdxg.net.model.BannerModel
  */
 class HomeRepository : BaseRepository {
 
-    suspend fun getBanner(): BannerModel {
+    suspend fun getBanner(): BaseResponse<List<BannerModel>> {
         return ApiManage.getInstance().getBanner()
     }
 

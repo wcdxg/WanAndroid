@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
                 if (it) showLoading() else hideLoading()
             }
             errorLiveData.observe(this@HomeFragment) {
-                toast(it)
+                toast(it.errorMsg)
             }
             bannerLiveData.observe(this@HomeFragment) {
                 setBanner(it)
@@ -116,7 +116,7 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
     }
 
     private fun setHomePageData(
-        bannerData: List<BannerModel.Data>,
+        bannerData: List<BannerModel>,
         articleLiveData: PagingData<ArticleModel>?,
         topArticle: List<ArticleModel>?
     ) {
@@ -137,7 +137,7 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
         }
     }
 
-    private fun setBanner(bannerModel: List<BannerModel.Data>) {
+    private fun setBanner(bannerModel: List<BannerModel>) {
         bannerAdapter.setData(bannerModel.toMutableList())
     }
 
@@ -146,11 +146,11 @@ class HomeFragment : BaseFragment(), OnCollectClickListener {
     }
 
     override fun onCollect(id: Int) {
-        viewModel.collectArticle(id)
+        viewModel.collectOrCancelArticle(id, true)
     }
 
     override fun unCollect(id: Int, originId: Int, position: Int) {
-        viewModel.unCollectByOriginId(id)
+        viewModel.collectOrCancelArticle(id, false)
     }
 
 }

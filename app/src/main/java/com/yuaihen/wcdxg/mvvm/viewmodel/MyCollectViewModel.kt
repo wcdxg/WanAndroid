@@ -9,9 +9,9 @@ import androidx.paging.cachedIn
 import com.yuaihen.wcdxg.mvvm.BaseViewModel
 import com.yuaihen.wcdxg.mvvm.paging.BaseArticlePagingSource
 import com.yuaihen.wcdxg.net.ApiManage
-import com.yuaihen.wcdxg.net.ApiService
+import com.yuaihen.wcdxg.net.exception.ErrorUtil
+import com.yuaihen.wcdxg.net.exception.MyException
 import com.yuaihen.wcdxg.net.model.ArticleModel
-import com.yuaihen.wcdxg.utils.isSuccess
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -49,68 +49,71 @@ class MyCollectViewModel : BaseViewModel() {
      * 获取收藏的网站
      */
     fun getCollectWebSite() {
-        launch({
+        newRequest({
             val response = ApiManage.getInstance().getCollectWebSiteList()
-            if (response.errorCode.isSuccess()) {
-                _collectWebSiteLiveData.postValue(response.data)
-            } else {
-                errorLiveData.postValue(response.errorMsg)
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-            loadingLiveData.postValue(false)
-        })
+            _collectWebSiteLiveData.postValue(response.data)
+        }, false)
     }
 
     /**
      * 取消收藏文章-从收藏页面
      */
     fun unCollectById(id: Int, originId: Int) {
-        launch({
-            val response = ApiManage.getInstance().unCollectById(id, originId)
-            when {
-                response.errorCode.isSuccess() -> {
-                    unCollectStatus.postValue(true)
+        try {
+            newRequest({
+                val response = ApiManage.getInstance().unCollectById(id, originId)
+                when (response.errorCode) {
+                    ErrorUtil.CODE_RESPONSE_SUCCESS -> {
+                        unCollectStatus.postValue(true)
+                    }
+                    ErrorUtil.CODE_LOGIN_FAIL -> {
+                        errorLiveData.postValue(
+                            MyException(
+                                ErrorUtil.CODE_LOGIN_FAIL,
+                                ErrorUtil.CODE_LOGIN_FAIL_MSG
+                            )
+                        )
+                        unLoginStateLiveData.postValue(true)
+                    }
+                    else -> {
+                        errorLiveData.postValue(MyException(response.errorCode, response.errorMsg))
+                    }
                 }
-                response.errorCode == ApiService.UN_LOGIN -> {
-                    errorLiveData.postValue(response.errorMsg)
-                    unLoginStateLiveData.postValue(true)
-                }
-                else -> {
-                    errorLiveData.postValue(response.errorMsg)
-                }
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
+            }, false)
+        } catch (e: Exception) {
+            errorLiveData.postValue(ErrorUtil.getErrorMsg(e))
+        }
 
-        }, isShowLoading = false)
     }
 
     /**
      * 取消收藏网站-从收藏页面
      */
     fun deleteCollectWebSite(id: Int) {
-        launch({
-            val response = ApiManage.getInstance().deleteCollectWebSite(id)
-            when {
-                response.errorCode.isSuccess() -> {
-                    errorLiveData.postValue("取消收藏成功")
+        try {
+            newRequest({
+                val response = ApiManage.getInstance().deleteCollectWebSite(id)
+                when (response.errorCode) {
+                    ErrorUtil.CODE_RESPONSE_SUCCESS -> {
+                        unCollectStatus.postValue(true)
+                    }
+                    ErrorUtil.CODE_LOGIN_FAIL -> {
+                        errorLiveData.postValue(
+                            MyException(
+                                ErrorUtil.CODE_LOGIN_FAIL,
+                                ErrorUtil.CODE_LOGIN_FAIL_MSG
+                            )
+                        )
+                        unLoginStateLiveData.postValue(true)
+                    }
+                    else -> {
+                        errorLiveData.postValue(MyException(response.errorCode, response.errorMsg))
+                    }
                 }
-                response.errorCode == ApiService.UN_LOGIN -> {
-                    errorLiveData.postValue(response.errorMsg)
-                    unLoginStateLiveData.postValue(true)
-                }
-                else -> {
-                    errorLiveData.postValue(response.errorMsg)
-                }
-            }
-        }, {
-            errorLiveData.postValue(it)
-        }, {
-
-        }, isShowLoading = false)
+            }, false)
+        } catch (e: Exception) {
+            errorLiveData.postValue(ErrorUtil.getErrorMsg(e))
+        }
     }
 
     /**

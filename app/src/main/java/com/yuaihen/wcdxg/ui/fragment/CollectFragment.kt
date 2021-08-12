@@ -86,7 +86,7 @@ class CollectFragment : BaseFragment(), OnCollectClickListener {
             }
             errorLiveData.observe(viewLifecycleOwner) {
                 binding.swipeRefresh.isRefreshing = false
-                toast(it)
+                toast(it.errorMsg)
             }
         }
     }

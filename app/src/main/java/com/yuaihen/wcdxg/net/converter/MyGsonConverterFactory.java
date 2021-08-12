@@ -3,8 +3,10 @@ package com.yuaihen.wcdxg.net.converter;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -42,6 +44,9 @@ public class MyGsonConverterFactory extends Converter.Factory {
         this.gson = gson;
     }
 
+    /**
+     * 服务器响应统一处理
+     */
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations,
                                                             Retrofit retrofit) {
@@ -49,6 +54,9 @@ public class MyGsonConverterFactory extends Converter.Factory {
         return new ResponseBodyConverter<>(gson, adapter);
     }
 
+    /**
+     * 请求体不做处理
+     */
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type,
                                                           Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {

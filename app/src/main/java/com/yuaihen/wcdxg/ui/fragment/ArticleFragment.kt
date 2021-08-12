@@ -66,7 +66,7 @@ class ArticleFragment : BaseFragment(), OnCollectClickListener {
             }
             errorLiveData.observe(viewLifecycleOwner) {
                 binding.swipeRefresh.isRefreshing = false
-                toast(it)
+                toast(it.errorMsg)
             }
             knowledgeArticleLiveData.observe(this@ArticleFragment) {
                 binding.swipeRefresh.isRefreshing = false
@@ -124,7 +124,7 @@ class ArticleFragment : BaseFragment(), OnCollectClickListener {
     }
 
     override fun onCollect(id: Int) {
-        viewModel.collectArticle(id)
+        viewModel.collectOrCancelArticle(id, true)
     }
 
     private var currentItemPos = 0
