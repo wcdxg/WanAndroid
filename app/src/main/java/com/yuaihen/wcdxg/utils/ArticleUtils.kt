@@ -1,17 +1,12 @@
 package com.yuaihen.wcdxg.utils
 
 import android.text.Html
-import android.view.View
-import android.view.ViewStub
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.databinding.adapters.ViewStubBindingAdapter
-import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
+import com.yuaihen.wcdxg.databinding.ItemArticleBinding
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.activity.WebViewActivity
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
-import kotlinx.android.synthetic.main.layout_article_normal.view.*
-import kotlinx.android.synthetic.main.layout_article_pic.view.*
 
 /**
  * Created by Yuaihen.
@@ -20,7 +15,7 @@ import kotlinx.android.synthetic.main.layout_article_pic.view.*
 object ArticleUtils {
 
     fun setArticleData(
-        mBinding: ArticleRecycleItemBinding,
+        mBinding: ItemArticleBinding,
         articleModel: ArticleModel?,
         isCollectPage: Boolean = false,
         listener: OnCollectClickListener?,

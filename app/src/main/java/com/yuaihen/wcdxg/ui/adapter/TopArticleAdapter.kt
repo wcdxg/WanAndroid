@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
+import com.yuaihen.wcdxg.databinding.ItemArticleBinding
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.utils.ArticleUtils
@@ -17,7 +17,7 @@ import com.yuaihen.wcdxg.viewbinding.getViewHolder
  * 首页置顶文章列表
  */
 class TopArticleAdapter(private val isCollectPage: Boolean = false) :
-    ListAdapter<ArticleModel, BaseBindingViewHolder<ArticleRecycleItemBinding>>(
+    ListAdapter<ArticleModel, BaseBindingViewHolder<ItemArticleBinding>>(
         DifferCallback
     ) {
 
@@ -40,13 +40,13 @@ class TopArticleAdapter(private val isCollectPage: Boolean = false) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseBindingViewHolder<ArticleRecycleItemBinding> {
-        return parent.getViewHolder(ArticleRecycleItemBinding::inflate)
+    ): BaseBindingViewHolder<ItemArticleBinding> {
+        return parent.getViewHolder(ItemArticleBinding::inflate)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(
-        holder: BaseBindingViewHolder<ArticleRecycleItemBinding>,
+        holder: BaseBindingViewHolder<ItemArticleBinding>,
         position: Int
     ) {
         ArticleUtils.setArticleData(

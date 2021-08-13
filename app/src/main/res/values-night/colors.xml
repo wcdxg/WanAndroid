@@ -2,14 +2,14 @@
 <resources>
     <!--  主题色  -->
     <color name="main_theme_color">@color/bili_bili_pink</color>
-    <color name="bili_bili_pink">#f27199</color>
-    <color name="bottom_view_text">@color/bili_bili_pink</color>
-    <color name="bottom_view_icon">@color/bili_bili_pink</color>
+    <color name="bottom_view_text">@color/white</color>
+    <color name="bottom_view_icon">@color/white</color>
+    <color name="bili_bili_pink">#2c2b2c</color>
     <color name="white">@android:color/white</color>
-
     <color name="main_blue">#2d8cf0</color>
     <color name="main_gray">#808695</color>
     <color name="black">#FF000000</color>
+
     <color name="transparent">#00000000</color>
     <color name="dialog_mask_color">#4D000000</color>
     <color name="gray">#AFAEAE</color>
@@ -19,7 +19,8 @@
     <color name="mine_user_title">#99222222</color>
     <color name="mine_user_value">#222222</color>
     <color name="mine_view_line">#e8eaec</color>
-    <color name="title_color">#CD000000</color>
+    <color name="title_color">#9CFFFFFF</color>
     <color name="red_ff441a">#ff441a</color>
+
 
 </resources>

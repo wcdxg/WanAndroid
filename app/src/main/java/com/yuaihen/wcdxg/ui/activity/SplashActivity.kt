@@ -23,16 +23,18 @@ class SplashActivity : BaseActivity() {
 
     override fun initListener() {
         //申请运行权限
-        PermissionUtils.requestAppPermission(this) { allGranted: Boolean, deniedList: List<String?> ->
-            if (allGranted) {
-                //权限授予成功
-                login()
-            } else {
-                toast("权限被拒绝，请到设置中手动开启")
-                finish()
-            }
+//        PermissionUtils.requestAppPermission(this) { allGranted: Boolean, deniedList: List<String?> ->
+//            if (allGranted) {
+//                //权限授予成功
+//                login()
+//            } else {
+//                toast("权限被拒绝，请到设置中手动开启")
+//                finish()
+//            }
+//
+//        }
 
-        }
+        login()
     }
 
     private fun login() {

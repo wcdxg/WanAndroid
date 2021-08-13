@@ -4,14 +4,12 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
+import com.yuaihen.wcdxg.databinding.ItemArticleBinding
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.utils.ArticleUtils
-import com.yuaihen.wcdxg.utils.visible
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
 import com.yuaihen.wcdxg.viewbinding.getViewHolder
-import kotlinx.android.synthetic.main.layout_article_pic.view.*
 
 /**
  * Created by Yuaihen.
@@ -19,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_article_pic.view.*
  * 首页文章列表
  */
 class ArticleAdapter(private val isCollectPage: Boolean = false) :
-    PagingDataAdapter<ArticleModel, BaseBindingViewHolder<ArticleRecycleItemBinding>>(
+    PagingDataAdapter<ArticleModel, BaseBindingViewHolder<ItemArticleBinding>>(
         DifferCallback
     ) {
 
@@ -42,16 +40,15 @@ class ArticleAdapter(private val isCollectPage: Boolean = false) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BaseBindingViewHolder<ArticleRecycleItemBinding> {
-        return parent.getViewHolder(ArticleRecycleItemBinding::inflate)
+    ): BaseBindingViewHolder<ItemArticleBinding> {
+        return parent.getViewHolder(ItemArticleBinding::inflate)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(
-        holder: BaseBindingViewHolder<ArticleRecycleItemBinding>,
+        holder: BaseBindingViewHolder<ItemArticleBinding>,
         position: Int
     ) {
-
         ArticleUtils.setArticleData(
             holder.mBinding,
             getItem(position),

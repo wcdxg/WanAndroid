@@ -106,7 +106,7 @@ class MainActivity : BaseActivity() {
     override fun initImmersionBar() {
         super.initImmersionBar()
         ImmersionBar.with(this)
-            .statusBarColor(R.color.bili_bili_pink)
+            .statusBarColor(R.color.main_theme_color)
             .init()
     }
 

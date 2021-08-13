@@ -9,6 +9,6 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        app:banner_indicator_selected_color="@color/bili_bili_pink" />
+        app:banner_indicator_selected_color="@color/main_theme_color" />
 
 </LinearLayout>
