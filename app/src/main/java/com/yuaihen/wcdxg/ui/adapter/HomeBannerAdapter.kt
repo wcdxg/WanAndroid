@@ -1,6 +1,7 @@
 package com.yuaihen.wcdxg.ui.adapter
 
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
@@ -43,7 +44,10 @@ class HomeBannerAdapter(private val homeFragment: HomeFragment) :
                     position: Int,
                     size: Int
                 ) {
-                    holder?.imageView?.let { GlideUtil.showImageView(it, data?.imagePath) }
+                    holder?.imageView?.let {
+                        it.scaleType = ImageView.ScaleType.CENTER_CROP
+                        GlideUtil.showImageView(it, data?.imagePath)
+                    }
                 }
             })
         }

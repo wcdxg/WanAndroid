@@ -40,6 +40,8 @@
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         android:background="#E3DEDE"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_colorMode" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

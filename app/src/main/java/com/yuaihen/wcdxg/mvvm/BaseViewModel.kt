@@ -7,7 +7,6 @@ import com.yuaihen.wcdxg.net.ApiManage
 import com.yuaihen.wcdxg.net.BaseResponse
 import com.yuaihen.wcdxg.net.exception.ErrorUtil
 import com.yuaihen.wcdxg.net.exception.MyException
-import com.yuaihen.wcdxg.net.model.BaseModel
 import com.yuaihen.wcdxg.utils.LogUtil
 import com.yuaihen.wcdxg.utils.ToastUtil
 import kotlinx.coroutines.Dispatchers

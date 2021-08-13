@@ -114,6 +114,7 @@ class NavAdapter(private val index: Int) :
         index: Int
     ) {
         binding.apply {
+            //因为CardView设置了Elevation 所以这里需要将CardView的边距设置为0 避免item间隔过大
             val lp = LinearLayout.LayoutParams(rootView.layoutParams)
             lp.topMargin = 0
             lp.bottomMargin = 0
@@ -139,6 +140,7 @@ class NavAdapter(private val index: Int) :
                     )
                 }
             }
+
         }
     }
 

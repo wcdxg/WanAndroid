@@ -8,8 +8,10 @@ import com.yuaihen.wcdxg.databinding.ArticleRecycleItemBinding
 import com.yuaihen.wcdxg.net.model.ArticleModel
 import com.yuaihen.wcdxg.ui.interf.OnCollectClickListener
 import com.yuaihen.wcdxg.utils.ArticleUtils
+import com.yuaihen.wcdxg.utils.visible
 import com.yuaihen.wcdxg.viewbinding.BaseBindingViewHolder
 import com.yuaihen.wcdxg.viewbinding.getViewHolder
+import kotlinx.android.synthetic.main.layout_article_pic.view.*
 
 /**
  * Created by Yuaihen.
@@ -49,6 +51,7 @@ class ArticleAdapter(private val isCollectPage: Boolean = false) :
         holder: BaseBindingViewHolder<ArticleRecycleItemBinding>,
         position: Int
     ) {
+
         ArticleUtils.setArticleData(
             holder.mBinding,
             getItem(position),
